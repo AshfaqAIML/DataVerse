@@ -1,0 +1,2103 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DataVerse Academy — Design Prototype (Phase 2)</title>
+<meta name="description" content="High-fidelity design prototype: DataVerse Academy learning platform. Light/dark themes, 10 flagship screens, design tokens from DESIGN_SYSTEM.md.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   DataVerse Academy — Phase 2 hi-fidelity prototype
+   All values are the canonical tokens (DESIGN_SYSTEM.md / design-tokens.css)
+   ========================================================================== */
+
+/* ---- Tokens · Daylight ---------------------------------------------------- */
+:root{
+  --dv-canvas:#FAFAF7; --dv-surface:#FFFFFF; --dv-surface-subtle:#F4F4EF; --dv-surface-inset:#ECEDE6;
+  --dv-border-subtle:#E7E7DF; --dv-border:#D8D9CF; --dv-border-strong:#A8AA9C;
+  --dv-ink:#191C22; --dv-ink-2:#49505C; --dv-ink-3:#6E7681; --dv-ink-inverse:#FAFAF7;
+  --dv-teal-25:#F5FBFA; --dv-teal-50:#E6F5F3; --dv-teal-100:#CDEAE6; --dv-teal-200:#A0D8D2;
+  --dv-teal-300:#6EC0B9; --dv-teal-400:#43A69E; --dv-teal-500:#2A8C85; --dv-teal-600:#1F726D;
+  --dv-teal-700:#17635F; --dv-teal-800:#124E4B; --dv-teal-900:#0E3B39;
+  --dv-gold-100:#F5EAD0; --dv-gold-200:#EAD3A0; --dv-gold-300:#DDB970; --dv-gold-400:#D0A047;
+  --dv-gold-500:#BC8827; --dv-gold-600:#9E6F1B; --dv-gold-700:#7C5614;
+  --dv-success-text:#1E7B4F; --dv-success-bg:#D8F3E4; --dv-success-border:#9BD8B9;
+  --dv-warning-text:#96601A; --dv-warning-bg:#FBEED3; --dv-warning-border:#E5C583;
+  --dv-danger-text:#B3362B; --dv-danger-bg:#FBE4E1; --dv-danger-border:#EFB3AC;
+  --dv-info-text:#1D6FB8; --dv-info-bg:#E1EFFA; --dv-info-border:#AFD0EA;
+  --dv-viz-1:#2A8C85; --dv-viz-2:#5A6FE0; --dv-viz-3:#C79A3B; --dv-viz-4:#C9536B;
+  --dv-viz-5:#7E55C1; --dv-viz-6:#6B8F2F; --dv-viz-7:#2F86B5; --dv-viz-8:#9A7B54;
+  --dv-e1:0 1px 2px rgba(25,28,34,.05); --dv-e2:0 2px 6px rgba(25,28,34,.07);
+  --dv-e3:0 8px 24px rgba(25,28,34,.09); --dv-e4:0 16px 48px rgba(25,28,34,.13);
+  --dv-e5:0 24px 80px rgba(25,28,34,.18);
+  --dv-focus:#17635F; --dv-focus-ring:0 0 0 2px var(--dv-canvas),0 0 0 4px var(--dv-focus);
+  --dv-t-fast:140ms; --dv-t-base:200ms; --dv-t-slow:280ms; --dv-t-deliberate:480ms;
+  --dv-ease-out:cubic-bezier(.16,1,.3,1); --dv-ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --dv-nav-h:64px; --dv-appnav-h:56px; --proto-h:42px; --chrome-h:98px;
+  --school-A:#9A7B54; --school-B:#2F86B5; --school-C:#17635F; --school-D:#7E55C1; --school-E:#9E6F1B;
+}
+[data-theme="dark"]{
+  --dv-canvas:#0C0E13; --dv-surface:#12151C; --dv-surface-subtle:#191D26; --dv-surface-inset:#20252F;
+  --dv-border-subtle:#232833; --dv-border:#2F3542; --dv-border-strong:#47505F;
+  --dv-ink:#EEF1F6; --dv-ink-2:#B5BCC9; --dv-ink-3:#87909F; --dv-ink-inverse:#0C0E13;
+  --dv-teal-300:#6EC0B9; --dv-teal-400:#43A69E; --dv-teal-700:#43A69E; --dv-teal-800:#2A8C85;
+  --dv-teal-50:#11302F; --dv-teal-25:#0E2A29;
+  --dv-gold-300:#DDB970; --dv-gold-500:#D0A047; --dv-gold-100:#33270F;
+  --dv-success-text:#57C88F; --dv-success-bg:#11301F; --dv-success-border:#1E5A3C;
+  --dv-warning-text:#E0B25E; --dv-warning-bg:#33270F; --dv-warning-border:#6B5320;
+  --dv-danger-text:#EF8073; --dv-danger-bg:#3A1A16; --dv-danger-border:#7A3A31;
+  --dv-info-text:#6FADDE; --dv-info-bg:#152433; --dv-info-border:#2A4A66;
+  --dv-viz-1:#4DB8AF; --dv-viz-2:#8B9AF0; --dv-viz-3:#E3B562; --dv-viz-4:#E384A0;
+  --dv-viz-5:#AE8CE8; --dv-viz-6:#9CC05E; --dv-viz-7:#6AB3DB; --dv-viz-8:#C4A578;
+  --dv-e1:inset 0 1px 0 rgba(255,255,255,.04);
+  --dv-e2:0 2px 6px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+  --dv-e3:0 8px 24px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+  --dv-e4:0 16px 48px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06);
+  --dv-e5:0 24px 80px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.06);
+  --dv-focus:#43A69E;
+  --school-A:#C4A578; --school-B:#6AB3DB; --school-C:#4DB8AF; --school-D:#AE8CE8; --school-E:#DDB970;
+}
+
+/* ---- Reset & base --------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--dv-canvas);color:var(--dv-ink);
+  font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;padding-top:var(--proto-h);
+  transition:background var(--dv-t-base) ease,color var(--dv-t-base) ease}
+img,svg{display:block;max-width:100%}
+button{font:inherit;cursor:pointer}
+a{color:var(--dv-teal-700);text-decoration:none}
+a:hover{text-decoration:underline}
+::selection{background:var(--dv-teal-100);color:var(--dv-ink)}
+:focus-visible{outline:none;box-shadow:var(--dv-focus-ring);border-radius:6px}
+summary{cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+kbd{font-family:"JetBrains Mono",monospace;font-size:11px;padding:2px 6px;border:1px solid var(--dv-border);
+  border-bottom-width:2px;border-radius:5px;background:var(--dv-surface);color:var(--dv-ink-2)}
+
+/* ---- Typography ----------------------------------------------------------- */
+.display-2xl,.display-xl,.display-lg,.display-md{font-family:"Fraunces",Georgia,serif;font-weight:500;letter-spacing:-.02em;line-height:1.08;margin:0}
+.display-2xl{font-size:clamp(2.4rem,5vw,3.8rem)}
+.display-xl{font-size:clamp(2.1rem,4vw,3.05rem)}
+.display-lg{font-size:clamp(1.8rem,3.2vw,2.44rem)}
+.display-md{font-size:clamp(1.5rem,2.4vw,1.94rem);line-height:1.2}
+.h-lg{font-size:1.5625rem;font-weight:600;line-height:1.28;margin:0}
+.h-md{font-size:1.25rem;font-weight:600;line-height:1.3;margin:0}
+.h-sm{font-size:1.125rem;font-weight:600;line-height:1.35;margin:0}
+.body-lg{font-size:1.125rem;line-height:1.65;color:var(--dv-ink-2)}
+.body-sm{font-size:.875rem;color:var(--dv-ink-2)}
+.caption{font-size:.8125rem;color:var(--dv-ink-3)}
+.eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dv-teal-700)}
+[data-theme="dark"] .eyebrow{color:var(--dv-teal-300)}
+.mono{font-family:"JetBrains Mono",monospace}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---- Layout --------------------------------------------------------------- */
+.container{max-width:1440px;margin:0 auto;padding:0 40px}
+.container-content{max-width:1120px;margin:0 auto;padding:0 40px}
+.section{padding:96px 0}
+.section-tight{padding:56px 0}
+.stack>*+*{margin-top:16px}
+.row{display:flex;align-items:center;gap:12px}
+.spread{display:flex;align-items:center;justify-content:space-between;gap:16px}
+
+/* ---- Prototype chrome ------------------------------------------------------ */
+.proto{position:fixed;top:0;left:0;right:0;height:var(--proto-h);z-index:1000;
+  background:#101318;color:#EEF1F6;display:flex;align-items:center;gap:16px;
+  padding:0 16px;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;
+  box-shadow:0 1px 0 rgba(255,255,255,.06) inset, 0 1px 8px rgba(0,0,0,.3)}
+.proto-label{font-size:11px;font-weight:600;letter-spacing:.1em;color:#87909F;text-transform:uppercase}
+.proto-label b{color:#6EC0B9;font-weight:600}
+.proto-pills{display:flex;gap:4px;flex:1;min-width:0}
+.proto-pill{border:0;background:transparent;color:#B5BCC9;font-size:12.5px;font-weight:500;
+  padding:6px 12px;border-radius:999px;transition:all var(--dv-t-fast) var(--dv-ease-out)}
+.proto-pill:hover{background:rgba(255,255,255,.08);color:#fff}
+.proto-pill[aria-current="true"]{background:#17635F;color:#fff}
+.theme-seg{display:flex;background:rgba(255,255,255,.07);border-radius:999px;padding:3px;flex-shrink:0}
+.theme-seg button{border:0;background:transparent;color:#87909F;width:30px;height:26px;border-radius:999px;
+  display:grid;place-items:center;transition:all var(--dv-t-fast)}
+.theme-seg button:hover{color:#fff}
+.theme-seg button[aria-pressed="true"]{background:#17635F;color:#fff}
+.theme-seg svg{width:15px;height:15px}
+
+/* ---- Product navigation ----------------------------------------------------- */
+.mnav{position:sticky;top:var(--proto-h);z-index:600;height:var(--dv-nav-h);
+  background:color-mix(in srgb,var(--dv-surface) 86%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--dv-border-subtle)}
+.mnav-in{height:100%;display:flex;align-items:center;gap:28px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:1.0625rem;color:var(--dv-ink)}
+.brand:hover{text-decoration:none}
+.brand .glyph{width:26px;height:26px}
+.brand .academy{font-weight:500;color:var(--dv-ink-3);font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;margin-left:2px}
+.mnav-links{display:flex;gap:4px;flex:1;min-width:0}
+.mnav-links a{padding:8px 12px;border-radius:8px;font-size:.9375rem;font-weight:500;color:var(--dv-ink-2)}
+.mnav-links a:hover{background:var(--dv-surface-subtle);color:var(--dv-ink);text-decoration:none}
+.mnav-links a[aria-current="page"]{color:var(--dv-teal-700);background:var(--dv-teal-25)}
+[data-theme="dark"] .mnav-links a[aria-current="page"]{color:var(--dv-teal-300)}
+.searchpill{display:flex;align-items:center;gap:10px;border:1px solid var(--dv-border);border-radius:10px;
+  padding:7px 12px;color:var(--dv-ink-3);font-size:.875rem;background:var(--dv-surface);transition:all var(--dv-t-fast)}
+.searchpill:hover{border-color:var(--dv-border-strong);color:var(--dv-ink-2)}
+.searchpill svg{width:15px;height:15px}
+.hamburger{display:none;border:1px solid var(--dv-border);background:var(--dv-surface);border-radius:10px;width:40px;height:40px;align-items:center;justify-content:center;color:var(--dv-ink-2)}
+
+/* App nav (learning contexts) */
+.anav{position:sticky;top:var(--proto-h);z-index:600;height:var(--dv-appnav-h);
+  background:color-mix(in srgb,var(--dv-surface) 86%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--dv-border-subtle)}
+.anav-in{height:100%;display:flex;align-items:center;gap:16px}
+.crumb{display:flex;align-items:center;gap:8px;font-size:.875rem;color:var(--dv-ink-3);min-width:0;overflow:hidden}
+.crumb a{color:var(--dv-ink-3);white-space:nowrap}
+.crumb a:hover{color:var(--dv-ink)}
+.crumb .cur{color:var(--dv-ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crumb svg{width:13px;height:13px;flex-shrink:0;opacity:.6}
+
+/* ---- Buttons ----------------------------------------------------------------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;
+  font-weight:500;font-size:.9375rem;padding:0 20px;height:44px;border:1px solid transparent;
+  transition:all var(--dv-t-fast) var(--dv-ease-out);text-decoration:none;white-space:nowrap}
+.btn:hover{text-decoration:none}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--dv-teal-700);color:var(--dv-ink-inverse)}
+.btn-primary:hover{background:var(--dv-teal-800)}
+[data-theme="dark"] .btn-primary{background:var(--dv-teal-400);color:#06211F}
+[data-theme="dark"] .btn-primary:hover{background:var(--dv-teal-500)}
+.btn-secondary{background:var(--dv-surface);border-color:var(--dv-border);color:var(--dv-ink)}
+.btn-secondary:hover{border-color:var(--dv-border-strong);background:var(--dv-surface-subtle)}
+.btn-ghost{background:transparent;color:var(--dv-ink-2)}
+.btn-ghost:hover{background:var(--dv-surface-subtle);color:var(--dv-ink)}
+.btn-sm{height:36px;padding:0 14px;font-size:.875rem;border-radius:8px}
+.btn-lg{height:48px;padding:0 26px;font-size:1rem}
+.btn svg{width:16px;height:16px}
+.btn .spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---- Chips & badges ----------------------------------------------------------- */
+.chip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;
+  font-size:.8125rem;font-weight:500;background:var(--dv-surface-subtle);color:var(--dv-ink-2);
+  border:1px solid transparent}
+.chip svg{width:13px;height:13px}
+.chip-teal{background:var(--dv-teal-50);color:var(--dv-teal-700)}
+[data-theme="dark"] .chip-teal{color:var(--dv-teal-300)}
+.chip-gold{background:var(--dv-gold-100);color:var(--dv-gold-600)}
+[data-theme="dark"] .chip-gold{color:var(--dv-gold-300)}
+.chip-outline{background:transparent;border-color:var(--dv-border)}
+.chip-click{cursor:pointer;transition:all var(--dv-t-fast)}
+.chip-click:hover{border-color:var(--dv-border-strong);color:var(--dv-ink)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:6px;font-size:.75rem;font-weight:600}
+.badge-teal{background:var(--dv-teal-50);color:var(--dv-teal-700)}
+.badge-gold{background:var(--dv-gold-100);color:var(--dv-gold-600)}
+.badge-success{background:var(--dv-success-bg);color:var(--dv-success-text)}
+.badge-warn{background:var(--dv-warning-bg);color:var(--dv-warning-text)}
+.badge-danger{background:var(--dv-danger-bg);color:var(--dv-danger-text)}
+.badge-neutral{background:var(--dv-surface-subtle);color:var(--dv-ink-2)}
+
+/* ---- Cards, callouts ----------------------------------------------------------- */
+.card{background:var(--dv-surface);border:1px solid var(--dv-border-subtle);border-radius:14px;
+  box-shadow:var(--dv-e1);transition:box-shadow var(--dv-t-base),transform var(--dv-t-base)}
+.card-pad{padding:24px}
+.callout{border-radius:14px;padding:20px 24px;border:1px solid var(--dv-border-subtle);background:var(--dv-surface-subtle)}
+.callout-why{border-left:3px solid var(--dv-teal-700);background:var(--dv-teal-25)}
+[data-theme="dark"] .callout-why{border-left-color:var(--dv-teal-400)}
+.callout-pitfall{border-left:3px solid var(--dv-warning-text);background:var(--dv-warning-bg)}
+.callout-why .eyebrow{margin-bottom:6px}
+
+/* ---- Term references (glossary promise) ------------------------------------------ */
+.term{border-bottom:2px dotted var(--dv-teal-500);color:var(--dv-teal-700);cursor:help;font-weight:500}
+[data-theme="dark"] .term{color:var(--dv-teal-300)}
+#tt{position:fixed;z-index:900;max-width:320px;background:var(--dv-surface);border:1px solid var(--dv-border);
+  border-radius:10px;box-shadow:var(--dv-e3);padding:14px 16px;opacity:0;pointer-events:none;
+  transform:translateY(4px);transition:opacity var(--dv-t-fast),transform var(--dv-t-fast)}
+#tt.on{opacity:1;transform:translateY(0)}
+#tt .t{font-weight:600;font-size:.9375rem;color:var(--dv-ink)}
+#tt .pos{color:var(--dv-ink-3);font-style:italic;font-size:.8125rem;font-weight:400}
+#tt .d{font-size:.875rem;color:var(--dv-ink-2);margin-top:4px;line-height:1.5}
+#tt .ex{font-size:.8125rem;color:var(--dv-ink-3);margin-top:6px;font-style:italic;border-top:1px dashed var(--dv-border-subtle);padding-top:6px}
+#tt .ada{font-size:.8125rem;color:var(--dv-teal-700);font-weight:600;margin-top:8px}
+[data-theme="dark"] #tt .ada{color:var(--dv-teal-300)}
+
+/* ---- Hero ------------------------------------------------------------------------ */
+.hero{padding:88px 0 72px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
+.hero h1{margin:16px 0 20px}
+.hero .body-lg{max-width:52ch}
+.trust-strip{display:flex;gap:24px;flex-wrap:wrap;margin-top:28px;color:var(--dv-ink-3);font-size:.875rem}
+.trust-strip span{display:inline-flex;gap:8px;align-items:center}
+.trust-strip svg{width:15px;height:15px;color:var(--dv-teal-700)}
+[data-theme="dark"] .trust-strip svg{color:var(--dv-teal-400)}
+
+/* Live lesson demo card */
+.demo-card{position:relative}
+.demo-card .card{border-radius:20px;box-shadow:var(--dv-e3);overflow:hidden}
+.demo-head{padding:14px 20px;border-bottom:1px solid var(--dv-border-subtle);display:flex;align-items:center;gap:10px;background:var(--dv-surface)}
+.demo-dot{width:8px;height:8px;border-radius:50%;background:var(--dv-border)}
+.demo-dot.on{background:var(--dv-teal-400)}
+.demo-title{font-size:.8125rem;color:var(--dv-ink-3);margin-left:6px}
+.demo-body{padding:24px;background:var(--dv-surface)}
+.spark{margin-top:16px}
+
+/* ---- How it works / journey ---------------------------------------------------------- */
+.journey{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.j-step{padding:28px 28px 28px 0;position:relative}
+.j-step .n{font-family:"Fraunces",serif;font-size:2rem;color:var(--dv-teal-700);font-weight:500}
+[data-theme="dark"] .j-step .n{color:var(--dv-teal-300)}
+.j-step h3{margin:10px 0 8px;font-size:1.0625rem}
+.j-step p{margin:0;font-size:.9375rem;color:var(--dv-ink-2);line-height:1.55}
+.j-step:not(:last-child)::after{content:"";position:absolute;right:14px;top:44px;width:14px;height:14px;
+  border-top:2px solid var(--dv-border-strong);border-right:2px solid var(--dv-border-strong);transform:rotate(45deg)}
+
+/* ---- Schools editorial rows ------------------------------------------------------------ */
+.school-row{display:grid;grid-template-columns:56px 1fr auto;gap:24px;align-items:center;
+  padding:26px 20px;border-radius:14px;border:1px solid transparent;cursor:pointer;
+  transition:all var(--dv-t-fast) var(--dv-ease-out)}
+.school-row:hover{background:var(--dv-surface);border-color:var(--dv-border-subtle);box-shadow:var(--dv-e1)}
+.school-glyph{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:var(--dv-surface-subtle)}
+.school-row .k{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.school-row{position:relative}
+.school-row[data-school="A"]{--sc:var(--school-A)} .school-row[data-school="B"]{--sc:var(--school-B)}
+.school-row[data-school="C"]{--sc:var(--school-C)} .school-row[data-school="D"]{--sc:var(--school-D)}
+.school-row[data-school="E"]{--sc:var(--school-E)}
+.school-row::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:3px;background:var(--sc);transition:all var(--dv-t-fast)}
+.school-row:hover::before{top:8px;bottom:8px}
+.school-glyph{color:var(--sc)}
+.school-meta{text-align:right;color:var(--dv-ink-3);font-size:.8125rem;line-height:1.7;white-space:nowrap}
+.school-meta b{color:var(--dv-ink-2);font-weight:600}
+
+/* ---- Roadmap --------------------------------------------------------------------------- */
+.rm{position:relative;max-width:880px;margin:0 auto;padding:8px 0}
+.rm-stage{margin:0 0 8px;position:relative;padding-left:40px}
+.rm-stage-head{display:flex;align-items:baseline;gap:14px;padding:18px 0 10px;position:sticky;top:var(--chrome-h);background:var(--dv-canvas);z-index:5}
+.rm-stage-head .eyebrow{color:var(--dv-ink-3)}
+.rm-stage-head .st{font-family:"Fraunces",serif;font-size:1.35rem;font-weight:500;letter-spacing:-.01em}
+.rm::before{content:"";position:absolute;left:11px;top:24px;bottom:24px;width:2px;background:var(--dv-border)}
+.rm-node{position:relative;padding:6px 0 6px 44px}
+.rm-node::before{content:"";position:absolute;left:4px;top:14px;width:16px;height:16px;border-radius:50%;
+  background:var(--dv-surface);border:2px solid var(--dv-border-strong);z-index:2}
+.rm-node.done::before{background:var(--dv-teal-700);border-color:var(--dv-teal-700)}
+[data-theme="dark"] .rm-node.done::before{background:var(--dv-teal-400);border-color:var(--dv-teal-400)}
+.rm-node.now::before{background:var(--dv-surface);border-color:var(--dv-teal-700);box-shadow:0 0 0 4px var(--dv-teal-100)}
+[data-theme="dark"] .rm-node.now::before{border-color:var(--dv-teal-400);box-shadow:0 0 0 4px rgba(67,166,158,.2)}
+.rm-node.now::after{content:"";position:absolute;left:8px;top:18px;width:8px;height:8px;border-radius:50%;background:var(--dv-teal-700);animation:pulse 2.4s ease-in-out infinite}
+[data-theme="dark"] .rm-node.now::after{background:var(--dv-teal-400)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.rm-node.credit::before{background:var(--dv-gold-500);border-color:var(--dv-gold-500)}
+.rm-node .nrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rm-node .n-title{font-weight:600;font-size:1rem}
+.rm-node .n-meta{color:var(--dv-ink-3);font-size:.8125rem}
+.rm-node.done .n-title{color:var(--dv-ink)}
+.rm-node.locked .n-title{color:var(--dv-ink-3)}
+.rm-mile{position:relative;padding:2px 0 2px 44px;display:flex;align-items:center;gap:10px}
+.rm-mile .shape{position:absolute;left:4px;top:8px;width:16px;height:16px;display:grid;place-items:center;z-index:2}
+.rm-mile .shape svg{width:16px;height:16px}
+.rm-mile.proj .shape{color:var(--dv-teal-700)} [data-theme="dark"] .rm-mile.proj .shape{color:var(--dv-teal-400)}
+.rm-mile.cap .shape{color:var(--dv-gold-500)}
+.rm-mile.cer .shape{color:var(--dv-gold-600)}
+.rm-mile .lab{font-size:.875rem;color:var(--dv-ink-2)}
+.rm-mile.cap .lab{color:var(--dv-gold-600);font-weight:600}
+[data-theme="dark"] .rm-mile.cap .lab{color:var(--dv-gold-300)}
+
+/* ---- Catalogue -------------------------------------------------------------------------- */
+.cat-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:48px;align-items:start}
+.filters{position:sticky;top:var(--chrome-h);display:flex;flex-direction:column;gap:24px}
+.fgroup .fh{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dv-ink-3);margin-bottom:10px}
+.fcheck{display:flex;align-items:center;gap:10px;padding:6px 8px;margin:0 -8px;border-radius:8px;font-size:.9375rem;color:var(--dv-ink-2);cursor:pointer;user-select:none}
+.fcheck:hover{background:var(--dv-surface-subtle);color:var(--dv-ink)}
+.fcheck input{accent-color:var(--dv-teal-700);width:16px;height:16px}
+.fcheck .sc{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.course-row{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 24px;align-items:center;
+  padding:22px 24px 22px 28px;border-radius:14px;border:1px solid transparent;cursor:pointer;
+  transition:all var(--dv-t-fast) var(--dv-ease-out)}
+.course-row+.course-row{margin-top:8px}
+.course-row::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;border-radius:3px;background:var(--sc);transition:all var(--dv-t-fast)}
+.course-row:hover{background:var(--dv-surface);border-color:var(--dv-border-subtle);box-shadow:var(--dv-e1)}
+.course-row:hover::before{top:8px;bottom:8px}
+.course-row .code{font-family:"JetBrains Mono",monospace;font-size:.75rem;font-weight:500;color:var(--dv-ink-3);
+  display:inline-block;border:1px solid var(--dv-border);border-radius:6px;padding:1px 7px;background:var(--dv-surface)}
+.course-row h3{font-family:"Fraunces",serif;font-weight:500;font-size:1.3rem;letter-spacing:-.01em;margin:6px 0 4px;color:var(--dv-ink)}
+.course-row .desc{font-size:.9375rem;color:var(--dv-ink-2);margin:0;max-width:64ch}
+.course-meta{display:flex;gap:18px;align-items:center;color:var(--dv-ink-3);font-size:.8125rem;margin-top:10px;flex-wrap:wrap}
+.course-side{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.ring{position:relative;display:grid;place-items:center}
+.ring svg{transform:rotate(-90deg)}
+.ring .rt{stroke:var(--dv-border)}
+.ring .rp{stroke:var(--dv-teal-700);stroke-linecap:round;transition:stroke-dashoffset var(--dv-t-deliberate) var(--dv-ease-out)}
+[data-theme="dark"] .ring .rp{stroke:var(--dv-teal-400)}
+.ring .rv{position:absolute;font-variant-numeric:tabular-nums;font-weight:600;font-size:.75rem;color:var(--dv-ink-2)}
+
+/* ---- Course page ------------------------------------------------------------------------- */
+.syllabus details{border:1px solid var(--dv-border-subtle);border-radius:14px;background:var(--dv-surface);margin-bottom:10px;overflow:hidden}
+.syllabus summary{display:flex;align-items:center;gap:14px;padding:16px 20px;transition:background var(--dv-t-fast)}
+.syllabus summary:hover{background:var(--dv-surface-subtle)}
+.syllabus .mod-code{font-family:"JetBrains Mono",monospace;font-size:.75rem;color:var(--dv-ink-3);width:38px;flex-shrink:0}
+.syllabus .mod-t{font-weight:600;flex:1;min-width:0}
+.syllabus .mod-m{color:var(--dv-ink-3);font-size:.8125rem;white-space:nowrap}
+.syllabus .chev{transition:transform var(--dv-t-base);color:var(--dv-ink-3)}
+.syllabus details[open] .chev{transform:rotate(90deg)}
+.lessons{border-top:1px solid var(--dv-border-subtle);padding:8px 20px 14px}
+.lesson-row{display:flex;align-items:center;gap:12px;padding:10px 8px;border-radius:8px;font-size:.9375rem;color:var(--dv-ink-2)}
+.lesson-row:hover{background:var(--dv-surface-subtle);color:var(--dv-ink)}
+.lesson-row .st{width:20px;height:20px;display:grid;place-items:center;flex-shrink:0}
+.lesson-row .st svg{width:15px;height:15px}
+.lesson-row.done .st{color:var(--dv-teal-700)} [data-theme="dark"] .lesson-row.done .st{color:var(--dv-teal-400)}
+.lesson-row.now{background:var(--dv-teal-25);color:var(--dv-ink);font-weight:500}
+.lesson-row.locked{color:var(--dv-ink-3)}
+.lesson-row .dur{margin-left:auto;color:var(--dv-ink-3);font-size:.8125rem;white-space:nowrap}
+.gate-row{display:flex;align-items:center;gap:10px;margin:6px 8px 0;padding:10px 12px;border:1px dashed var(--dv-border-strong);
+  border-radius:10px;font-size:.8125rem;color:var(--dv-ink-2);background:var(--dv-surface-subtle)}
+.gate-row svg{width:14px;height:14px;flex-shrink:0}
+.outcome-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.outcome-list li{display:flex;gap:12px;align-items:flex-start;font-size:1rem;color:var(--dv-ink-2)}
+.outcome-list svg{width:18px;height:18px;color:var(--dv-teal-700);flex-shrink:0;margin-top:3px}
+[data-theme="dark"] .outcome-list svg{color:var(--dv-teal-400)}
+
+/* ---- Lesson reader · three columns --------------------------------------------------------- */
+.reader{display:grid;grid-template-columns:280px minmax(0,1fr) 320px;gap:0;align-items:start;
+  max-width:1440px;margin:0 auto}
+.tree{position:sticky;top:var(--chrome-h);max-height:calc(100vh - var(--chrome-h));overflow-y:auto;
+  padding:24px 16px 40px 24px;border-right:1px solid var(--dv-border-subtle);scrollbar-width:thin}
+.tree-course{padding:0 8px 16px;border-bottom:1px solid var(--dv-border-subtle);margin-bottom:12px}
+.tree-course .t{font-family:"Fraunces",serif;font-weight:500;font-size:1.05rem;line-height:1.3}
+.tree-course .m{display:flex;align-items:center;gap:10px;margin-top:10px;color:var(--dv-ink-3);font-size:.8125rem}
+.tmod{margin:2px 0}
+.tmod summary{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;font-size:.875rem;font-weight:600;color:var(--dv-ink-2)}
+.tmod summary:hover{background:var(--dv-surface-subtle)}
+.tmod .mc{font-family:"JetBrains Mono",monospace;font-size:.6875rem;color:var(--dv-ink-3);width:34px}
+.tmod .chev{margin-left:auto;transition:transform var(--dv-t-base);color:var(--dv-ink-3);width:14px;height:14px}
+.tmod details[open]>.chev, .tmod[open] summary .chev{transform:rotate(90deg)}
+.tmod .tl{padding:2px 0 6px 50px}
+.tles{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;font-size:.8438rem;color:var(--dv-ink-2);cursor:pointer;border:0;background:none;width:100%;text-align:left}
+.tles:hover{background:var(--dv-surface-subtle);color:var(--dv-ink)}
+.tles .st{width:16px;height:16px;display:grid;place-items:center;flex-shrink:0}
+.tles .st svg{width:13px;height:13px}
+.tles.done{color:var(--dv-ink-2)} .tles.done .st{color:var(--dv-teal-700)}
+[data-theme="dark"] .tles.done .st{color:var(--dv-teal-400)}
+.tles.now{background:var(--dv-teal-25);color:var(--dv-ink);font-weight:500;position:relative}
+.tles.now::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:3px;background:var(--dv-teal-700)}
+[data-theme="dark"] .tles.now::before{background:var(--dv-teal-400)}
+.tles.locked{color:var(--dv-ink-3)}
+.tles.credit .st{color:var(--dv-gold-500)}
+.tgate{display:flex;align-items:center;gap:8px;margin:4px 0 8px 50px;padding:7px 10px;border:1px dashed var(--dv-border-strong);
+  border-radius:8px;font-size:.7813rem;color:var(--dv-ink-3);background:var(--dv-surface-subtle)}
+
+/* Center column */
+.lesson-center{padding:32px 48px 96px;min-width:0}
+.prose{max-width:68ch;font-size:1.125rem;line-height:1.7;color:var(--dv-ink)}
+.prose p{margin:0 0 1.25em}
+.prose strong{font-weight:600}
+.blk{margin:0 0 36px}
+.l-head{margin-bottom:36px}
+.l-head .meta{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.code{border:1px solid var(--dv-border-subtle);border-radius:14px;overflow:hidden;background:var(--dv-surface-inset);box-shadow:var(--dv-e1)}
+.code-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--dv-surface);border-bottom:1px solid var(--dv-border-subtle)}
+.code-head .dots{display:flex;gap:6px}
+.code-head .dots i{width:9px;height:9px;border-radius:50%;background:var(--dv-border);display:block}
+.code-head .fn{font-family:"JetBrains Mono",monospace;font-size:.75rem;color:var(--dv-ink-3)}
+.code-body{margin:0;padding:18px 20px;font-family:"JetBrains Mono",monospace;font-size:.875rem;line-height:1.7;overflow-x:auto}
+.tk-kw{color:var(--dv-teal-700);font-weight:500} [data-theme="dark"] .tk-kw{color:var(--dv-teal-300)}
+.tk-str{color:var(--dv-success-text)}
+.tk-fn{color:var(--dv-viz-2)} [data-theme="dark"] .tk-fn{color:#8B9AF0}
+.tk-cm{color:var(--dv-ink-3);font-style:italic}
+.tk-num{color:var(--dv-gold-600)} [data-theme="dark"] .tk-num{color:var(--dv-gold-300)}
+.inline-code{font-family:"JetBrains Mono",monospace;font-size:.875em;background:var(--dv-surface-inset);border:1px solid var(--dv-border-subtle);border-radius:6px;padding:1px 6px;color:var(--dv-ink)}
+
+/* Widget frame */
+.widget{border:1px solid var(--dv-border-subtle);border-radius:20px;background:var(--dv-surface);box-shadow:var(--dv-e1);overflow:hidden}
+.widget-head{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--dv-border-subtle)}
+.widget-head .wt{font-weight:600;font-size:.9375rem}
+.widget-body{padding:28px 24px 20px}
+.beam{position:relative;height:120px;margin:8px 0 4px}
+.beam svg{width:100%;height:100%}
+.widget-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;border-top:1px solid var(--dv-border-subtle);flex-wrap:wrap}
+input[type=range].dv-range{accent-color:var(--dv-teal-700);width:100%;max-width:280px}
+
+/* Worked example */
+.example{border:1px solid var(--dv-border-subtle);border-radius:14px;background:var(--dv-surface);overflow:hidden}
+.example .xh{padding:14px 20px;border-bottom:1px solid var(--dv-border-subtle);display:flex;gap:10px;align-items:center;font-weight:600;font-size:.9375rem}
+.example .xb{padding:20px}
+.xstep{display:flex;gap:14px;padding:10px 0}
+.xstep+.xstep{border-top:1px dashed var(--dv-border-subtle)}
+.xstep .xn{width:26px;height:26px;border-radius:50%;background:var(--dv-teal-50);color:var(--dv-teal-700);
+  display:grid;place-items:center;font-size:.8125rem;font-weight:600;flex-shrink:0}
+[data-theme="dark"] .xstep .xn{color:var(--dv-teal-300)}
+.xstep.wrong .xn{background:var(--dv-warning-bg);color:var(--dv-warning-text)}
+.xstep p{margin:0;font-size:.9375rem;line-height:1.6;color:var(--dv-ink-2)}
+.xstep b{color:var(--dv-ink);font-weight:600}
+
+/* Exercise card */
+.exercise{border:1px solid var(--dv-border);border-left:4px solid var(--dv-teal-700);border-radius:14px;background:var(--dv-surface);overflow:hidden}
+[data-theme="dark"] .exercise{border-left-color:var(--dv-teal-400)}
+.ex-head{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--dv-border-subtle);flex-wrap:wrap}
+.scaffold-dots{display:flex;gap:4px}
+.scaffold-dots i{width:7px;height:7px;border-radius:50%;background:var(--dv-border);display:block}
+.scaffold-dots i.on{background:var(--dv-teal-500)}
+.ex-body{padding:20px}
+.opt{display:flex;align-items:flex-start;gap:14px;width:100%;text-align:left;padding:14px 16px;border:1px solid var(--dv-border);
+  border-radius:12px;background:var(--dv-surface);margin-bottom:10px;transition:all var(--dv-t-fast);font-size:.9375rem;color:var(--dv-ink)}
+.opt:hover{border-color:var(--dv-border-strong);background:var(--dv-surface-subtle)}
+.opt .key{width:26px;height:26px;border-radius:8px;border:1px solid var(--dv-border);display:grid;place-items:center;
+  font-size:.8125rem;font-weight:600;color:var(--dv-ink-2);flex-shrink:0}
+.opt.sel{border-color:var(--dv-teal-700);background:var(--dv-teal-25)}
+.opt.sel .key{border-color:var(--dv-teal-700);background:var(--dv-teal-700);color:var(--dv-ink-inverse)}
+[data-theme="dark"] .opt.sel{border-color:var(--dv-teal-400)}
+[data-theme="dark"] .opt.sel .key{background:var(--dv-teal-400);border-color:var(--dv-teal-400);color:#06211F}
+.opt.correct{border-color:var(--dv-success-border);background:var(--dv-success-bg)}
+.opt.correct .key{border-color:var(--dv-success-text);background:var(--dv-success-text);color:#fff}
+.opt.incorrect{border-color:var(--dv-danger-border);background:var(--dv-danger-bg)}
+.opt.incorrect .key{border-color:var(--dv-danger-text);background:var(--dv-danger-text);color:#fff}
+.opt.dim{opacity:.55}
+.rationale{display:none;align-items:flex-start;gap:10px;padding:14px 16px;border-radius:12px;font-size:.875rem;line-height:1.55;margin-bottom:10px}
+.rationale.show{display:flex}
+.rationale svg{width:16px;height:16px;flex-shrink:0;margin-top:2px}
+.rationale.ok{background:var(--dv-success-bg);color:var(--dv-success-text)}
+.rationale.no{background:var(--dv-danger-bg);color:var(--dv-danger-text)}
+/* Hint ladder */
+.hints{margin-top:16px;border:1px dashed var(--dv-border-strong);border-radius:12px;overflow:hidden}
+.hints .hh{padding:10px 16px;font-size:.8125rem;font-weight:600;color:var(--dv-ink-3);display:flex;align-items:center;gap:8px;
+  border-bottom:1px dashed var(--dv-border-subtle);background:var(--dv-surface-subtle)}
+.hint{border-bottom:1px dashed var(--dv-border-subtle)}
+.hint:last-child{border-bottom:0}
+.hint>button{width:100%;display:flex;align-items:center;gap:10px;padding:10px 16px;border:0;background:none;font-size:.8438rem;
+  color:var(--dv-teal-700);font-weight:500;text-align:left}
+[data-theme="dark"] .hint>button{color:var(--dv-teal-300)}
+.hint>button:hover{background:var(--dv-surface-subtle)}
+.hint .hl{display:inline-flex;align-items:center;gap:6px;width:22px;height:22px;border-radius:50%;border:1px solid currentColor;font-size:.6875rem;justify-content:center;flex-shrink:0}
+.hint-body{display:none;padding:4px 16px 14px 48px;font-size:.875rem;color:var(--dv-ink-2);line-height:1.6;animation:hintIn var(--dv-t-base) var(--dv-ease-out)}
+.hint.open .hint-body{display:block}
+.hint.open>button .chev{transform:rotate(90deg)}
+.hint .chev{transition:transform var(--dv-t-base);width:13px;height:13px;margin-left:auto}
+@keyframes hintIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+/* Summary + next */
+.summary-card{border:1px solid var(--dv-border-subtle);background:var(--dv-surface-subtle);border-radius:14px;padding:22px 24px}
+.summary-card ul{margin:12px 0 0;padding-left:20px;color:var(--dv-ink-2);font-size:.9375rem;display:flex;flex-direction:column;gap:6px}
+.next-card{border:1px solid var(--dv-border);border-radius:14px;background:var(--dv-surface);padding:22px 24px;
+  display:flex;align-items:center;gap:18px;box-shadow:var(--dv-e1)}
+
+/* Right rail */
+.rail{position:sticky;top:var(--chrome-h);max-height:calc(100vh - var(--chrome-h));overflow-y:auto;
+  padding:24px 24px 40px 20px;border-left:1px solid var(--dv-border-subtle);scrollbar-width:thin}
+.rail-card{border:1px solid var(--dv-border-subtle);border-radius:14px;background:var(--dv-surface);padding:16px 18px;margin-bottom:14px}
+.rail-card .rh{font-size:.6875rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dv-ink-3);margin-bottom:12px}
+.toc a{display:block;padding:5px 10px;border-left:2px solid var(--dv-border-subtle);font-size:.8438rem;color:var(--dv-ink-3);
+  border-radius:0 8px 8px 0;transition:all var(--dv-t-fast)}
+.toc a:hover{color:var(--dv-ink);text-decoration:none}
+.toc a.active{border-left-color:var(--dv-teal-700);color:var(--dv-teal-700);font-weight:500;background:var(--dv-teal-25)}
+[data-theme="dark"] .toc a.active{border-left-color:var(--dv-teal-400);color:var(--dv-teal-300)}
+.concept-chip{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border:1px solid var(--dv-border);border-radius:999px;
+  font-size:.8125rem;color:var(--dv-ink-2);margin:0 6px 8px 0;background:var(--dv-surface);cursor:help;transition:all var(--dv-t-fast)}
+.concept-chip:hover{border-color:var(--dv-teal-500);color:var(--dv-teal-700)}
+.mini-ada{display:flex;flex-direction:column;gap:10px}
+.ada-in{display:flex;align-items:center;gap:8px;border:1px solid var(--dv-border);border-radius:10px;padding:9px 12px;background:var(--dv-surface-inset)}
+.ada-in input{border:0;background:none;outline:none;flex:1;font:inherit;font-size:.8438rem;color:var(--dv-ink)}
+.ada-in input::placeholder{color:var(--dv-ink-3)}
+.ada-in svg{width:15px;height:15px;color:var(--dv-teal-700);flex-shrink:0}
+[data-theme="dark"] .ada-in svg{color:var(--dv-teal-400)}
+.note-row{display:flex;gap:10px;padding:10px 0;border-top:1px dashed var(--dv-border-subtle);font-size:.8438rem;color:var(--dv-ink-2)}
+.note-row:first-of-type{border-top:0;padding-top:2px}
+.note-row svg{width:14px;height:14px;color:var(--dv-gold-500);flex-shrink:0;margin-top:3px}
+
+/* Reader bottom bar (mobile) */
+.bottom-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:700;background:var(--dv-surface);
+  border-top:1px solid var(--dv-border);padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  justify-content:space-around;align-items:center;box-shadow:var(--dv-e3)}
+.bottom-bar button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.6875rem;
+  color:var(--dv-ink-3);padding:4px 12px;border-radius:8px}
+.bottom-bar button svg{width:20px;height:20px}
+.bottom-bar .primary{background:var(--dv-teal-700);color:var(--dv-ink-inverse);border-radius:10px;padding:10px 18px;font-size:.8125rem;font-weight:600}
+[data-theme="dark"] .bottom-bar .primary{background:var(--dv-teal-400);color:#06211F}
+.scrim{position:fixed;inset:0;background:rgba(12,14,19,.4);z-index:750;opacity:0;pointer-events:none;transition:opacity var(--dv-t-base)}
+.scrim.on{opacity:1;pointer-events:auto}
+
+/* ---- Quiz / checkpoint ------------------------------------------------------------------- */
+.quiz-shell{max-width:760px;margin:0 auto}
+.quiz-top{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.qprog{display:flex;gap:5px;flex:1}
+.qprog i{height:4px;flex:1;border-radius:2px;background:var(--dv-border);display:block;transition:background var(--dv-t-base)}
+.qprog i.done{background:var(--dv-teal-700)} [data-theme="dark"] .qprog i.done{background:var(--dv-teal-400)}
+.qprog i.now{background:var(--dv-teal-500)}
+.qcard{border:1px solid var(--dv-border);border-radius:20px;background:var(--dv-surface);box-shadow:var(--dv-e2);overflow:hidden}
+.qhead{padding:20px 28px;border-bottom:1px solid var(--dv-border-subtle);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.qbody{padding:28px}
+.qbody .stem{font-size:1.125rem;line-height:1.6;font-weight:500;margin:0 0 20px}
+.quiz-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:20px;flex-wrap:wrap}
+.result-hero{display:flex;gap:28px;align-items:center;padding:28px;border-bottom:1px solid var(--dv-border-subtle);flex-wrap:wrap}
+.bigring{position:relative;width:128px;height:128px;flex-shrink:0}
+.bigring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.bigring .rt{stroke:var(--dv-border)} .bigring .rp{stroke:var(--dv-teal-700);stroke-linecap:round;transition:stroke-dashoffset var(--dv-t-deliberate) var(--dv-ease-out)}
+[data-theme="dark"] .bigring .rp{stroke:var(--dv-teal-400)}
+.bigring .v{position:absolute;inset:0;display:grid;place-items:center;font-family:"Fraunces",serif;font-size:1.9rem;font-weight:500}
+.result-outcomes{padding:24px 28px;display:flex;flex-direction:column;gap:14px}
+.om-row{display:flex;align-items:center;gap:14px}
+.om-row .t{flex:1;font-size:.9375rem;color:var(--dv-ink-2);min-width:0}
+.om-meter{display:flex;gap:4px;flex-shrink:0}
+.om-meter i{width:18px;height:8px;border-radius:4px;background:var(--dv-border);display:block}
+.om-meter.m3 i:nth-child(-n+3){background:var(--dv-teal-700)} [data-theme="dark"] .om-meter.m3 i:nth-child(-n+3){background:var(--dv-teal-400)}
+.om-meter.m2 i:nth-child(-n+2){background:var(--dv-teal-400)}
+.om-meter.m1 i:nth-child(1){background:var(--dv-warning-text)}
+.prescribe{border:1px solid var(--dv-info-border);background:var(--dv-info-bg);border-radius:12px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.prescribe svg{width:17px;height:17px;color:var(--dv-info-text);flex-shrink:0;margin-top:2px}
+
+/* ---- Lab ------------------------------------------------------------------------------------ */
+.lab{display:grid;grid-template-columns:300px minmax(0,1fr) 300px;gap:20px;align-items:stretch}
+.lab-col{min-width:0}
+.lab-panel{border:1px solid var(--dv-border-subtle);border-radius:14px;background:var(--dv-surface);overflow:hidden}
+.lab-panel .ph{padding:12px 18px;border-bottom:1px solid var(--dv-border-subtle);font-weight:600;font-size:.875rem;display:flex;align-items:center;gap:8px}
+.lab-panel .pb{padding:16px 18px}
+.editor{border:1px solid var(--dv-border);border-radius:14px;background:var(--dv-surface-inset);overflow:hidden;box-shadow:var(--dv-e1)}
+.editor.pass{border-color:var(--dv-success-border)}
+.editor.fail{border-color:var(--dv-danger-border)}
+.editor-bar{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--dv-border-subtle);background:var(--dv-surface)}
+.editor textarea{width:100%;border:0;outline:none;resize:vertical;min-height:230px;padding:16px 18px;
+  font-family:"JetBrains Mono",monospace;font-size:.875rem;line-height:1.75;color:var(--dv-ink);background:transparent;tab-size:2}
+.console{border:1px solid var(--dv-border-subtle);border-radius:14px;background:var(--dv-surface-inset);overflow:hidden;margin-top:16px}
+.console-out{padding:14px 18px;font-family:"JetBrains Mono",monospace;font-size:.8125rem;line-height:1.8;color:var(--dv-ink-2);
+  min-height:120px;max-height:220px;overflow-y:auto}
+.console-out .ln{white-space:pre-wrap;word-break:break-word}
+.console-out .ok{color:var(--dv-success-text)} .console-out .err{color:var(--dv-danger-text)} .console-out .mut{color:var(--dv-ink-3)}
+.tests{display:flex;flex-direction:column;gap:8px}
+.test{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--dv-border-subtle);border-radius:10px;
+  background:var(--dv-surface-subtle);font-size:.8125rem;color:var(--dv-ink-2)}
+.test .ti{width:16px;height:16px;flex-shrink:0;display:grid;place-items:center;margin-top:1px}
+.test .ti svg{width:14px;height:14px}
+.test.pass{border-color:var(--dv-success-border);background:var(--dv-success-bg)}
+.test.pass .ti{color:var(--dv-success-text)}
+.test.fail{border-color:var(--dv-danger-border);background:var(--dv-danger-bg)}
+.test.fail .ti{color:var(--dv-danger-text)}
+.errcoach{border:1px solid var(--dv-warning-border);background:var(--dv-warning-bg);border-radius:14px;padding:18px 20px;margin-top:16px;animation:hintIn var(--dv-t-base) var(--dv-ease-out)}
+.errcoach .eh{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--dv-warning-text);font-size:.9375rem;margin-bottom:8px}
+.errcoach .eh svg{width:17px;height:17px}
+.errcoach ol{margin:8px 0 0;padding-left:20px;font-size:.875rem;color:var(--dv-ink-2);display:flex;flex-direction:column;gap:4px}
+.dataset-cols{display:flex;flex-direction:column;gap:8px}
+.dcol{display:flex;gap:10px;align-items:baseline;padding:9px 12px;border:1px solid var(--dv-border-subtle);border-radius:10px;background:var(--dv-surface-subtle)}
+.dcol .cn{font-family:"JetBrains Mono",monospace;font-size:.75rem;font-weight:500;color:var(--dv-teal-700);flex-shrink:0}
+[data-theme="dark"] .dcol .cn{color:var(--dv-teal-300)}
+.dcol .cd{font-size:.8125rem;color:var(--dv-ink-2)}
+
+/* ---- Dashboard -------------------------------------------------------------------------------- */
+.dash-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.d-continue{grid-column:span 8}
+.d-week{grid-column:span 4}
+.d-mile,.d-review{grid-column:span 6}
+.d-mastery{grid-column:span 7}
+.d-activity{grid-column:span 5}
+.stat-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.stat-tile{border:1px solid var(--dv-border-subtle);border-radius:14px;background:var(--dv-surface);padding:18px 20px;box-shadow:var(--dv-e1)}
+.stat-tile .l{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dv-ink-3)}
+.stat-tile .v{font-family:"Fraunces",serif;font-size:1.75rem;font-weight:500;margin-top:6px;font-variant-numeric:tabular-nums}
+.stat-tile .d{font-size:.75rem;margin-top:2px;color:var(--dv-ink-3)}
+.stat-tile .up{color:var(--dv-success-text)} .stat-tile .down{color:var(--dv-danger-text)}
+.week-bars{display:flex;align-items:flex-end;gap:6px;height:72px;margin-top:16px}
+.week-bars i{flex:1;border-radius:4px 4px 0 0;background:var(--dv-teal-100);display:block;transition:height var(--dv-t-slow) var(--dv-ease-out)}
+[data-theme="dark"] .week-bars i{background:var(--dv-teal-800)}
+.week-bars i.today{background:var(--dv-teal-700)} [data-theme="dark"] .week-bars i.today{background:var(--dv-teal-400)}
+.mile-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px dashed var(--dv-border-subtle)}
+.mile-row:first-of-type{border-top:0;padding-top:4px}
+.mile-row .mi{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;background:var(--dv-surface-subtle)}
+.mile-row .mi svg{width:17px;height:17px}
+.mile-row .mt b{display:block;font-size:.9375rem;font-weight:600}
+.mile-row .mt span{font-size:.8125rem;color:var(--dv-ink-3)}
+.mile-row .cta{margin-left:auto;flex-shrink:0}
+.heatrow{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;margin-bottom:6px}
+.heatrow i{aspect-ratio:1;border-radius:4px;background:var(--dv-surface-inset);display:block}
+.heat-label{font-size:.6875rem;color:var(--dv-ink-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:8px}
+.act-row{display:flex;gap:12px;padding:10px 0;border-top:1px dashed var(--dv-border-subtle);font-size:.875rem}
+.act-row:first-of-type{border-top:0}
+.act-row .when{margin-left:auto;color:var(--dv-ink-3);font-size:.75rem;white-space:nowrap}
+
+/* ---- Tutor ------------------------------------------------------------------------------------ */
+.tutor-shell{max-width:820px;margin:0 auto}
+.ctx-chip{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--dv-border);border-radius:999px;padding:8px 16px;
+  background:var(--dv-surface);font-size:.8438rem;color:var(--dv-ink-2);margin-bottom:24px}
+.ctx-chip svg{width:14px;height:14px;color:var(--dv-teal-700)}
+[data-theme="dark"] .ctx-chip svg{color:var(--dv-teal-400)}
+.msg{display:flex;gap:14px;margin-bottom:20px;animation:hintIn var(--dv-t-base) var(--dv-ease-out)}
+.msg .av{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:grid;place-items:center}
+.msg.ada .av{background:var(--dv-teal-700);color:#fff} [data-theme="dark"] .msg.ada .av{background:var(--dv-teal-400);color:#06211F}
+.msg.you .av{background:var(--dv-surface-subtle);color:var(--dv-ink-2);border:1px solid var(--dv-border)}
+.msg .av svg{width:17px;height:17px}
+.msg .bd{min-width:0}
+.msg .who{font-size:.75rem;font-weight:600;color:var(--dv-ink-3);margin-bottom:6px}
+.msg .bubble{border-radius:14px;padding:14px 18px;font-size:.9375rem;line-height:1.65}
+.msg.ada .bubble{background:var(--dv-surface);border:1px solid var(--dv-border-subtle);color:var(--dv-ink);box-shadow:var(--dv-e1)}
+.msg.you .bubble{background:var(--dv-teal-700);color:var(--dv-ink-inverse)}
+[data-theme="dark"] .msg.you .bubble{background:var(--dv-teal-400);color:#06211F}
+.msg .bubble p{margin:0 0 10px} .msg .bubble p:last-child{margin:0}
+.msg .meta{display:flex;gap:10px;margin-top:8px;align-items:center;flex-wrap:wrap}
+.sugg{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+.tutor-input{display:flex;gap:10px;align-items:center;border:1px solid var(--dv-border);border-radius:14px;padding:10px 12px 10px 18px;
+  background:var(--dv-surface);box-shadow:var(--dv-e1)}
+.tutor-input input{flex:1;border:0;outline:none;background:none;font:inherit;font-size:.9375rem;color:var(--dv-ink)}
+.tutor-input input::placeholder{color:var(--dv-ink-3)}
+.tutor-foot{display:flex;justify-content:space-between;gap:12px;margin-top:12px;font-size:.75rem;color:var(--dv-ink-3);flex-wrap:wrap}
+
+/* ---- Glossary --------------------------------------------------------------------------------- */
+.az{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 28px;padding:0;list-style:none}
+.az a{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;font-size:.75rem;font-weight:600;color:var(--dv-ink-3)}
+.az a:hover{background:var(--dv-surface-subtle);color:var(--dv-ink);text-decoration:none}
+.az a.on{background:var(--dv-teal-700);color:#fff} [data-theme="dark"] .az a.on{background:var(--dv-teal-400);color:#06211F}
+.gloss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.term-card{border:1px solid var(--dv-border-subtle);border-radius:14px;background:var(--dv-surface);padding:20px;box-shadow:var(--dv-e1);
+  transition:box-shadow var(--dv-t-base),transform var(--dv-t-base),border-color var(--dv-t-base)}
+.term-card:hover{box-shadow:var(--dv-e2);transform:translateY(-1px);border-color:var(--dv-border)}
+.term-card .tt{font-family:"Fraunces",serif;font-size:1.25rem;font-weight:500;letter-spacing:-.01em}
+.term-card .pos{font-size:.75rem;color:var(--dv-ink-3);font-style:italic;margin-left:6px}
+.term-card .def{font-size:.9375rem;color:var(--dv-ink-2);line-height:1.6;margin:8px 0 12px}
+.term-card .tf{display:flex;gap:10px;align-items:center;font-size:.75rem;color:var(--dv-ink-3);flex-wrap:wrap}
+.term-card .met{display:inline-flex;align-items:center;gap:5px}
+.term-card .met i{width:7px;height:7px;border-radius:50%;background:var(--dv-teal-500);display:inline-block}
+.term-detail{border:1px solid var(--dv-border);border-radius:20px;background:var(--dv-surface);box-shadow:var(--dv-e2);
+  padding:32px;margin-bottom:28px}
+.term-detail .ex{border-left:3px solid var(--dv-gold-300);background:var(--dv-surface-subtle);border-radius:0 12px 12px 0;
+  padding:14px 18px;font-size:.9375rem;color:var(--dv-ink-2);font-style:italic;margin:18px 0}
+
+/* ---- Footer ------------------------------------------------------------------------------------- */
+.footer{background:#0C0E13;color:#B5BCC9;margin-top:96px;padding:72px 0 40px}
+.footer h4{color:#EEF1F6;font-size:.8125rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin:0 0 16px}
+.footer a{color:#B5BCC9;font-size:.875rem;display:block;padding:4px 0}
+.footer a:hover{color:#fff;text-decoration:none}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px}
+.footer .brandline{font-family:"Fraunces",serif;font-size:1.35rem;color:#EEF1F6;font-weight:500}
+.footer .mission{font-size:.875rem;line-height:1.7;color:#87909F;max-width:36ch;margin-top:12px}
+.footer-legal{border-top:1px solid #232833;margin-top:56px;padding-top:24px;display:flex;justify-content:space-between;gap:16px;
+  font-size:.75rem;color:#87909F;flex-wrap:wrap}
+
+/* ---- Screens & motion -------------------------------------------------------------------------- */
+.screen{display:none;animation:screenIn var(--dv-t-slow) var(--dv-ease-out)}
+.screen.on{display:block}
+@keyframes screenIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important;scroll-behavior:auto!important}
+}
+
+/* ---- Responsive ---------------------------------------------------------------------------------- */
+@media (max-width:1439px){
+  .reader{grid-template-columns:64px minmax(0,1fr) 280px}
+  .tree{padding:16px 8px}
+  .tree-course,.tmod .tl,.tgate{display:none}
+  .tmod summary{justify-content:center;padding:10px 0}
+  .tmod .mc,.tmod .chev{display:none}
+}
+@media (max-width:1279px){
+  .reader{grid-template-columns:minmax(0,1fr)}
+  .tree,.rail{display:none}
+  .tree.sheet,.rail.sheet{display:block;position:fixed;top:var(--proto-h);bottom:0;width:min(340px,88vw);z-index:800;
+    max-height:none;background:var(--dv-canvas);box-shadow:var(--dv-e5);animation:sheetIn var(--dv-t-base) var(--dv-ease-out)}
+  .tree.sheet{left:0;border-right:1px solid var(--dv-border)}
+  .rail.sheet{right:0;border-left:1px solid var(--dv-border);padding:20px}
+  .tree.sheet .tree-course,.tree.sheet .tmod .tl,.tree.sheet .tgate{display:block}
+  .tree.sheet .tmod summary{justify-content:flex-start;padding:8px}
+  .tree.sheet .tmod .mc,.tree.sheet .tmod .chev{display:block}
+  @keyframes sheetIn{from{transform:translateX(-16px);opacity:0}to{transform:none;opacity:1}}
+  .lesson-center{padding:28px 28px 130px}
+  .bottom-bar{display:flex}
+  .lab{grid-template-columns:minmax(0,1fr)}
+  .lab-col.brief,.lab-col.checks{display:none}
+  .lab-col.brief.sheet,.lab-col.checks.sheet{display:block;position:fixed;top:var(--proto-h);bottom:0;width:min(360px,90vw);z-index:800;
+    background:var(--dv-canvas);overflow-y:auto;padding:16px;box-shadow:var(--dv-e5)}
+  .dash-grid>*{grid-column:1/-1}
+  .stat-tiles{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:1023px){
+  .container,.container-content{padding:0 20px}
+  .hero{padding:48px 0 40px}
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .mnav-links,.searchpill{display:none}
+  .hamburger{display:inline-flex}
+  .journey{grid-template-columns:1fr 1fr;gap:8px}
+  .j-step{padding:20px 8px 20px 0}
+  .j-step:nth-child(2)::after{display:none}
+  .cat-grid{grid-template-columns:1fr}
+  .filters{position:static;flex-direction:row;flex-wrap:wrap;gap:16px;border:1px solid var(--dv-border-subtle);
+    border-radius:14px;padding:16px;background:var(--dv-surface)}
+  .section{padding:56px 0}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:639px){
+  .course-row{grid-template-columns:1fr}
+  .course-side{flex-direction:row;align-items:center;justify-content:flex-start}
+  .stat-tiles{grid-template-columns:1fr 1fr}
+  .journey{grid-template-columns:1fr}
+  .j-step::after{display:none}
+  .quiz-top .qcount{display:none}
+  .result-hero{gap:16px}
+  .footer-grid{grid-template-columns:1fr}
+  .proto-label{display:none}
+}
+
+
+</style>
+</head>
+<body>
+<!-- ===================== PROTOTYPE CHROME ===================== -->
+<header class="proto" role="banner" aria-label="Prototype controls">
+  <span class="proto-label"><b>◇ DataVerse Academy</b> · design prototype</span>
+  <nav class="proto-pills" aria-label="Prototype screens">
+    <button class="proto-pill" data-go="home" aria-current="true">Home</button>
+    <button class="proto-pill" data-go="catalogue">Catalogue</button>
+    <button class="proto-pill" data-go="course">Course</button>
+    <button class="proto-pill" data-go="roadmap">Roadmap</button>
+    <button class="proto-pill" data-go="reader">Lesson Reader</button>
+    <button class="proto-pill" data-go="lab">Coding Lab</button>
+    <button class="proto-pill" data-go="quiz">Quiz</button>
+    <button class="proto-pill" data-go="dashboard">Dashboard</button>
+    <button class="proto-pill" data-go="tutor">AI Tutor</button>
+    <button class="proto-pill" data-go="glossary">Glossary</button>
+  </nav>
+  <div class="theme-seg" role="group" aria-label="Theme">
+    <button data-theme-set="light" aria-pressed="true" title="Light" aria-label="Light theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <button data-theme-set="system" aria-pressed="false" title="System" aria-label="System theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    </button>
+    <button data-theme-set="dark" aria-pressed="false" title="Dark" aria-label="Dark theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- Reusable term tooltip -->
+<div id="tt" role="tooltip"></div>
+<div class="scrim" id="scrim" hidden></div>
+
+<!-- ===================== LOGO GLYPH (reused) ===================== -->
+<template id="glyph-tpl">
+  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <path d="M5 22 A 12 12 0 0 1 27 22" opacity="0"/>
+    <path d="M4 24.5 A 12.5 12.5 0 0 1 28 24.5" stroke-width="2" opacity=".9"/>
+    <path d="M4 24.5 Q 12 22 19 15.5" stroke-dasharray="0.1 5" stroke-width="2.4"/>
+    <circle cx="4" cy="24.5" r="2" fill="currentColor" stroke="none"/>
+    <circle cx="11" cy="21.5" r="2" fill="currentColor" stroke="none"/>
+    <circle cx="19" cy="15.5" r="2" fill="currentColor" stroke="none"/>
+    <circle cx="25.5" cy="9.5" r="2.6" fill="currentColor" stroke="none"/>
+  </svg>
+</template>
+
+<!-- ============================================================ SCREEN: HOME -->
+<section class="screen on" id="screen-home" aria-label="Home">
+<nav class="mnav">
+  <div class="container mnav-in">
+    <a href="#" class="brand" onclick="go('home');return false">
+      <span class="glyph brand-glyph"></span>
+      DataVerse&nbsp;<span class="academy">Academy</span>
+    </a>
+    <div class="mnav-links">
+      <a href="#" aria-current="page" onclick="go('home');return false">Courses</a>
+      <a href="#" onclick="go('catalogue');return false">Schools</a>
+      <a href="#" onclick="go('roadmap');return false">Roadmaps</a>
+      <a href="#" onclick="go('lab');return false">Practice</a>
+      <a href="#" onclick="go('glossary');return false">Glossary</a>
+      <a href="#" onclick="go('tutor');return false">Ask Ada</a>
+    </div>
+    <button class="searchpill" onclick="go('glossary')" aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      Search <kbd>⌘K</kbd>
+    </button>
+    <button class="btn btn-primary btn-sm" onclick="go('dashboard')">Sign in</button>
+    <button class="hamburger" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">The zero-prerequisite data academy</span>
+      <h1 class="display-2xl">Data fluency,<br>built from zero.</h1>
+      <p class="body-lg" style="margin:20px 0 28px">23 courses · 360 lessons · 3 career tracks. Every term explained in plain English, every step practiced hands-on — from your first file to your first portfolio.</p>
+      <div class="row" style="flex-wrap:wrap">
+        <button class="btn btn-primary btn-lg" onclick="go('quiz')">
+          Start free
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <button class="btn btn-secondary btn-lg" onclick="go('catalogue')">Explore the curriculum</button>
+      </div>
+      <div class="trust-strip">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>No credit card</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>No math required — ever</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Every term defined</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Nothing to install</span>
+      </div>
+    </div>
+
+    <!-- Live lesson demo card -->
+    <div class="demo-card" aria-label="Live lesson demo">
+      <div class="card">
+        <div class="demo-head">
+          <span class="demo-dot on"></span><span class="demo-dot"></span><span class="demo-dot"></span>
+          <span class="demo-title">Lesson · C1.3.2 — Sorting, the honest way</span>
+          <span class="badge badge-teal" style="margin-left:auto">Runs in browser</span>
+        </div>
+        <div class="demo-body">
+          <span class="eyebrow" style="font-size:.6875rem">C1 · Tables of Data</span>
+          <h3 class="h-md" style="margin:8px 0 12px;font-family:Fraunces,serif;font-weight:500;font-size:1.5rem">Sorting, the honest way</h3>
+          <p style="font-size:.9375rem;color:var(--dv-ink-2);line-height:1.65;margin:0 0 14px">
+            When pandas sorts your table, rows that tie keep their original order. That promise has a name —
+            a <span class="term" data-term="stable-sort">stable sort</span> — and it's why your
+            <span class="term" data-term="mean">mean</span> by month never mysteriously shuffles.
+          </p>
+          <div class="code" style="border-radius:12px">
+            <div class="code-head"><span class="dots"><i></i><i></i></span><span class="fn">sort_months.py</span>
+              <button class="btn btn-primary btn-sm" style="margin-left:auto" onclick="demoRun(this)">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg>Run
+              </button>
+            </div>
+            <pre class="code-body" style="padding:14px 16px;font-size:.8125rem"><span class="tk-kw">df</span>.sort_values(<span class="tk-str">"month"</span>)  <span class="tk-cm"># ties keep order</span></pre>
+          </div>
+          <svg class="spark" viewBox="0 0 320 56" width="100%" height="56" aria-label="Monthly sales sparkline">
+            <path d="M0 44 C 30 40, 44 30, 66 32 S 110 44, 132 38 S 178 18, 200 22 S 250 26, 272 14 S 305 10, 320 8"
+              fill="none" stroke="var(--dv-viz-1)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="320" cy="8" r="4" fill="var(--dv-viz-1)"/>
+            <circle cx="200" cy="22" r="3" fill="var(--dv-viz-3)"/>
+          </svg>
+          <div class="row" style="justify-content:space-between;margin-top:8px">
+            <span class="caption num">14 min · 3 outcomes · 2 new terms</span>
+            <span class="chip chip-teal">Free lesson</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- How it works -->
+<div class="container section-tight">
+  <span class="eyebrow">How every lesson works</span>
+  <h2 class="display-lg" style="margin:12px 0 40px">One loop, 360 times, until it's second nature.</h2>
+  <div class="journey">
+    <div class="j-step"><div class="n">01</div><h3>Explain</h3><p>Plain English before formulas. Every unfamiliar term is a hover away — really, try the dotted words above.</p></div>
+    <div class="j-step"><div class="n">02</div><h3>See</h3><p>Interactive visuals you can drag, slide, and break. Intuition first, notation second.</p></div>
+    <div class="j-step"><div class="n">03</div><h3>Try</h3><p>Guided exercises with a hint ladder that nudges — never spoils. Then you fly solo.</p></div>
+    <div class="j-step"><div class="n">04</div><h3>Prove</h3><p>Checkpoints unlock what's next. Retakes are free; mastery is the point.</p></div>
+  </div>
+</div>
+
+<!-- Schools -->
+<div class="container section-tight">
+  <div class="spread" style="margin-bottom:28px">
+    <div><span class="eyebrow">Five schools</span><h2 class="display-lg" style="margin-top:12px">A complete path, from first file to first job.</h2></div>
+    <button class="btn btn-secondary" onclick="go('catalogue')">Browse all 23 courses</button>
+  </div>
+  <div data-school="A" class="school-row" onclick="go('catalogue')" role="link" tabindex="0">
+    <span class="school-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg></span>
+    <div><h3 class="h-md">Foundations from Zero</h3><p class="body-sm" style="margin:6px 0 0">Computers, files, thinking like a machine, math without fear, spreadsheets as your bridge into data.</p></div>
+    <div class="school-meta"><b>4 courses · 60 lessons</b><br>no code · no math needed</div>
+  </div>
+  <div data-school="B" class="school-row" onclick="go('catalogue')" role="link" tabindex="0">
+    <span class="school-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="m8 6-6 6 6 6M16 6l6 6-6 6"/></svg></span>
+    <div><h3 class="h-md">Programming from Zero</h3><p class="body-sm" style="margin:6px 0 0">Python, one honest step at a time — including a whole course on reading errors calmly.</p></div>
+    <div class="school-meta"><b>4 courses · 56 lessons</b><br>write real code in your browser</div>
+  </div>
+  <div data-school="C" class="school-row" onclick="go('course')" role="link" tabindex="0">
+    <span class="school-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11M15 9v11"/></svg></span>
+    <div><h3 class="h-md">Data Craft</h3><p class="body-sm" style="margin:6px 0 0">pandas, SQL, statistics, honest charts — the complete analyst's toolkit on real, messy data.</p></div>
+    <div class="school-meta"><b>6 courses · 108 lessons</b><br>Analyst track completes here</div>
+  </div>
+  <div data-school="D" class="school-row" onclick="go('catalogue')" role="link" tabindex="0">
+    <span class="school-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M7 11l10-5M7 13l10 5"/></svg></span>
+    <div><h3 class="h-md">Machine Learning &amp; AI</h3><p class="body-sm" style="margin:6px 0 0">From "what is a model?" to training neural nets and shipping one behind an API.</p></div>
+    <div class="school-meta"><b>7 courses · 108 lessons</b><br>Data Scientist &amp; ML Engineer</div>
+  </div>
+  <div data-school="E" class="school-row" onclick="go('quiz')" role="link" tabindex="0">
+    <span class="school-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><circle cx="12" cy="8" r="5"/><path d="m8.5 12.5-1.5 8 5-3 5 3-1.5-8"/></svg></span>
+    <div><h3 class="h-md">Career</h3><p class="body-sm" style="margin:6px 0 0">Portfolio, capstones, interview practice, and a readiness checklist tied to what you actually proved.</p></div>
+    <div class="school-meta"><b>2 courses · 28 lessons</b><br>3 career tracks</div>
+  </div>
+</div>
+
+<!-- Roadmap preview -->
+<div class="container section-tight">
+  <span class="eyebrow">Your roadmap</span>
+  <h2 class="display-lg" style="margin:12px 0 8px">Progress you can point at.</h2>
+  <p class="body-lg" style="max-width:60ch;margin:0 0 24px">Every course, project, and checkpoint on one honest map — with your pace, your credits, and your next step always visible.</p>
+  <button class="btn btn-secondary" onclick="go('roadmap')">
+    Open the full roadmap
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </button>
+</div>
+
+<!-- Ada teaser -->
+<div class="container section-tight">
+  <div class="card card-pad" style="border-radius:20px">
+    <div class="spread" style="margin-bottom:20px;flex-wrap:wrap;gap:12px">
+      <div><span class="eyebrow">Meet Ada, your tutor</span><h2 class="h-lg" style="margin-top:10px">Never stuck. Never spoiled.</h2></div>
+      <span class="chip chip-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.7L20 10l-5 3.6L16.5 20 12 16.6 7.5 20 9 13.6 4 10l6.1-1.3z"/></svg>Socratic mode</span>
+    </div>
+    <div style="max-width:560px">
+      <div class="msg ada">
+        <span class="av" style="background:var(--dv-teal-700);color:#fff;border-radius:10px;width:34px;height:34px;display:grid;place-items:center;font-weight:600">A</span>
+        <div class="bd"><div class="who">Ada · about your exercise</div>
+          <div class="bubble">I won't hand you the answer — that's the one thing I never do. But walk me through it: when you sorted by month, what did you ask pandas to sort — the month names, or the dates they came from?</div>
+        </div>
+      </div>
+      <div class="msg you">
+        <span class="av" style="background:var(--dv-surface-subtle);border:1px solid var(--dv-border);border-radius:10px;width:34px;height:34px;display:grid;place-items:center;font-weight:600;color:var(--dv-ink-2)">M</span>
+        <div class="bd"><div class="who">You</div><div class="bubble" style="background:var(--dv-teal-700);color:var(--dv-ink-inverse)">…the month names. Oh — "Oct" sorts before "Sep" alphabetically!</div></div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="go('tutor')">Chat with Ada</button>
+      <span class="caption">Grounded in the curriculum · never gives away answers · explains every term it uses</span>
+    </div>
+  </div>
+</div>
+
+<!-- Tracks -->
+<div class="container section-tight">
+  <span class="eyebrow">Three career tracks</span>
+  <h2 class="display-lg" style="margin:12px 0 32px">Same courses. Three destinations.</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+    <div class="card card-pad">
+      <span class="chip chip-teal">Most popular</span>
+      <h3 class="h-md" style="margin:14px 0 8px">Data Analyst</h3>
+      <p class="body-sm" style="margin:0 0 16px">SQL, pandas, honest charts, stakeholder reports. The fastest credible path into data work.</p>
+      <p class="caption num" style="margin:0">~4 months at 5 h/week · ends with a portfolio brief</p>
+    </div>
+    <div class="card card-pad">
+      <h3 class="h-md" style="margin:6px 0 8px">Data Scientist</h3>
+      <p class="body-sm" style="margin:0 0 16px">Everything in Analyst, plus statistics that sticks, experimentation, and applied machine learning.</p>
+      <p class="caption num" style="margin:0">~8 months at 5 h/week · ends with an A/B + churn capstone</p>
+    </div>
+    <div class="card card-pad">
+      <h3 class="h-md" style="margin:6px 0 8px">ML Engineer</h3>
+      <p class="body-sm" style="margin:0 0 16px">Programming depth, model evaluation rigor, and shipping a trained model behind a real API.</p>
+      <p class="caption num" style="margin:0">~10 months at 5 h/week · ends with a model-to-endpoint capstone</p>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonial -->
+<div class="container section-tight">
+  <div style="max-width:760px;border-left:3px solid var(--dv-teal-700);padding-left:28px">
+    <p class="display-md" style="font-style:italic;font-weight:400;line-height:1.4">"I managed a retail floor for nine years and feared math my whole life. The placement test let me skip what I already knew, and the hints never made me feel stupid. Six months later I shipped my first dashboard — from a browser, on a six-year-old laptop."</p>
+    <p class="caption" style="margin-top:14px">Raj, 32 · Operations supervisor → Data Analyst track</p>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="container section-tight">
+  <span class="eyebrow">Questions, answered honestly</span>
+  <h2 class="display-lg" style="margin:12px 0 28px">Before you start.</h2>
+  <div style="max-width:760px">
+    <details class="card card-pad" style="margin-bottom:12px">
+      <summary class="h-sm" style="display:flex;justify-content:space-between;align-items:center;gap:12px">Do I need math?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;flex-shrink:0;transition:transform var(--dv-t-base)"><path d="m9 6 6 6-6 6"/></svg></summary>
+      <p class="body-sm" style="margin:14px 0 0">No. "Math Without Fear" (Course A3) rebuilds percentages, averages, and reading charts from zero, with intuition before formulas. The only prerequisite in this academy is the ability to read this sentence.</p>
+    </details>
+    <details class="card card-pad" style="margin-bottom:12px">
+      <summary class="h-sm" style="display:flex;justify-content:space-between;align-items:center;gap:12px">Do I need to install anything?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;flex-shrink:0;transition:transform var(--dv-t-base)"><path d="m9 6 6 6-6 6"/></svg></summary>
+      <p class="body-sm" style="margin:14px 0 0">No. Your first courses run entirely in your browser. Heavier work later (real datasets, model training) runs in our sandboxed lab — you just read and write code.</p>
+    </details>
+    <details class="card card-pad" style="margin-bottom:12px">
+      <summary class="h-sm" style="display:flex;justify-content:space-between;align-items:center;gap:12px">Is it really free?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;flex-shrink:0;transition:transform var(--dv-t-base)"><path d="m9 6 6 6-6 6"/></svg></summary>
+      <p class="body-sm" style="margin:14px 0 0">Lessons, exercises, checkpoints, and projects are free with a free account. Optional certificates may be paid later — the learning itself stays free.</p>
+    </details>
+    <details class="card card-pad">
+      <summary class="h-sm" style="display:flex;justify-content:space-between;align-items:center;gap:12px">What will I actually be able to do?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;flex-shrink:0;transition:transform var(--dv-t-base)"><path d="m9 6 6 6-6 6"/></svg></summary>
+      <p class="body-sm" style="margin:14px 0 0">Load messy data, question it with SQL and pandas, chart it honestly, test claims with statistics, train and evaluate models, and present three portfolio projects in a job interview. Each course page lists exactly which job skills it gives you.</p>
+    </details>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brandline">DataVerse Academy</div>
+        <p class="mission">Every motivated person can become employable in data — regardless of what they were taught in school.</p>
+      </div>
+      <div><h4>Learn</h4><a href="#" onclick="go('catalogue');return false">All courses</a><a href="#" onclick="go('roadmap');return false">Roadmaps</a><a href="#" onclick="go('glossary');return false">Glossary</a><a href="#" onclick="go('lab');return false">Practice labs</a></div>
+      <div><h4>Tracks</h4><a href="#" onclick="go('roadmap');return false">Data Analyst</a><a href="#" onclick="go('roadmap');return false">Data Scientist</a><a href="#" onclick="go('roadmap');return false">ML Engineer</a></div>
+      <div><h4>Account</h4><a href="#" onclick="go('dashboard');return false">Dashboard</a><a href="#" onclick="go('tutor');return false">Ask Ada</a><a href="#">Preferences</a><a href="#">Certificates</a></div>
+      <div><h4>Academy</h4><a href="#">About</a><a href="#">Accessibility statement</a><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+    <div class="footer-legal"><span>© 2026 DataVerse Academy. A serious place to start from zero.</span><span>Prototype: light · dark · system themes all live</span></div>
+  </div>
+</footer>
+</section>
+
+<!-- ======================================================= SCREEN: CATALOGUE -->
+<section class="screen" id="screen-catalogue" aria-label="Course catalogue">
+<nav class="anav"><div class="container anav-in">
+  <a href="#" class="brand" onclick="go('home');return false" style="font-size:.9375rem"><span class="glyph brand-glyph" style="width:22px;height:22px"></span>DataVerse</a>
+  <span class="crumb"><a href="#" onclick="go('home');return false">Academy</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg><span class="cur">All courses</span></span>
+  <div style="margin-left:auto;display:flex;gap:10px;align-items:center">
+    <button class="btn btn-secondary btn-sm" onclick="go('glossary')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search</button>
+  </div>
+</div></nav>
+<div class="container section-tight">
+  <div class="spread" style="margin-bottom:32px;flex-wrap:wrap;gap:12px">
+    <div>
+      <h1 class="display-lg">All courses</h1>
+      <p class="body-sm" style="margin:8px 0 0">23 courses · 360 lessons · 92 checkpoints · every course lists the job skills it gives you.</p>
+    </div>
+    <div class="row">
+      <span class="chip chip-outline">Sort: Roadmap order ▾</span>
+      <span class="chip chip-teal">8 for you</span>
+    </div>
+  </div>
+  <div class="cat-grid">
+    <aside class="filters" aria-label="Filters">
+      <div class="fgroup"><div class="fh">School</div>
+        <label class="fcheck"><input type="checkbox" checked><span class="sc" style="background:var(--school-A)"></span>A · Foundations</label>
+        <label class="fcheck"><input type="checkbox" checked><span class="sc" style="background:var(--school-B)"></span>B · Programming</label>
+        <label class="fcheck"><input type="checkbox" checked><span class="sc" style="background:var(--school-C)"></span>C · Data Craft</label>
+        <label class="fcheck"><input type="checkbox"><span class="sc" style="background:var(--school-D)"></span>D · Machine Learning</label>
+        <label class="fcheck"><input type="checkbox"><span class="sc" style="background:var(--school-E)"></span>E · Career</label>
+      </div>
+      <div class="fgroup"><div class="fh">Level</div>
+        <label class="fcheck"><input type="checkbox" checked>Beginner</label>
+        <label class="fcheck"><input type="checkbox">Building</label>
+        <label class="fcheck"><input type="checkbox">Advanced</label>
+      </div>
+      <div class="fgroup"><div class="fh">Status</div>
+        <label class="fcheck"><input type="checkbox" checked>In progress</label>
+        <label class="fcheck"><input type="checkbox" checked>Not started</label>
+        <label class="fcheck"><input type="checkbox">Placement credit</label>
+      </div>
+      <button class="btn btn-ghost btn-sm" style="justify-content:flex-start;padding-left:8px">Reset filters</button>
+    </aside>
+    <div role="list">
+      <div class="course-row" style="--sc:var(--school-C)" onclick="go('course')" role="link" tabindex="0">
+        <div>
+          <span class="code">C1</span>
+          <h3>Tables of Data: pandas Foundations</h3>
+          <p class="desc">Load, clean, question, and chart real tables — your first complete analyses, in your browser.</p>
+          <div class="course-meta num"><span>5 modules</span><span>24 lessons</span><span>~9 h</span><span class="chip chip-outline" style="height:24px">Beginner</span><span class="badge badge-gold">1 project</span></div>
+        </div>
+        <div class="course-side">
+          <span class="ring" data-ring="46"><svg width="44" height="44" viewBox="0 0 44 44"><circle class="rt" cx="22" cy="22" r="18" fill="none" stroke-width="4"/><circle class="rp" cx="22" cy="22" r="18" fill="none" stroke-width="4" stroke-dasharray="113" stroke-dashoffset="113" data-off="61"/></svg><span class="rv">46%</span></span>
+          <span class="chip chip-teal">Resume · L8</span>
+        </div>
+      </div>
+      <div class="course-row" style="--sc:var(--school-A)" role="link" tabindex="0">
+        <div><span class="code">A1</span><h3>Starting from Zero: Computers, Files &amp; Data</h3>
+          <p class="desc">Files, folders, file types, what a program is — the ground floor, with zero assumptions.</p>
+          <div class="course-meta num"><span>4 modules</span><span>14 lessons</span><span>~4 h</span><span class="chip chip-outline" style="height:24px">Beginner</span></div></div>
+        <div class="course-side"><span class="badge badge-success">✓ Completed</span><span class="chip">Cheat sheet</span></div>
+      </div>
+      <div class="course-row" style="--sc:var(--school-A)" role="link" tabindex="0">
+        <div><span class="code">A3</span><h3>Math Without Fear</h3>
+          <p class="desc">Percentages, rates, averages that tell the truth, and reading any chart — rebuilt from intuition up.</p>
+          <div class="course-meta num"><span>5 modules</span><span>18 lessons</span><span>~6 h</span><span class="chip chip-outline" style="height:24px">Beginner</span></div></div>
+        <div class="course-side"><span class="badge badge-success">✓ Completed</span></div>
+      </div>
+      <div class="course-row" style="--sc:var(--school-A)" role="link" tabindex="0">
+        <div><span class="code">A4</span><h3>Spreadsheets: Your Data Bridge</h3>
+          <p class="desc">Formulas, pivots, and your first tiny analysis — the skills you already half-know, made exact.</p>
+          <div class="course-meta num"><span>4 modules</span><span>14 lessons</span><span>~5 h</span><span class="chip chip-outline" style="height:24px">Beginner</span><span class="badge badge-gold">Placement credit</span></div></div>
+        <div class="course-side"><span class="badge badge-gold">◆ You proved it</span><span class="chip">Review anytime</span></div>
+      </div>
+      <div class="course-row" style="--sc:var(--school-B)" onclick="go('lab')" role="link" tabindex="0">
+        <div><span class="code">B1</span><h3>Python from Absolute Zero</h3>
+          <p class="desc">Variables to functions, written and run in the browser — including a whole course on errors as teachers.</p>
+          <div class="course-meta num"><span>6 modules</span><span>24 lessons</span><span>~10 h</span><span class="chip chip-outline" style="height:24px">Beginner</span></div></div>
+        <div class="course-side"><span class="badge badge-success">✓ Completed</span></div>
+      </div>
+      <div class="course-row" style="--sc:var(--school-C)" role="link" tabindex="0">
+        <div><span class="code">C4</span><h3>SQL and Databases from Scratch</h3>
+          <p class="desc">SELECT to JOINs on real databases, with a visual join explorer that makes rows light up.</p>
+          <div class="course-meta num"><span>5 modules</span><span>20 lessons</span><span>~8 h</span><span class="chip chip-outline" style="height:24px">Building</span></div></div>
+        <div class="course-side"><span class="chip">Start ▸</span></div>
+      </div>
+      <div class="course-row" style="--sc:var(--school-C)" role="link" tabindex="0">
+        <div><span class="code">C5</span><h3>Statistics, Gently</h3>
+          <p class="desc">Distributions, sampling, confidence, and p-values without shame — every idea seen in a widget first.</p>
+          <div class="course-meta num"><span>6 modules</span><span>24 lessons</span><span>~9 h</span><span class="chip chip-outline" style="height:24px">Building</span></div></div>
+        <div class="course-side"><span class="chip">Start ▸</span></div>
+      </div>
+      <div class="course-row" style="--sc:var(--school-D);opacity:.75" role="link" tabindex="0">
+        <div><span class="code">D2</span><h3>Supervised Learning, Step by Step</h3>
+          <p class="desc">Regression, trees, and forests — each model first by hand on a tiny dataset, then in scikit-learn.</p>
+          <div class="course-meta num"><span>6 modules</span><span>24 lessons</span><span>~11 h</span><span class="chip chip-outline" style="height:24px">Advanced</span></div></div>
+        <div class="course-side"><span class="chip" style="gap:6px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Unlocks after C5</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========================================================= SCREEN: COURSE -->
+<section class="screen" id="screen-course" aria-label="Course page">
+<nav class="anav"><div class="container anav-in">
+  <span class="crumb"><a href="#" onclick="go('catalogue');return false">Courses</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg><a href="#" onclick="go('catalogue');return false">School of Data Craft</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg><span class="cur">C1 · Tables of Data</span></span>
+  <div style="margin-left:auto"><button class="btn btn-secondary btn-sm" onclick="go('reader')">Resume lesson 8</button></div>
+</div></nav>
+<div class="container section-tight">
+  <span class="eyebrow">School of Data Craft · Course C1</span>
+  <h1 class="display-lg" style="margin:12px 0 12px">Tables of Data:<br>pandas Foundations</h1>
+  <p class="body-lg" style="max-width:62ch;margin:0 0 20px">Load a CSV, clean it honestly, answer business questions with it, and chart what you find — the complete first toolkit of a data analyst.</p>
+  <div class="row" style="flex-wrap:wrap;margin-bottom:8px">
+    <span class="chip num">5 modules</span><span class="chip num">24 lessons</span><span class="chip num">~9 hours</span>
+    <span class="chip chip-outline">Beginner</span><span class="chip chip-gold">◆ 1 guided project</span>
+    <span class="chip chip-teal">46% complete</span>
+  </div>
+  <div class="row" style="margin:20px 0 0;flex-wrap:wrap">
+    <button class="btn btn-primary btn-lg" onclick="go('reader')">Resume · Lesson 8 of 24
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <button class="btn btn-secondary btn-lg" onclick="go('quiz')">Checkpoint: C1.2 passed ✓</button>
+  </div>
+</div>
+
+<div class="container section-tight" style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:48px" id="course-grid">
+  <div>
+    <h2 class="h-md" style="margin-bottom:16px">You'll be able to…</h2>
+    <ul class="outcome-list" style="margin-bottom:48px">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Load any CSV into pandas and know exactly what you're looking at</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Select, filter, sort, and group a table to answer a business question</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Spot missing values and duplicates, and decide honestly what to do</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Build your first charts and read someone else's without being fooled</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ship a complete mini-analysis — question, method, chart, takeaway</li>
+    </ul>
+
+    <h2 class="h-md" style="margin-bottom:16px">Syllabus</h2>
+    <div class="syllabus">
+      <details><summary><span class="mod-code">C1.1</span><span class="mod-t">First contact with a table</span><span class="mod-m num">4 lessons · ✓ 100%</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px"><path d="m9 6 6 6-6 6"/></svg></summary></details>
+      <details><summary><span class="mod-code">C1.2</span><span class="mod-t">Asking questions of a table</span><span class="mod-m num">5 lessons · ✓ 100%</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px"><path d="m9 6 6 6-6 6"/></svg></summary></details>
+      <details open><summary><span class="mod-code">C1.3</span><span class="mod-t">Choosing rows and columns</span><span class="mod-m num">6 lessons · ● 3/6</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px"><path d="m9 6 6 6-6 6"/></svg></summary>
+        <div class="lessons">
+          <div class="lesson-row done"><span class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>C1.3.1 Columns are names<span class="dur num">12 min</span></div>
+          <div class="lesson-row now" onclick="go('reader')" role="link" tabindex="0"><span class="st"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg></span>C1.3.2 Sorting, the honest way<span class="dur num">14 min</span></div>
+          <div class="lesson-row"><span class="st"></span>C1.3.3 Filtering: keep what matters<span class="dur num">13 min</span></div>
+          <div class="lesson-row locked"><span class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>C1.3.4 The many ways to slice<span class="dur num">15 min</span></div>
+          <div class="lesson-row locked"><span class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>C1.3.5 Practice: the coffee shop<span class="dur num">18 min</span></div>
+          <div class="gate-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg>
+            Checkpoint · C1.3 — pass at 80% to unlock C1.4. <a href="#" onclick="go('quiz');return false">Preview</a></div>
+        </div>
+      </details>
+      <details><summary><span class="mod-code">C1.4</span><span class="mod-t">Grouping and aggregation</span><span class="mod-m num">5 lessons · 🔒 locked</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px"><path d="m9 6 6 6-6 6"/></svg></summary></details>
+      <details><summary><span class="mod-code">C1.5</span><span class="mod-t">Project: Your First Analysis</span><span class="mod-m num">4 steps · 🔒 locked</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px"><path d="m9 6 6 6-6 6"/></svg></summary></details>
+    </div>
+  </div>
+  <aside>
+    <div class="card card-pad" style="margin-bottom:16px">
+      <span class="eyebrow" style="font-size:.6875rem">Guided project</span>
+      <h3 class="h-sm" style="margin:10px 0 8px">P1 · Your First Analysis</h3>
+      <p class="body-sm" style="margin:0 0 14px">Coffee-shop sales: five business questions, three honest charts, one paragraph your manager reads twice.</p>
+      <span class="chip chip-gold">Portfolio-ready</span>
+    </div>
+    <div class="card card-pad" style="margin-bottom:16px">
+      <span class="eyebrow" style="font-size:.6875rem">You'll need first</span>
+      <p class="body-sm" style="margin:10px 0 14px">A4 Spreadsheets (◆ credited) · B1 Python from Absolute Zero (✓ completed)</p>
+      <div class="row"><span class="chip chip-gold">Placement credit earned</span></div>
+    </div>
+    <div class="card card-pad">
+      <span class="eyebrow" style="font-size:.6875rem">Tools &amp; data</span>
+      <p class="body-sm" style="margin:10px 0 12px">Python · pandas · 3 datasets (coffee shop, city bikes, clinic bookings) — all provided, all in-browser.</p>
+      <span class="chip num" style="margin-right:6px">sales_2026.csv</span><span class="chip num">bikes.csv</span>
+    </div>
+  </aside>
+</div>
+</section>
+
+<!-- ========================================================= SCREEN: ROADMAP -->
+<section class="screen" id="screen-roadmap" aria-label="Learning roadmap">
+<nav class="anav"><div class="container anav-in">
+  <a href="#" class="brand" onclick="go('home');return false" style="font-size:.9375rem"><span class="glyph brand-glyph" style="width:22px;height:22px"></span>DataVerse</a>
+  <span class="crumb"><a href="#" onclick="go('home');return false">Academy</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg><span class="cur">Your roadmap</span></span>
+  <div style="margin-left:auto" class="row">
+    <span class="chip chip-teal num">Data Analyst track ▾</span>
+    <span class="chip chip-outline num">5 h/week → done ~Mar 2027</span>
+  </div>
+</div></nav>
+<div class="container section-tight">
+  <span class="eyebrow">Data Analyst track</span>
+  <h1 class="display-lg" style="margin:12px 0 8px">Your roadmap.</h1>
+  <p class="body-lg" style="max-width:60ch;margin:0 0 40px">● done &nbsp; ◉ now &nbsp; ○ next &nbsp; ◆ placement credit &nbsp; ◇ project &nbsp; ⊕ certificate. One honest map — your pace, your credits, your next step.</p>
+  <div class="rm">
+    <div class="rm-stage">
+      <div class="rm-stage-head"><span class="eyebrow">Stage A</span><span class="st">Foundations</span><span class="badge badge-success" style="margin-left:auto">✓ Complete · Dec 2</span></div>
+      <div class="rm-node done"><div class="nrow"><span class="n-title">A1 · Starting from Zero</span><span class="n-meta num">14 lessons · ✓</span></div></div>
+      <div class="rm-node done"><div class="nrow"><span class="n-title">A2 · Thinking Like a Computer</span><span class="n-meta num">14 lessons · ✓</span></div></div>
+      <div class="rm-node done"><div class="nrow"><span class="n-title">A3 · Math Without Fear</span><span class="n-meta num">18 lessons · ✓</span></div></div>
+      <div class="rm-node credit"><div class="nrow"><span class="n-title">A4 · Spreadsheets: Your Data Bridge</span><span class="badge badge-gold">◆ You proved it</span><span class="n-meta num">placement · Nov 18</span></div></div>
+    </div>
+    <div class="rm-stage">
+      <div class="rm-stage-head"><span class="eyebrow">Stage B</span><span class="st">Programming</span><span class="chip chip-teal num" style="margin-left:auto">In progress · 63%</span></div>
+      <div class="rm-node done"><div class="nrow"><span class="n-title">B1 · Python from Absolute Zero</span><span class="n-meta num">24 lessons · ✓</span></div></div>
+      <div class="rm-node done"><div class="nrow"><span class="n-title">B3 · Errors Are Teachers</span><span class="n-meta num">8 lessons · ✓</span></div></div>
+      <div class="rm-node now"><div class="nrow"><span class="n-title">B2 · Python Practice Lab</span><span class="chip chip-teal">Resume · 3 of 6</span><span class="n-meta num">next: text games</span></div></div>
+      <div class="rm-node locked"><div class="nrow"><span class="n-title">B4 · Python Meets Files</span><span class="n-meta num">unlocks after B2</span></div></div>
+    </div>
+    <div class="rm-stage">
+      <div class="rm-stage-head"><span class="eyebrow">Stage C</span><span class="st">Data Craft</span><span class="chip num" style="margin-left:auto">Next</span></div>
+      <div class="rm-node now"><div class="nrow"><span class="n-title">C1 · Tables of Data: pandas Foundations</span><span class="chip chip-teal">Current · 46%</span></div></div>
+      <div class="rm-mile proj"><span class="shape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span><span class="lab">P1 · Your First Analysis — portfolio project</span></div></div>
+      <div class="rm-node locked"><div class="nrow"><span class="n-title">C2 · Cleaning Real, Messy Data</span><span class="n-meta num">16 lessons</span></div></div>
+      <div class="rm-node locked"><div class="nrow"><span class="n-title">C3 · Charts That Tell the Truth</span><span class="n-meta num">16 lessons</span></div></div>
+      <div class="rm-node locked"><div class="nrow"><span class="n-title">C4 · SQL and Databases from Scratch</span><span class="n-meta num">20 lessons</span></div></div>
+      <div class="rm-node locked"><div class="nrow"><span class="n-title">C5 · Statistics, Gently</span><span class="n-meta num">24 lessons</span></div></div>
+      <div class="rm-node locked"><div class="nrow"><span class="n-title">C6 · Dashboards &amp; Reporting</span><span class="n-meta num">12 lessons</span></div></div>
+      <div class="rm-mile proj"><span class="shape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span><span class="lab">P3 · The Stakeholder Report</span></div></div>
+      <div class="rm-mile cap"><span class="shape"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z"/></svg></span><span class="lab">Capstone · City Insights Brief</span></div></div>
+    </div>
+    <div class="rm-stage">
+      <div class="rm-stage-head"><span class="eyebrow">Stage E</span><span class="st">Career</span></div>
+      <div class="rm-node locked"><div class="nrow"><span class="n-title">E1 · Your Portfolio, Your Story</span></div></div>
+      <div class="rm-mile cer"><span class="shape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5.5"/><path d="m8.5 13.5-1.5 8 5-3 5 3-1.5-8"/></svg></span><span class="lab">Track certificate · verified, shareable</span></div></div>
+      <div class="rm-node locked"><div class="nrow"><span class="n-title">E2 · Career Launchpad</span></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ==================================================== SCREEN: LESSON READER -->
+<section class="screen" id="screen-reader" aria-label="Lesson reader">
+<nav class="anav"><div class="container anav-in" style="max-width:1440px">
+  <span class="crumb"><a href="#" onclick="go('course');return false">C1 Tables of Data</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg><a href="#" onclick="go('course');return false">C1.3 Choosing rows</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg><span class="cur">Sorting, the honest way</span></span>
+  <div style="margin-left:auto" class="row">
+    <span class="chip num" style="height:34px">Lesson 8 · 46% of course</span>
+    <button class="btn btn-secondary btn-sm" onclick="go('tutor')">Ask Ada <kbd style="margin-left:4px">T</kbd></button>
+  </div>
+</div></nav>
+
+<div class="reader">
+  <!-- LEFT: course navigation -->
+  <aside class="tree" id="reader-tree" aria-label="Course navigation">
+    <div class="tree-course">
+      <div class="t">Tables of Data: pandas Foundations</div>
+      <div class="m num"><span class="ring" style="width:22px;height:22px"><svg width="22" height="22" viewBox="0 0 22 22"><circle class="rt" cx="11" cy="11" r="8.5" fill="none" stroke-width="3"/><circle class="rp" cx="11" cy="11" r="8.5" fill="none" stroke-width="3" stroke-dasharray="53.4" stroke-dashoffset="53.4" data-off="28.8"/></svg></span> 11 of 24 lessons</div>
+    </div>
+    <details class="tmod" open><summary><span class="mc">C1.3</span>Choosing rows and columns<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></summary>
+      <div class="tl">
+        <button class="tles done"><span class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Columns are names</button>
+        <button class="tles now"><span class="st"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg></span>Sorting, the honest way</button>
+        <button class="tles"><span class="st"></span>Filtering: keep what matters</button>
+        <button class="tles locked"><span class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>The many ways to slice</button>
+        <button class="tles locked"><span class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>Practice: coffee shop</button>
+        <div class="tgate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:12px;height:12px"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Checkpoint C1.3 · pass 80%</div>
+      </div>
+    </details>
+    <details class="tmod"><summary><span class="mc">C1.4</span>Grouping and aggregation<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></summary><div class="tl"></div></details>
+    <details class="tmod"><summary><span class="mc">C1.5</span>Project: First Analysis<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></summary><div class="tl"></div></details>
+  </aside>
+
+  <!-- CENTER: the lesson -->
+  <main class="lesson-center" id="reader-main">
+    <header class="l-head blk">
+      <span class="eyebrow">C1.3 · Lesson 2 of 6</span>
+      <h1 class="display-md" style="margin:10px 0 0">Sorting, the honest way</h1>
+      <div class="meta">
+        <span class="chip num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>14 min</span>
+        <span class="chip">3 outcomes</span><span class="chip">2 new terms</span>
+        <span class="chip chip-teal">✓ 80% to pass checkpoint</span>
+      </div>
+    </header>
+
+    <div class="blk callout callout-why">
+      <div class="eyebrow">Why this matters</div>
+      <p style="margin:0;font-size:1.0625rem;line-height:1.65;color:var(--dv-ink-2)">Your sales team asks for "the top 5 months by revenue." Sorting sounds trivial — until ties and text months quietly reorder your rows and your conclusion. Analysts get burned by sorting weekly. Today you stop being one of them.</p>
+    </div>
+
+    <div class="blk prose">
+      <p>Sorting a table means <strong>putting rows in a chosen order</strong> — smallest first, biggest first, or alphabetical. pandas gives you one method for all of it: <span class="inline-code">sort_values()</span>. The honest part is what it does when two rows <em>tie</em>.</p>
+      <p>When values are equal, pandas keeps rows in their <strong>original order</strong>. That promise is called a <span class="term" data-term="stable-sort">stable sort</span>. It sounds like a technicality; it's actually the difference between "August before July, as they appeared" and "July before August, alphabetically."</p>
+    </div>
+
+    <div class="blk widget">
+      <div class="widget-head">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:17px;height:17px;color:var(--dv-teal-700)"><path d="M3 6h13M3 12h18M3 18h9"/><circle cx="19" cy="6" r="2.2" fill="currentColor" stroke="none"/></svg>
+        <span class="wt">Try it — fair-share beam</span>
+        <span class="badge badge-teal" style="margin-left:auto">Interactive</span>
+      </div>
+      <div class="widget-body">
+        <p class="body-sm" style="margin:0 0 4px">Drag the big sale and watch which average moves. The <span class="term" data-term="mean">mean</span> chases extreme values; the median holds its ground.</p>
+        <div class="beam">
+          <svg viewBox="0 0 480 120" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="10" y1="60" x2="470" y2="60" stroke="var(--dv-border-strong)" stroke-width="2"/>
+            <line id="beam-median" x1="240" y1="28" x2="240" y2="92" stroke="var(--dv-viz-3)" stroke-width="2.5" stroke-dasharray="5 4"/>
+            <circle id="beam-mean" cx="255" cy="60" r="7" fill="var(--dv-teal-700)" stroke="var(--dv-surface)" stroke-width="2"/>
+            <g font-family="Inter,sans-serif" font-size="11" fill="var(--dv-ink-3)">
+              <text id="beam-mean-lab" x="255" y="105" text-anchor="middle" font-weight="600" fill="var(--dv-teal-700)">mean 10.0</text>
+              <text id="beam-median-lab" x="240" y="22" text-anchor="middle" fill="var(--dv-viz-3)">median 9</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="widget-foot">
+        <label style="display:flex;align-items:center;gap:10px;flex:1;min-width:220px">
+          <span class="caption" style="white-space:nowrap">Big sale: <b id="beam-val" class="num" style="color:var(--dv-ink)">13</b></span>
+          <input type="range" class="dv-range" id="beam-range" min="9" max="40" value="13" step="1" aria-label="Big sale value">
+        </label>
+        <span class="caption" id="beam-note" aria-live="polite">Drag past 20 — the mean follows, the median doesn't budge.</span>
+      </div>
+    </div>
+
+    <div class="blk example">
+      <div class="xh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:17px;height:17px;color:var(--dv-teal-700)"><path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM8 7h8M8 11h8M8 15h5"/></svg>Worked example — the tie that mattered</div>
+      <div class="xb">
+        <div class="xstep"><span class="xn">1</span><p><b>The question.</b> "Order our drinks by monthly units sold, biggest first."</p></div>
+        <div class="xstep"><span class="xn">2</span><p><b>The attempt.</b> We sort by <span class="inline-code">units</span> — but Latte and Mocha both sold <b>212</b> this month.</p></div>
+        <div class="xstep wrong"><span class="xn">3</span><p><b>The wrong turn.</b> A second sort, by name, "to be tidy." Now the tied rows are alphabetical — <b>and no longer in week order</b>. A quiet rewrite of history.</p></div>
+        <div class="xstep"><span class="xn">4</span><p><b>The fix.</b> One sort, both keys: <span class="inline-code">sort_values(["units", "week"])</span>. Ties break by week — deliberately, in writing, where you can defend it.</p></div>
+      </div>
+    </div>
+
+    <div class="blk exercise">
+      <div class="ex-head">
+        <span class="badge badge-teal">Guided exercise</span>
+        <span class="scaffold-dots" title="Scaffold level 2 of 4"><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <span class="caption" style="margin-left:auto">attempt 1 of ∞ · hints are free</span>
+      </div>
+      <div class="ex-body">
+        <p style="margin:0 0 16px;font-weight:500">Sales wants "top 5 months by revenue, ties broken by month order." Which sort is honest?</p>
+        <div class="opt" data-ok="1" role="button" tabindex="0"><span class="key">A</span><span>Sort by revenue only — pandas ties keep month order automatically, because its sort is <b>stable</b>.</span></div>
+        <div class="opt" role="button" tabindex="0"><span class="key">B</span><span>Sort by revenue, then sort again by month name — two passes is always safer.</span></div>
+        <div class="opt" role="button" tabindex="0"><span class="key">C</span><span>Sort by month name only — months mostly line up with revenue anyway.</span></div>
+        <div class="rationale ok" id="ex-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 5-6"/></svg><span><b>Exactly.</b> One sort by revenue is enough — stability guarantees tied months keep their original order. Two passes (B) silently rewrites ties; C answers a different question.</span></div>
+        <div class="rationale no" id="ex-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16.5v.01"/></svg><span><b>Not this one.</b> You picked the two-pass approach — it feels safer, but the second sort <em>replaces</em> the tie order instead of preserving it. Try hint 1 below, then look at option A again.</span></div>
+        <div class="hints">
+          <div class="hh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.9.7 1.5 1.3 1.5 2.1h4c0-.8.6-1.4 1.5-2.1A6 6 0 0 0 12 3z"/></svg>Hint ladder — reveals never spoil, Ada elaborates</div>
+          <div class="hint"><button aria-expanded="false"><span class="hl">1</span>Show a nudge<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></button>
+            <div class="hint-body">What does pandas promise to do with rows that tie — reorder them, or leave them be? Re-read the second paragraph of this lesson.</div></div>
+          <div class="hint"><button aria-expanded="false"><span class="hl">2</span>Show the strategy<span class="caption" style="margin-left:6px">(counts toward practice record)</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></button>
+            <div class="hint-body">Rule out any plan with a <em>second</em> sort pass. Then ask: for the ties that remain, is anything left to fix?</div></div>
+          <div class="hint"><button aria-expanded="false"><span class="hl">3</span>Show a worked parallel example<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></button>
+            <div class="hint-body">Parallel problem: "top students by score, ties by enrollment order." Solution: <span class="inline-code">df.sort_values("score")</span> — done. Enrollment order survives <em>because</em> the sort is stable. Your problem has the same shape.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blk summary-card">
+      <div class="h-sm">In this lesson</div>
+      <ul>
+        <li><span class="term" data-term="sort-order">Sorting</span> reorders rows by one or more columns — <span class="inline-code">sort_values()</span>.</li>
+        <li>Ties keep their original order: that's a <b>stable sort</b>, and it protects your conclusions.</li>
+        <li>Need a specific tie order? Add a second key <em>on purpose</em>: <span class="inline-code">sort_values(["units", "week"])</span>.</li>
+        <li>Sorting changes row order, never your data — the original table stays recoverable.</li>
+      </ul>
+    </div>
+
+    <div class="blk next-card">
+      <div style="flex:1">
+        <div class="caption" style="margin-bottom:4px">Up next · C1.3</div>
+        <div class="h-sm">Filtering: keep what matters</div>
+      </div>
+      <button class="btn btn-primary" onclick="go('reader')">Complete &amp; continue
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </main>
+
+  <!-- RIGHT: context rail -->
+  <aside class="rail" id="reader-rail" aria-label="Lesson context">
+    <div class="rail-card">
+      <div class="rh">On this page</div>
+      <nav class="toc">
+        <a href="#reader-main" class="active">Top</a>
+        <a href="#">Why this matters</a>
+        <a href="#">Sorting &amp; stability</a>
+        <a href="#">Try it — fair-share beam</a>
+        <a href="#">Worked example</a>
+        <a href="#">Guided exercise</a>
+        <a href="#">In this lesson</a>
+      </nav>
+    </div>
+    <div class="rail-card">
+      <div class="rh">Key concepts</div>
+      <span class="concept-chip term" data-term="sort-order">⇅ sort order</span>
+      <span class="concept-chip term" data-term="stable-sort">◇ stable sort</span>
+      <span class="concept-chip" onclick="go('glossary')" style="cursor:pointer">All glossary →</span>
+    </div>
+    <div class="rail-card mini-ada">
+      <div class="rh" style="display:flex;justify-content:space-between;align-items:center">Ask Ada <span class="chip chip-teal" style="height:22px;font-size:.6875rem">Socratic</span></div>
+      <div class="ada-in">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 8.6 8.6 0 0 1-3.7-.8L3 21l2-5.1a8 8 0 0 1-1-3.9A8.4 8.4 0 0 1 12.5 3a8.4 8.4 0 0 1 8.5 8.5z"/></svg>
+        <input placeholder="Ask about this lesson…" aria-label="Ask Ada">
+      </div>
+      <span class="caption">Grounded in C1.3.2 · knows your last attempt · never spoils</span>
+    </div>
+    <div class="rail-card">
+      <div class="rh">Notes &amp; bookmarks</div>
+      <div class="note-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 6.2 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2l2.9 6.3 6.9.8-5.4 4.7 1.4 6.8z"/></svg><span>"ties keep order — like a queue, not a pile" — <span class="caption">from worked example, step 4</span></span></div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn btn-secondary btn-sm" style="flex:1">＋ Bookmark</button>
+        <button class="btn btn-secondary btn-sm" style="flex:1">＋ Note</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- Mobile action bar -->
+<div class="bottom-bar" id="reader-bottombar">
+  <button onclick="openSheet('reader-tree','tree')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg>Contents</button>
+  <button class="primary" onclick="go('reader')">Complete &amp; next ▸</button>
+  <button onclick="openSheet('reader-rail','rail')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 8.6 8.6 0 0 1-3.7-.8L3 21l2-5.1a8 8 0 0 1-1-3.9A8.4 8.4 0 0 1 12.5 3a8.4 8.4 0 0 1 8.5 8.5z"/></svg>Ask Ada</button>
+</div>
+</section>
+
+<!-- ========================================================= SCREEN: LAB -->
+<section class="screen" id="screen-lab" aria-label="Interactive coding laboratory">
+<nav class="anav"><div class="container anav-in" style="max-width:1440px">
+  <span class="crumb"><a href="#" onclick="go('reader');return false">Lab</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg><span class="cur">Exercise C1.4.3 · Group by month</span></span>
+  <div style="margin-left:auto" class="row">
+    <span class="chip chip-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>Runs in your browser</span>
+    <span class="chip chip-outline num" title="Why limits? Every limit is teachable">10 s · 512 MB · why?</span>
+  </div>
+</div></nav>
+<div class="container section-tight" style="max-width:1440px">
+  <div class="lab">
+    <!-- Brief + dataset -->
+    <div class="lab-col brief">
+      <div class="lab-panel" style="margin-bottom:16px">
+        <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:15px;height:15px;color:var(--dv-teal-700)"><path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM8 7h8M8 11h8M8 15h5"/></svg>Your task</div>
+        <div class="pb">
+          <p class="body-sm" style="margin:0 0 12px">Group the coffee-shop sales by <b>month</b> and show each month's total revenue, highest first.</p>
+          <div class="caption" style="border-top:1px dashed var(--dv-border-subtle);padding-top:10px">Done means: a table with 12 rows, one per month, with a <span class="inline-code">revenue</span> column, sorted biggest first.</div>
+        </div>
+      </div>
+      <div class="lab-panel">
+        <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:15px;height:15px;color:var(--dv-teal-700)"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/></svg>Dataset · sales_2026.csv</div>
+        <div class="pb">
+          <div class="caption" style="margin-bottom:10px">The column dictionary, in plain English:</div>
+          <div class="dataset-cols">
+            <div class="dcol"><span class="cn">date</span><span class="cd">the day of the sale — a real date, not text</span></div>
+            <div class="dcol"><span class="cn">drink</span><span class="cd">what was sold ("Latte", "Mocha"…)</span></div>
+            <div class="dcol"><span class="cn">units</span><span class="cd">how many cups that day</span></div>
+            <div class="dcol"><span class="cn">price</span><span class="cd">price per cup that day</span></div>
+          </div>
+          <div class="row" style="margin-top:12px"><span class="chip num">2.1 MB</span><span class="chip">License: open</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Editor + console -->
+    <div class="lab-col">
+      <div class="editor" id="lab-editor">
+        <div class="editor-bar">
+          <span class="dots" style="display:flex;gap:6px"><i style="width:9px;height:9px;border-radius:50%;background:var(--dv-border);display:block"></i><i style="width:9px;height:9px;border-radius:50%;background:var(--dv-border);display:block"></i></span>
+          <span class="mono caption" style="font-size:.75rem">group_by_month.py</span>
+          <span class="chip chip-outline num" style="height:24px;margin-left:8px;font-size:.6875rem">saved ✓</span>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <button class="btn btn-secondary btn-sm" id="lab-reset">Reset</button>
+            <button class="btn btn-secondary btn-sm" id="lab-fix" onclick="applyFix(this)">Apply the fix</button>
+            <button class="btn btn-primary btn-sm" id="lab-run" onclick="labRun()">
+              <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg>Run <kbd style="margin-left:2px">⌘⏎</kbd>
+            </button>
+          </div>
+        </div>
+        <textarea id="lab-code" spellcheck="false" aria-label="Python editor">import pandas as pd
+
+df = pd.read_csv("sales_2026.csv")
+df["revenue"] = df["units"] * df["price"]
+
+monthly = datta.groupby("month")["revenue"].sum()
+print(monthly.sort_values(ascending=False))</textarea>
+      </div>
+      <div class="console">
+        <div class="editor-bar" style="border-radius:14px 14px 0 0">
+          <span style="font-size:.8125rem;font-weight:600">Console</span>
+          <span class="caption" style="margin-left:8px">streaming output · errors explained in plain English first</span>
+          <span class="chip num" style="margin-left:auto;height:24px;font-size:.6875rem" id="lab-time"></span>
+        </div>
+        <div class="console-out" id="lab-console" aria-live="polite"><span class="ln mut">Run your code to see output here — nothing leaves your browser.</span></div>
+      </div>
+      <div class="errcoach" id="lab-coach" style="display:none">
+        <div class="eh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.01"/></svg>What happened, in plain English</div>
+        <div style="font-size:.9375rem;color:var(--dv-ink)">Python looked for a name called <span class="inline-code">datta</span> and couldn't find it anywhere. This is a <b>NameError</b> — almost always a spelling mismatch.</div>
+        <ol>
+          <li>Look at line 5 — Python prints the exact line it choked on.</li>
+          <li>Compare: you typed <span class="inline-code">datta</span>, but you named your table <span class="inline-code">df</span> on line 3.</li>
+          <li>Fix the spelling and run again — or click <b>Apply the fix</b> above.</li>
+        </ol>
+        <div class="row" style="margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="go('tutor')">Ask Ada about this error</button><details style="margin-left:auto"><summary class="caption" style="cursor:pointer">Show the raw error</summary><pre class="mono caption" style="white-space:pre-wrap;margin:8px 0 0">NameError: name 'datta' is not defined</pre></details></div>
+      </div>
+    </div>
+
+    <!-- Checks -->
+    <div class="lab-col checks">
+      <div class="lab-panel">
+        <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:15px;height:15px;color:var(--dv-teal-700)"><path d="m9 11 3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Checks</div>
+        <div class="pb">
+          <div class="tests" id="lab-tests">
+            <div class="test" data-test="1"><span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/></svg></span>Output has exactly 12 rows</div>
+            <div class="test" data-test="2"><span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/></svg></span>Revenue column sums correctly</div>
+            <div class="test" data-test="3"><span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/></svg></span>Hidden check — sorted descending</div>
+          </div>
+          <div class="caption" style="margin-top:14px;border-top:1px dashed var(--dv-border-subtle);padding-top:10px">Hidden checks never show your target numbers — they only say pass or fail.</div>
+        </div>
+      </div>
+      <div class="card card-pad" style="margin-top:16px">
+        <span class="eyebrow" style="font-size:.6875rem">Stuck?</span>
+        <p class="body-sm" style="margin:8px 0 12px">The hint ladder is one click away — or ask Ada, who has your code and this error in context.</p>
+        <div class="row"><button class="btn btn-secondary btn-sm" style="flex:1">Hint 1 of 3</button><button class="btn btn-secondary btn-sm" style="flex:1" onclick="go('tutor')">Ask Ada</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ======================================================== SCREEN: QUIZ -->
+<section class="screen" id="screen-quiz" aria-label="Checkpoint">
+<nav class="anav"><div class="container anav-in">
+  <span class="crumb"><a href="#" onclick="go('course');return false">C1.3 Checkpoint</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg><span class="cur">Choosing rows and columns</span></span>
+  <button class="btn btn-ghost btn-sm" style="margin-left:auto">Exit</button>
+</div></nav>
+<div class="container section-tight">
+  <div class="quiz-shell">
+    <div class="quiz-top">
+      <div class="qprog" aria-label="Question 3 of 10"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <span class="caption num qcount">Question 3 of 10</span>
+      <span class="chip chip-teal num">No timer · retakes are free</span>
+    </div>
+
+    <div class="qcard" id="qcard">
+      <div class="qhead">
+        <span class="badge badge-teal">Checkpoint</span>
+        <span class="caption">Outcome: sort a DataFrame to answer a business question</span>
+        <span class="caption" style="margin-left:auto">Q3 · untimed</span>
+      </div>
+      <div class="qbody">
+        <p class="stem">Your table has one row per sale, with a <span class="inline-code">price</span> column. Marketing wants "the 5 priciest sales, and for equal prices the earliest first." Which single call is honest?</p>
+        <div class="opt" data-ok="1" role="button" tabindex="0"><span class="key">A</span><span><span class="inline-code">df.sort_values(["price", "date"], ascending=[False, True]).head(5)</span> — price big-first, ties by earliest date, then take five.</span></div>
+        <div class="opt" role="button" tabindex="0"><span class="key">B</span><span><span class="inline-code">df.sort_values("price").head(5)</span> — smallest five prices, which is what "priciest" means.</span></div>
+        <div class="opt" role="button" tabindex="0"><span class="key">C</span><span><span class="inline-code">df.sort_values("price", ascending=False).head(5)</span> — correct order, but equal prices stay in whatever order they were.</span></div>
+        <div class="rationale ok" id="q-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.5 2.5 2.5 5-6"/></svg><span><b>Exactly right.</b> Two keys, two directions — price descending, date ascending for ties. That's the "on purpose" tie order from this module.</span></div>
+        <div class="rationale no" id="q-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16.5v.01"/></svg><span><b>Close — one key short.</b> Option C sorts correctly by price, but for <em>equal</em> prices it leaves row order to chance. The ask was explicit: earliest first. Add the second key.</span></div>
+        <div class="quiz-foot">
+          <button class="btn btn-ghost">Skip for now</button>
+          <button class="btn btn-primary" id="q-check" onclick="quizCheck(this)">Check answer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result breakdown (the "after" state) -->
+    <div style="margin-top:40px" class="spread">
+      <div><span class="eyebrow">After you submit</span><h2 class="h-md" style="margin-top:8px">Result breakdown — a learning artifact</h2></div>
+      <span class="chip chip-outline">Demo state: passed</span>
+    </div>
+    <div class="qcard" style="margin-top:16px">
+      <div class="result-hero">
+        <div class="bigring"><svg viewBox="0 0 128 128"><circle class="rt" cx="64" cy="64" r="54" fill="none" stroke-width="10"/><circle class="rp" cx="64" cy="64" r="54" fill="none" stroke-width="10" stroke-dasharray="339.3" stroke-dashoffset="339.3" data-off="44.1"/></svg><span class="v num" id="res-val">87%</span></div>
+        <div style="flex:1;min-width:220px">
+          <div class="row"><span class="badge badge-success">✓ Passed</span><span class="caption num">8 of 10 items · gate is 80%</span></div>
+          <p class="body-sm" style="margin:12px 0 0">Two outcomes went to <b>Strong</b> — including the one this question tested. One outcome needs a second look (below), with the exact two lessons that fix it.</p>
+          <div class="row" style="margin-top:16px"><button class="btn btn-primary btn-sm">Continue to C1.4 ▸</button><button class="btn btn-secondary btn-sm">Review mistakes</button></div>
+        </div>
+      </div>
+      <div class="result-outcomes">
+        <div class="om-row"><span class="t">Select rows and columns for a question</span><span class="badge badge-success" style="flex-shrink:0">Strong</span><span class="om-meter m3"><i></i><i></i><i></i><i></i></span></div>
+        <div class="om-row"><span class="t">Sort with tie-breaks, on purpose</span><span class="badge badge-success" style="flex-shrink:0">Strong</span><span class="om-meter m3"><i></i><i></i><i></i><i></i></span></div>
+        <div class="om-row"><span class="t">Filter with conditions</span><span class="badge badge-warn" style="flex-shrink:0">Developing</span><span class="om-meter m1"><i></i><i></i><i></i><i></i></span></div>
+        <div class="prescribe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v6M12 22v-6M2 12h6M22 12h-6"/><circle cx="12" cy="12" r="3"/></svg>
+          <div><b style="color:var(--dv-info-text)">Your review plan — 2 lessons, ~27 min.</b>
+          <span style="display:block;margin-top:4px;color:var(--dv-ink-2)">C1.3.3 Filtering: keep what matters (13 min) · C1.3.4 The many ways to slice (15 min). One click adds both to tomorrow's plan — retakes are free and draw fresh questions.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===================================================== SCREEN: DASHBOARD -->
+<section class="screen" id="screen-dashboard" aria-label="Student dashboard">
+<nav class="anav"><div class="container anav-in">
+  <a href="#" class="brand" onclick="go('home');return false" style="font-size:.9375rem"><span class="glyph brand-glyph" style="width:22px;height:22px"></span>DataVerse</a>
+  <span class="crumb"><span class="cur">Dashboard</span></span>
+  <div style="margin-left:auto" class="row">
+    <button class="btn btn-secondary btn-sm" onclick="go('tutor')">Ask Ada</button>
+    <button class="btn btn-primary btn-sm" onclick="go('reader')">Resume lesson</button>
+  </div>
+</div></nav>
+<div class="container section-tight">
+  <div class="spread" style="margin-bottom:24px;flex-wrap:wrap;gap:12px">
+    <div><h1 class="display-md">Good evening, Maya.</h1>
+    <p class="body-sm" style="margin:6px 0 0">Thursday, Nov 12 · 3 lessons from your first checkpoint.</p></div>
+    <span class="chip chip-gold num">🔥 6-day streak · 1 freeze left</span>
+  </div>
+
+  <div class="stat-tiles">
+    <div class="stat-tile"><div class="l">Hours this week</div><div class="v num">3h 20m</div><div class="d up num">▲ 11% vs last week</div></div>
+    <div class="stat-tile"><div class="l">Lessons done</div><div class="v num">11<span style="font-size:1rem;color:var(--dv-ink-3)">/24</span></div><div class="d num">C1 · 46% complete</div></div>
+    <div class="stat-tile"><div class="l">Checkpoints passed</div><div class="v num">2<span style="font-size:1rem;color:var(--dv-ink-3)">/3</span></div><div class="d num">C1.2 passed at 91%</div></div>
+    <div class="stat-tile"><div class="l">Exercise accuracy</div><div class="v num">91%</div><div class="d up num">▲ with hints down 40%</div></div>
+  </div>
+
+  <div class="dash-grid">
+    <div class="card card-pad d-continue">
+      <div class="spread" style="margin-bottom:14px"><span class="eyebrow">Continue learning</span><span class="chip chip-teal num">2h 40m left in goal</span></div>
+      <div class="row" style="align-items:flex-start">
+        <span class="ring" style="width:64px;height:64px;flex-shrink:0"><svg width="64" height="64" viewBox="0 0 64 64"><circle class="rt" cx="32" cy="32" r="26" fill="none" stroke-width="6"/><circle class="rp" cx="32" cy="32" r="26" fill="none" stroke-width="6" stroke-dasharray="163.4" stroke-dashoffset="163.4" data-off="88.2"/></svg><span class="rv" style="font-size:.8125rem">46%</span></span>
+        <div style="flex:1;min-width:0">
+          <div class="caption">C1 · Tables of Data · Module 3 of 5</div>
+          <div class="h-md" style="margin:4px 0 6px">Sorting, the honest way</div>
+          <p class="body-sm" style="margin:0">14 min · term tooltips · one guided exercise. Two lessons until your checkpoint unlocks.</p>
+          <div class="row" style="margin-top:14px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="go('reader')">Resume ▸</button>
+            <button class="btn btn-secondary btn-sm" onclick="go('roadmap')">Roadmap</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-pad d-week">
+      <div class="spread"><span class="eyebrow">This week</span><span class="caption num">goal 5 h</span></div>
+      <div class="row" style="margin:14px 0 0;gap:16px">
+        <span class="ring" style="width:72px;height:72px;flex-shrink:0"><svg width="72" height="72" viewBox="0 0 72 72"><circle class="rt" cx="36" cy="36" r="29" fill="none" stroke-width="7"/><circle class="rp" cx="36" cy="36" r="29" fill="none" stroke-width="7" stroke-dasharray="182.2" stroke-dashoffset="182.2" data-off="108.2"/></svg><span class="rv" style="font-size:.875rem">67%</span></span>
+        <div>
+          <div class="h-md num">3h 20m</div>
+          <p class="caption" style="margin:4px 0 0">1h 40m to go — about two lessons a day keeps your streak safe.</p>
+        </div>
+      </div>
+      <div class="week-bars" aria-hidden="true"><i style="height:30%"></i><i style="height:55%"></i><i style="height:20%"></i><i style="height:75%"></i><i class="today" style="height:90%"></i><i style="height:0%"></i><i style="height:0%"></i></div>
+      <div class="row" style="justify-content:space-between"><span class="caption">M</span><span class="caption">T</span><span class="caption">W</span><span class="caption">T</span><span class="caption">F</span><span class="caption">S</span><span class="caption">S</span></div>
+    </div>
+
+    <div class="card card-pad d-mile">
+      <span class="eyebrow">Next milestones</span>
+      <div class="mile-row"><span class="mi" style="color:var(--dv-teal-700)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+        <span class="mt"><b>Checkpoint · C1.3 Choosing rows</b><span>2 lessons away · pass at 80% · retakes free</span></span>
+        <button class="btn btn-secondary btn-sm cta" onclick="go('quiz')">Preview</button></div>
+      <div class="mile-row"><span class="mi" style="color:var(--dv-gold-500)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 19V5M8 7h8M8 11h8M8 15h5"/></svg></span>
+        <span class="mt"><b>P1 · Your First Analysis</b><span>portfolio project · unlocks after C1.5</span></span>
+        <span class="cta caption">~4 weeks</span></div>
+      <div class="mile-row"><span class="mi" style="color:var(--dv-gold-500)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z"/></svg></span>
+        <span class="mt"><b>Capstone · City Insights Brief</b><span>Analyst track finish line</span></span>
+        <span class="cta caption">~14 weeks</span></div>
+    </div>
+
+    <div class="card card-pad d-review">
+      <div class="spread"><span class="eyebrow">Review queue</span><span class="chip chip-gold num">5 due</span></div>
+      <p class="body-sm" style="margin:12px 0">Spaced repetition on what <em>you</em> missed — 3 minutes keeps it alive.</p>
+      <div class="row" style="flex-wrap:wrap">
+        <span class="chip">◇ stable sort</span><span class="chip">◇ mean vs median</span><span class="chip">◇ filter mask</span><span class="chip">＋2 more</span>
+      </div>
+      <button class="btn btn-secondary btn-sm" style="margin-top:16px;width:100%">Start 3-minute review</button>
+    </div>
+
+    <div class="card card-pad d-mastery">
+      <div class="spread"><span class="eyebrow">Mastery snapshot</span><span class="caption">C1.1 – C1.3</span></div>
+      <div style="margin-top:16px;display:flex;flex-direction:column;gap:14px">
+        <div class="om-row"><span class="t">Load a CSV and inspect it</span><span class="om-meter m3"><i></i><i></i><i></i><i></i></span><span class="badge badge-success" style="flex-shrink:0">Strong</span></div>
+        <div class="om-row"><span class="t">Choose rows and columns</span><span class="om-meter m2"><i></i><i></i><i></i><i></i></span><span class="badge badge-teal" style="flex-shrink:0">Developing</span></div>
+        <div class="om-row"><span class="t">Sort with tie-breaks, on purpose</span><span class="om-meter m2"><i></i><i></i><i></i><i></i></span><span class="badge badge-teal" style="flex-shrink:0">Developing</span></div>
+        <div class="om-row"><span class="t">Filter with conditions</span><span class="om-meter m1"><i></i><i></i><i></i><i></i></span><span class="badge badge-warn" style="flex-shrink:0">Needs review</span></div>
+      </div>
+      <div class="caption" style="margin-top:16px">"Needs review" items feed tomorrow's review queue automatically.</div>
+    </div>
+
+    <div class="card card-pad d-activity">
+      <span class="eyebrow">Recent activity</span>
+      <div style="margin-top:12px">
+        <div class="act-row"><span style="color:var(--dv-teal-700)">✓</span><span>Passed checkpoint <b>C1.2</b> at 91%</span><span class="when num">Tue</span></div>
+        <div class="act-row"><span style="color:var(--dv-gold-500)">★</span><span>First chart published in <b>C1.2.5</b></span><span class="when num">Tue</span></div>
+        <div class="act-row"><span style="color:var(--dv-teal-700)">✓</span><span>Finished <b>C1.3.1 Columns are names</b></span><span class="when num">Wed</span></div>
+        <div class="act-row"><span style="color:var(--dv-viz-4)">✕</span><span>Missed exercise (fixed with 2 hints) — <b>filter masks</b></span><span class="when num">Wed</span></div>
+        <div class="act-row"><span>◇</span><span>Reviewed <b>mean · median · mode</b></span><span class="when num">Today</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ======================================================== SCREEN: TUTOR -->
+<section class="screen" id="screen-tutor" aria-label="AI tutor Ada">
+<nav class="anav"><div class="container anav-in">
+  <a href="#" class="brand" onclick="go('home');return false" style="font-size:.9375rem"><span class="glyph brand-glyph" style="width:22px;height:22px"></span>DataVerse</a>
+  <span class="crumb"><span class="cur">Ask Ada</span></span>
+  <div style="margin-left:auto"><button class="btn btn-secondary btn-sm" onclick="go('reader')">Back to lesson</button></div>
+</div></nav>
+<div class="container section-tight">
+  <div class="tutor-shell">
+    <button class="ctx-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+      About: C1.3.2 Sorting, the honest way · your last attempt used 1 hint
+      <span style="color:var(--dv-ink-3)">change ▾</span>
+    </button>
+
+    <div class="msg ada">
+      <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z"/></svg></span>
+      <div class="bd">
+        <div class="who">Ada <span class="chip chip-teal" style="height:20px;font-size:.6875rem">Socratic mode</span> <span class="caption">just now</span></div>
+        <div class="bubble">
+          <p>You're one good question away from this one — I can feel it. Before I say more: when you sorted by month, what did you ask pandas to sort — the <b>month names</b> ("Oct", "Sep"), or the <b>dates</b> they came from?</p>
+          <div class="meta"><span class="badge badge-teal">elaborating hint 2</span><span class="caption">grounded in this lesson's worked example</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg you">
+      <span class="av">M</span>
+      <div class="bd"><div class="who">You</div>
+        <div class="bubble">The month names. Oh no — "Oct" comes before "Sep" alphabetically, doesn't it. Is that why my top-5 looked weird?</div>
+      </div>
+    </div>
+
+    <div class="msg ada">
+      <span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z"/></svg></span>
+      <div class="bd">
+        <div class="who">Ada</div>
+        <div class="bubble">
+          <p>That's exactly it — you diagnosed it yourself, which is the part that matters. Text sorts <em>alphabetically</em>; only real dates know October comes after September.</p>
+          <p>Now the fix: you have two honest options. Which fits your data — turning month names <b>into dates</b> with <span class="term" data-term="parse-dates">pd.to_datetime()</span>, or sorting by a <b>month number</b> you add as a helper column? Peek at the dataset's <span class="term" data-term="column">column dictionary</span> and tell me what <code class="inline-code">date</code> already holds.</p>
+          <div class="meta"><span class="badge badge-teal">elaborating hint 2</span><span class="caption">terms above are live — hover them</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sugg">
+      <button class="chip chip-outline chip-click">Why is my code failing?</button>
+      <button class="chip chip-outline chip-click">Another analogy, please</button>
+      <button class="chip chip-outline chip-click">Review mean vs median</button>
+    </div>
+
+    <div class="tutor-input">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:17px;height:17px;color:var(--dv-teal-700)"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 8.6 8.6 0 0 1-3.7-.8L3 21l2-5.1a8 8 0 0 1-1-3.9A8.4 8.4 0 0 1 12.5 3a8.4 8.4 0 0 1 8.5 8.5z"/></svg>
+      <input placeholder="Ask anything about this lesson…" aria-label="Message Ada">
+      <button class="btn btn-primary btn-sm" id="tutor-send" onclick="tutorSend()">Send</button>
+    </div>
+    <div class="tutor-foot">
+      <span>Ada never gives direct answers to active exercises — she guides.</span>
+      <span class="num">18 messages left today · resets tomorrow</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ====================================================== SCREEN: GLOSSARY -->
+<section class="screen" id="screen-glossary" aria-label="Glossary explorer">
+<nav class="anav"><div class="container anav-in">
+  <a href="#" class="brand" onclick="go('home');return false" style="font-size:.9375rem"><span class="glyph brand-glyph" style="width:22px;height:22px"></span>DataVerse</a>
+  <span class="crumb"><span class="cur">Glossary</span></span>
+  <div style="margin-left:auto" class="row">
+    <span class="chip chip-teal num">132 terms · 47 met</span>
+  </div>
+</div></nav>
+<div class="container section-tight">
+  <h1 class="display-lg" style="margin-bottom:8px">Every term, in plain English.</h1>
+  <p class="body-lg" style="margin:0 0 28px;max-width:58ch">The same registry the lessons use — searchable, browsable, and honest about where you first met each term.</p>
+
+  <div class="row" style="flex-wrap:wrap;margin-bottom:24px">
+    <button class="searchpill" style="flex:1;min-width:220px;justify-content:flex-start" onclick="filterTerms('')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      Search terms…
+    </button>
+    <span class="chip chip-outline">School: All ▾</span>
+    <span class="chip chip-teal">○ Met by you</span>
+    <span class="chip chip-outline">Reset</span>
+  </div>
+
+  <!-- Featured term detail -->
+  <div class="term-detail" id="term-detail">
+    <div class="spread" style="flex-wrap:wrap;gap:8px">
+      <div><span class="display-md" id="td-name">mean</span><span class="pos" style="font-size:.875rem;color:var(--dv-ink-3);font-style:italic;margin-left:8px">noun</span></div>
+      <span class="chip chip-teal num">you met this · C1.2.1 · used 6 times since</span>
+    </div>
+    <p style="font-size:1.0625rem;line-height:1.65;margin:14px 0 0;max-width:60ch">The "fair-share" value you'd get if you shared everything equally: add all the values, divide by how many there are.</p>
+    <div class="ex">Four friends' lunch bills are 8, 9, 10, and 13. The mean is 10 — everyone pays their fair share, even though nobody actually paid exactly 10.</div>
+    <div class="row" style="flex-wrap:wrap">
+      <span class="chip">Introduced in <b>C1.2.1</b></span>
+      <span class="chip chip-outline">related: median · outlier · distribution</span>
+      <button class="btn btn-secondary btn-sm" onclick="go('tutor')" style="margin-left:auto">Ask Ada about this term</button>
+    </div>
+  </div>
+
+  <ul class="az" aria-label="Alphabetical index">
+    <li><a href="#" class="on">M</a></li><li><a href="#">A</a></li><li><a href="#">B</a></li><li><a href="#">C</a></li>
+    <li><a href="#">D</a></li><li><a href="#">F</a></li><li><a href="#">G</a></li><li><a href="#">H</a></li>
+    <li><a href="#">L</a></li><li><a href="#">N</a></li><li><a href="#">O</a></li><li><a href="#">P</a></li>
+    <li><a href="#">Q</a></li><li><a href="#">R</a></li><li><a href="#">S</a></li><li><a href="#">T</a></li>
+  </ul>
+
+  <div class="gloss-grid" id="gloss-grid">
+    <div class="term-card"><div class="tt">median</div><span class="pos">noun</span>
+      <p class="def">The middle value when everything is lined up in order — half above, half below.</p>
+      <div class="tf"><span class="met"><i></i>met</span><span>C1.2.1</span><span class="num">used 4×</span></div></div>
+    <div class="term-card"><div class="tt">merge</div><span class="pos">verb</span>
+      <p class="def">Combine two tables by matching rows on a shared column — the pandas twin of a SQL JOIN.</p>
+      <div class="tf"><span class="num">meets you in C4.2</span><span class="chip chip-outline" style="height:22px;font-size:.6875rem">preview now</span></div></div>
+    <div class="term-card"><div class="tt">model</div><span class="pos">noun</span>
+      <p class="def">A compressed, imperfect recipe learned from past data, used to guess at new data.</p>
+      <div class="tf"><span class="num">meets you in D1.1</span></div></div>
+    <div class="term-card"><div class="tt">missing value</div><span class="pos">noun</span>
+      <p class="def">A hole in your table — a cell that was never filled. pandas shows it as NaN ("not a number").</p>
+      <div class="tf"><span class="met"><i></i>met</span><span>C1.1.4</span><span class="num">used 9×</span></div></div>
+    <div class="term-card"><div class="tt">outlier</div><span class="pos">noun</span>
+      <p class="def">A value far from the pack — sometimes a typo, sometimes the whole story.</p>
+      <div class="tf"><span class="met"><i></i>met</span><span>C1.2.3</span><span class="num">used 3×</span></div></div>
+    <div class="term-card"><div class="tt">overfitting</div><span class="pos">noun</span>
+      <p class="def">When a model memorizes its practice data instead of learning the pattern — great in rehearsal, lost in the show.</p>
+      <div class="tf"><span class="num">meets you in D3.2</span></div></div>
+  </div>
+  <p class="caption" style="text-align:center;margin-top:24px">132 terms in v1 · every one with a plain-English definition and a micro-example.</p>
+</div>
+</section>
+
+<script>
+/* ================= Data: glossary term registry ================= */
+var TERMS = {
+  'mean': {pos:'noun', def:'The "fair-share" value you get by sharing everything equally: add all values, divide by how many there are.', ex:'Four lunch bills — 8, 9, 10, 13 — have a mean of 10: the fair-share bill.'},
+  'median': {pos:'noun', def:'The middle value when everything lines up in order — half the values above, half below.', ex:'Bills of 8, 9, 10, 13 have a median of 9.5; add a 200 and the median barely moves.'},
+  'stable-sort': {pos:'noun', def:'A sort that keeps tied rows in their original order — the promise that ties are never silently rewritten.', ex:'Two drinks tied at 212 units keep their week order after sorting by units.'},
+  'sort-order': {pos:'noun', def:'The arrangement of rows after sorting: smallest-first, biggest-first, or alphabetical — your choice, in writing.', ex:'sort_values("units") puts the smallest first unless you say otherwise.'},
+  'parse-dates': {pos:'verb', def:'Turning text that looks like a date ("2026-10-04") into a real date Python can order correctly.', ex:'pd.to_datetime("Oct 4") knows October comes after September; the text "Oct" does not.'},
+  'column': {pos:'noun', def:'A named, vertical slice of a table holding one kind of value for every row.', ex:'The "price" column holds one price per sale.'}
+};
+
+/* ================= Theme: light / system / dark ================= */
+var mq = window.matchMedia('(prefers-color-scheme: dark)');
+function applyTheme(mode){
+  var dark = mode === 'dark' || (mode === 'system' && mq.matches);
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  document.querySelectorAll('[data-theme-set]').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-theme-set') === mode ? 'true' : 'false'); });
+  try { localStorage.setItem('dv-theme', mode); } catch(e){}
+}
+document.querySelectorAll('[data-theme-set]').forEach(function(b){ b.addEventListener('click', function(){ applyTheme(b.getAttribute('data-theme-set')); }); });
+mq.addEventListener('change', function(){ var m = localStorage.getItem('dv-theme') || 'system'; if (m === 'system') applyTheme('system'); });
+applyTheme((function(){ try { return localStorage.getItem('dv-theme') || 'system'; } catch(e){ return 'system'; } })());
+
+/* ================= Screen router ================= */
+function go(name){
+  var el = document.getElementById('screen-' + name);
+  if (!el) return;
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('on'); });
+  el.classList.add('on');
+  document.querySelectorAll('.proto-pill').forEach(function(p){ p.setAttribute('aria-current', p.getAttribute('data-go') === name ? 'true' : 'false'); });
+  window.scrollTo({top:0, behavior:'auto'});
+  closeSheets();
+  animateRings(el);
+}
+document.querySelectorAll('.proto-pill').forEach(function(p){ p.addEventListener('click', function(){ go(p.getAttribute('data-go')); }); });
+
+/* ================= Rings animate on screen entry ================= */
+function animateRings(scope){
+  scope.querySelectorAll('.ring .rp, .bigring .rp').forEach(function(c){
+    var off = parseFloat(c.getAttribute('data-off'));
+    c.style.strokeDashoffset = c.getAttribute('stroke-dasharray');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ c.style.strokeDashoffset = off; }); });
+  });
+}
+
+/* ================= Brand glyph injection ================= */
+(function(){
+  var tpl = document.getElementById('glyph-tpl');
+  document.querySelectorAll('.glyph').forEach(function(g){
+    var c = tpl.content.cloneNode(true); var svg = c.querySelector('svg');
+    svg.setAttribute('width', g.classList.contains('brand-glyph') ? (g.style.width || 26) : 26);
+    svg.setAttribute('height', g.classList.contains('brand-glyph') ? (g.style.width || 26) : 26);
+    g.appendChild(c);
+  });
+})();
+
+/* ================= Term tooltips ================= */
+var tt = document.getElementById('tt'), ttTimer = null;
+function showTT(target){
+  var key = target.getAttribute('data-term'), t = TERMS[key];
+  if (!t) return;
+  tt.innerHTML = '<div class="t">' + key.replace(/-/g,' ') + ' <span class="pos">(' + t.pos + ')</span></div>'
+    + '<div class="d">' + t.def + '</div><div class="ex">' + t.ex + '</div><div class="ada">Hear it from Ada →</div>';
+  tt.classList.add('on');
+  var r = target.getBoundingClientRect(), w = Math.min(320, window.innerWidth - 24);
+  tt.style.width = '';
+  var x = Math.max(12, Math.min(window.innerWidth - w - 12, r.left + r.width/2 - w/2));
+  var y = r.bottom + 10;
+  if (y + 180 > window.innerHeight) y = r.top - 10 - Math.min(190, window.innerHeight - 24);
+  tt.style.left = x + 'px'; tt.style.top = y + 'px'; tt.style.maxWidth = w + 'px';
+}
+function hideTT(){ tt.classList.remove('on'); }
+document.addEventListener('mouseover', function(e){
+  var t = e.target.closest('.term'); if (t){ clearTimeout(ttTimer); ttTimer = setTimeout(function(){ showTT(t); }, 300); }
+  else { clearTimeout(ttTimer); ttTimer = setTimeout(hideTT, 200); }
+});
+document.addEventListener('focusin', function(e){ var t = e.target.closest('.term'); if (t) showTT(t); });
+document.addEventListener('focusout', hideTT);
+document.addEventListener('click', function(e){ var t = e.target.closest('.term'); if (t){ showTT(t); e.preventDefault(); } else hideTT(); });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') hideTT(); });
+
+/* ================= Home demo run ================= */
+function demoRun(btn){
+  btn.disabled = true; var old = btn.innerHTML;
+  btn.innerHTML = '<span class="spin"></span>Running…';
+  setTimeout(function(){
+    btn.innerHTML = '✓ Passed'; btn.style.background = 'var(--dv-teal-800)';
+    setTimeout(function(){ btn.disabled = false; btn.style.background = ''; btn.innerHTML = old; }, 2200);
+  }, 900);
+}
+
+/* ================= Fair-share beam widget ================= */
+(function(){
+  var r = document.getElementById('beam-range'); if (!r) return;
+  var meanDot = document.getElementById('beam-mean'), meanLab = document.getElementById('beam-mean-lab'),
+      valLab = document.getElementById('beam-val'), note = document.getElementById('beam-note');
+  function upd(){
+    var big = +r.value, others = [7,8,9,9,10,13].slice(0,5);
+    var vals = others.concat([big]);
+    var mean = vals.reduce(function(a,b){return a+b;},0) / vals.length;
+    var sorted = vals.slice().sort(function(a,b){return a-b;});
+    var median = (sorted[2] + sorted[3]) / 2;
+    var x = 20 + (big / 40) * 440;
+    meanDot.setAttribute('cx', x); meanLab.setAttribute('x', x);
+    meanLab.textContent = 'mean ' + mean.toFixed(1);
+    valLab.textContent = big;
+    note.textContent = big > 20
+      ? 'The mean is chasing your big sale — the median (' + median + ') still sits mid-pack.'
+      : 'Drag past 20 — the mean follows, the median doesn\u2019t budge.';
+  }
+  r.addEventListener('input', upd); upd();
+})();
+
+/* ================= Reader: options + hint ladder ================= */
+document.querySelectorAll('.exercise .opt, .qcard .qbody .opt').forEach(function(o){
+  o.addEventListener('click', function(){
+    var box = o.closest('.ex-body, .qbody'); if (!box || box.dataset.locked) return;
+    box.querySelectorAll('.opt').forEach(function(x){ x.classList.remove('sel'); });
+    o.classList.add('sel'); box.dataset.picked = o.dataset.ok ? '1' : '0';
+    var chk = document.getElementById('q-check'); if (chk && box.id !== 'exbox') chk.disabled = false;
+  });
+});
+document.querySelectorAll('.hint > button').forEach(function(b){
+  b.addEventListener('click', function(){
+    var h = b.parentElement; h.classList.toggle('open');
+    b.setAttribute('aria-expanded', h.classList.contains('open') ? 'true' : 'false');
+  });
+});
+function quizCheck(btn){
+  var box = document.getElementById('qcard').querySelector('.qbody');
+  if (!box.dataset.picked){ return; }
+  box.dataset.locked = '1';
+  var ok = box.dataset.picked === '1';
+  box.querySelectorAll('.opt').forEach(function(o){
+    if (o.dataset.ok){ o.classList.add('correct'); }
+    else if (o.classList.contains('sel')){ o.classList.add('incorrect'); }
+    else { o.classList.add('dim'); }
+  });
+  (ok ? document.getElementById('q-ok') : document.getElementById('q-no')).classList.add('show');
+  btn.textContent = ok ? 'Next question ▸' : 'Try the review plan ▸';
+  var ring = document.querySelector('#screen-quiz .bigring .rp');
+  if (ring){ ring.style.strokeDashoffset = ring.getAttribute('data-off'); }
+}
+/* Exercise feedback in reader (click option = immediate gentle feedback) */
+document.querySelectorAll('.exercise .opt').forEach(function(o){
+  o.addEventListener('click', function(){
+    setTimeout(function(){
+      if (!o.classList.contains('sel')) return;
+      var ok = o.dataset.ok === '1';
+      var body = o.closest('.ex-body');
+      body.querySelectorAll('.opt').forEach(function(x){ if (x !== o) x.classList.add('dim'); });
+      (ok ? document.getElementById('ex-ok') : document.getElementById('ex-no')).classList.add('show');
+      if (!ok) o.classList.add('incorrect'); else o.classList.add('correct');
+    }, 160);
+  });
+});
+
+/* ================= Lab: run / fix / reset ================= */
+var LAB_BUGGY = 'import pandas as pd\n\ndf = pd.read_csv("sales_2026.csv")\ndf["revenue"] = df["units"] * df["price"]\n\nmonthly = datta.groupby("month")["revenue"].sum()\nprint(monthly.sort_values(ascending=False))';
+var LAB_FIXED = LAB_BUGGY.replace('datta', 'df');
+function labRun(){
+  var btn = document.getElementById('lab-run'), out = document.getElementById('lab-console'),
+      code = document.getElementById('lab-code').value, coach = document.getElementById('lab-coach'),
+      ed = document.getElementById('lab-editor'), tests = document.querySelectorAll('#lab-tests .test');
+  if (btn.dataset.busy) return; btn.dataset.busy = '1';
+  var old = btn.innerHTML; btn.innerHTML = '<span class="spin"></span>Running…';
+  out.innerHTML = ''; coach.style.display = 'none'; ed.classList.remove('fail','pass');
+  tests.forEach(function(t){ t.classList.remove('pass','fail'); });
+  var lines = code.indexOf('datta') >= 0
+    ? ['<span class="err">NameError</span>: name \'datta\' is not defined', '<span class="mut">— line 5 of your code —</span>']
+    : ['<span class="mut">grouping 42,813 sales by month…</span>',
+       '<span class="ok">month</span>',
+       '<span class="ok">Nov   4,210.55</span>',
+       '<span class="ok">Dec   3,988.10</span>',
+       '<span class="ok">Oct   3,741.82</span>',
+       '<span class="mut">… 9 more rows</span>'];
+  var i = 0;
+  (function step(){
+    if (i < lines.length){
+      var ln = document.createElement('div'); ln.className = 'ln'; ln.innerHTML = lines[i++];
+      out.appendChild(ln); out.scrollTop = out.scrollHeight;
+      setTimeout(step, 120 + Math.random() * 160);
+    } else {
+      btn.innerHTML = old; btn.dataset.busy = '';
+      if (code.indexOf('datta') >= 0){
+        ed.classList.add('fail'); coach.style.display = 'block';
+        document.getElementById('lab-time').textContent = 'failed in 0.4 s';
+      } else {
+        ed.classList.add('pass');
+        document.getElementById('lab-time').textContent = 'ran in 0.42 s';
+        var n = 0;
+        tests.forEach(function(t, idx){ setTimeout(function(){ t.classList.add('pass'); }, 300 + idx * 240); });
+      }
+    }
+  })();
+}
+function applyFix(btn){
+  var code = document.getElementById('lab-code');
+  code.value = code.value.replace(/datta/g, 'df');
+  btn.textContent = '✓ Fixed datta → df';
+  setTimeout(function(){ btn.textContent = 'Apply the fix'; }, 2000);
+}
+document.addEventListener('DOMContentLoaded', function(){});
+(function(){
+  var reset = document.getElementById('lab-reset'), code = document.getElementById('lab-code');
+  if (reset) reset.addEventListener('click', function(){
+    code.value = LAB_BUGGY;
+    document.getElementById('lab-console').innerHTML = '<span class="ln mut">Reset — starter code restored. Your previous attempt is saved in history.</span>';
+    document.getElementById('lab-coach').style.display = 'none';
+    document.getElementById('lab-editor').classList.remove('fail','pass');
+    document.querySelectorAll('#lab-tests .test').forEach(function(t){ t.classList.remove('pass','fail'); });
+  });
+})();
+
+/* ================= Tutor demo send ================= */
+function tutorSend(){
+  var input = document.querySelector('.tutor-input input'); if (!input || !input.value.trim()) return;
+  var shell = document.querySelector('.tutor-shell');
+  var you = document.createElement('div'); you.className = 'msg you';
+  you.innerHTML = '<span class="av">M</span><div class="bd"><div class="who">You</div><div class="bubble"></div></div>';
+  you.querySelector('.bubble').textContent = input.value;
+  var sugg = document.querySelector('.sugg'); shell.insertBefore(you, sugg);
+  input.value = '';
+  setTimeout(function(){
+    var ada = document.createElement('div'); ada.className = 'msg ada';
+    ada.innerHTML = '<span class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z"/></svg></span>'
+      + '<div class="bd"><div class="who">Ada</div><div class="bubble"><p>(Prototype: this is where Ada\u2019s grounded, Socratic reply streams — she\u2019d answer with a question, never your solution.)</p></div></div>';
+    shell.insertBefore(ada, sugg);
+  }, 700);
+}
+document.querySelector('.tutor-input input') && document.querySelector('.tutor-input input').addEventListener('keydown', function(e){ if (e.key === 'Enter') tutorSend(); });
+
+/* ================= Glossary filter demo ================= */
+function filterTerms(q){
+  q = (q || '').toLowerCase();
+  document.querySelectorAll('#gloss-grid .term-card').forEach(function(c){
+    c.style.display = c.textContent.toLowerCase().indexOf(q) >= 0 ? '' : 'none';
+  });
+}
+
+/* ================= Mobile sheets (reader + lab) ================= */
+function openSheet(id, kind){
+  closeSheets();
+  var el = document.getElementById(id); if (!el) return;
+  el.classList.add('sheet');
+  var scrim = document.getElementById('scrim'); scrim.hidden = false;
+  requestAnimationFrame(function(){ scrim.classList.add('on'); });
+}
+function closeSheets(){
+  document.querySelectorAll('.sheet').forEach(function(s){ s.classList.remove('sheet'); });
+  var scrim = document.getElementById('scrim');
+  scrim.classList.remove('on'); setTimeout(function(){ scrim.hidden = true; }, 200);
+}
+document.getElementById('scrim').addEventListener('click', closeSheets);
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeSheets(); });
+
+/* ================= Init ================= */
+animateRings(document.getElementById('screen-home'));
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+# DataVerse Academy content manifest.
+# Standards version governs the section skeletons; bump it when the
+# canonical lesson structure changes (see docs/content/AUTHORING_GUIDE.md).
+version: 1
+standardsVersion: "1.0"
+contentRoot: content
+exercisePolicy:
+  minExercisesPerLesson: 3
+  minKnowledgeCheckPerLesson: 3
+  maxHints: 3
+  solutionsRequired: true
+verification:
+  runner: python3
+  timeoutMs: 10000

@@ -1,0 +1,88 @@
+terminology:
+  - term: variable
+    definition: "A name bound to a value in memory, created by assignment."
+    plainEnglish: "A labeled box in the computer's memory."
+  - term: assignment
+    definition: "The statement 'name = expression' that binds the name to a value."
+    plainEnglish: "Pointing a label at a value."
+  - term: expression
+    definition: "Code that evaluates to a single value."
+    plainEnglish: "A phrase that boils down to one result."
+exercises:
+  - id: ex-1
+    kind: concept-check
+    difficulty: EASY
+    title: "Spot the bug"
+    prompt: "Why does 'print(age)' fail before 'age = 25' runs? Explain in one sentence."
+    hints:
+      - "Ask what the interpreter has bound the name to at the moment of the call."
+    solutionSteps:
+      - "Names exist only after their first assignment executes."
+      - "The print call runs before that binding happens, so the name is unknown."
+    answer: "The name does not exist yet at the moment it is used."
+  - id: ex-2
+    kind: predict-output
+    difficulty: MEDIUM
+    title: "Predict the output"
+    prompt: "What does 'x = 2' followed by 'x = x * 3' print, if the program then prints x?"
+    hints:
+      - "The right side is evaluated before the re-binding."
+    solutionSteps:
+      - "The first line binds x to 2."
+      - "The second evaluates 2 * 3 = 6 and re-points x."
+    answer: "The program prints 6."
+  - id: ex-3
+    kind: write-code
+    difficulty: EASY
+    title: "Wrong on purpose"
+    prompt: "Print the sum of 2 and 2 using variables a and b."
+    starterCode: ""
+    solutionCode: |
+      a = 2
+      b = 2
+      print(a + b)
+    explanation: "The solution prints the sum computed from the two named values."
+    hints:
+      - "Create both variables first, then add them inside one print call."
+    testCases:
+      - name: prints the sum
+        expectedOutput: "5"
+knowledgeCheck:
+  - id: kc-1
+    prompt: "What does the single equals sign do?"
+    kind: MCQ
+    explanation: "Assignment binds the name to the evaluated value."
+    options:
+      - text: "It binds the name to a value."
+        correct: true
+        feedback: "Right — assignment is name-gets-value."
+      - text: "It checks equality."
+        correct: true
+        feedback: "Trick option on purpose: this fixture must trigger the two-correct-options rule."
+      - text: "It deletes the variable."
+        correct: false
+        feedback: "Deletion is a different operation entirely."
+  - id: kc-2
+    prompt: "Before assignment runs, what does a name refer to?"
+    kind: MCQ
+    explanation: "Nothing — the binding happens only when the assignment executes."
+    options:
+      - text: "Nothing — the name does not exist yet."
+        correct: true
+        feedback: "Correct, that is exactly what a NameError reports."
+      - text: "Zero."
+        correct: false
+        feedback: "Zero is a value; an unbound name has no value at all."
+  - id: kc-3
+    prompt: "True or false: 'x = x + 1' is circular and therefore an error."
+    kind: TRUE_FALSE
+    explanation: "The right side is evaluated first, so the line reads the old x before rebinding."
+    options:
+      - text: "True"
+        correct: false
+        feedback: "It looks circular but evaluation order makes it well-defined."
+      - text: "False"
+        correct: true
+        feedback: "Correct — read old value, add one, re-point the name."
+reviews: []
+changes: []

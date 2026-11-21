@@ -1,0 +1,277 @@
+---
+title: "Why NumPy Exists"
+archetype: library
+status: approved
+author: maya@dataverse.academy
+objectives:
+  - Explain what an ndarray is and how it differs from a Python list
+  - Install NumPy, import it with the conventional alias, and check the version
+  - Create arrays from lists, ranges and constant shapes
+  - Replace explicit Python loops with vectorized array expressions
+  - Predict the dtype and shape of a small array before running code
+prerequisites:
+  - ref: python/m1/c1/3
+    reason: "Arrays store values under names, and reading elementwise output requires comfort with variables and types."
+  - ref: python/m2/c1/1
+    reason: "You need to create, index and slice Python lists before comparing them with arrays."
+codeDemo:
+  include: true
+---
+
+## What you will learn
+
+- Say precisely what an **ndarray** is and why it beats a list for numeric work.
+- Install NumPy, import it as `np`, and verify the version you are running.
+- Build arrays from lists, ranges and zero-filled shapes.
+- Do math on whole arrays in one expression — **vectorization** — with no loops.
+- Predict an array's `dtype` and `shape` before running any code.
+- Read real benchmark numbers and know when arrays win, and when they lose.
+
+## Why this topic matters
+
+Every serious Python tool in data work stands on NumPy. The column of a pandas dataframe is an array underneath. The features a machine-learning model trains on are arrays. A photograph on your disk, once loaded, is an array of pixel intensities. Audio, sensor logs, neural-network weights — arrays all the way down. NumPy exists because plain Python lists are terrible at numeric bulk work: multiplying a million numbers with a Python loop means a million interpreter steps, while the same job on a NumPy array happens in one sweep of compiled machine code, and the difference is not a rounding error — it is often thirty-fold. Understanding what an array is, and *why* it is fast, turns every later library from a box of magic incantations into a set of deliberate engineering choices.
+
+## Prerequisites
+
+You should be comfortable creating variables and telling `int`, `float` and `str` apart (the lesson *Variables and Data Types*), and you should be able to build, index and slice a Python list (the lesson *Creating and Indexing Lists*). No mathematics beyond multiplication is needed here. If you have completed the Statistics school's first lesson, the closing worked example will feel like an old friend; if not, no harm — every statistic used is explained on the spot.
+
+## Installation and setup
+
+NumPy is a third-party library, so it must be installed once into your Python environment before you can import it:
+
+```console
+pip install numpy
+```
+
+Confirm the installation by importing it and printing the version — a habit that saves you from debugging the wrong machine's setup:
+
+```console
+python -c "import numpy; print(numpy.__version__)"
+```
+
+```text
+2.1.3
+```
+
+Almost every codebase in the world imports it with the two-letter alias, and this course follows that convention everywhere:
+
+```python
+import numpy as np
+```
+
+From here on, `np.` means "NumPy's version of this".
+
+## Everyday-life explanation
+
+Picture two ways to store five hundred numbers. The Python list way is a stack of five hundred sticky notes, each one saying a number, piled in a drawer: perfectly flexible, since any note can hold anything — a number, a word, another pile — but if you want to double every number, you must pick up each note, read it, double it, write a new note, and file it. Five hundred little jobs.
+
+The NumPy array way is an egg carton: a rigid tray with fixed-size slots, every slot exactly the same shape, all holding the same kind of egg, packed shoulder to shoulder. The rigidity is the whole trick. Because every slot is identical and adjacent, "double everything" is not five hundred jobs — it is one instruction to the factory, and the machine sweeps down the whole tray in a single pass. You give up the flexibility of mixed contents; you gain a machine that treats your data as one object instead of five hundred.
+
+## Conceptual explanation
+
+An ndarray — "n-dimensional array" — is a block of memory holding values that are all the **same type** (the dtype), arranged in a fixed **shape** you can inspect. That homogeneity is not a limitation bolted on for speed; it is the enabling decision. If every element occupies the same number of bytes, then element number 837 of a row lives at a computable offset from the start — no pointer-chasing, no per-element bookkeeping, and the whole block streams through the processor's cache in order.
+
+**Vectorization** is the second half of the design. When you write `arr * 2`, you are not launching a Python loop; you are handing the whole operation to one compiled C routine that walks the memory block once. The loop still exists — but it is a single machine-code loop, not a Python loop interpreting five million bytecodes. This is why the list-versus-array benchmark later in this lesson shows a factor of roughly thirty on a few million values: same answer, radically different machinery.
+
+A fair warning completes the picture: the flexibility you give up is real. Lists can hold mixed types and grow one element at a time; arrays cannot without a full copy. For a dozen values, the setup overhead of an array can even make it slower than a list. NumPy wins when data is numeric, sizable, and operated on in bulk — which is precisely the shape of data work, and precisely why it is the foundation everything else builds on.
+
+## Formal definition
+
+An *ndarray* is a multidimensional, **homogeneous** array of fixed-size elements: its `dtype` fixes each element's size and interpretation, its `shape` is a tuple of dimension lengths, and its data occupies one contiguous memory block. A *vectorized operation* is an operation applied to whole arrays, executed as a single compiled loop over that block rather than an interpreted Python loop over elements.
+
+## Important terminology
+
+An **ndarray** is NumPy's array object — the rigid, same-type tray from the analogy. **Homogeneous** means every element shares one type, the ndarray's non-negotiable design rule. The **dtype** is that shared type's precise description, such as `float64` (a 64-bit decimal number). The **shape** is the array's dimensionality as a tuple, like `(5,)` for five values in a row or `(3, 2)` for a small grid. And **vectorization** is the act of writing whole-array expressions — `arr * 2` — that execute as one compiled sweep, replacing the loops you would otherwise write by hand.
+
+## Step-by-step explanation
+
+Making your first array takes four small steps, each worth doing deliberately once:
+
+1. **Import the library by its convention.** `import numpy as np` — the alias is the community standard and every example in this course assumes it.
+2. **Create an array from a list.** Call `np.array` with a plain Python list: `arr = np.array([18.5, 19.0, 21.2, 22.8, 25.5])`. NumPy reads the list once and copies the values into one contiguous block.
+3. **Inspect what you built.** `arr.shape` reports the dimensions — here `(5,)` — and `arr.dtype` reports the element type — here `float64`, because decimal numbers were stored. These two attributes tell you what operations will make sense before you attempt them.
+4. **Compute on the whole tray.** `fahrenheit = arr * 9 / 5 + 32` converts every temperature in one expression. No loop, no index variable, no accumulator — the multiplication, division and addition each sweep the whole array once.
+
+Notice what step 4 replaced. In pure Python you would write `fahrenheit = [t * 9 / 5 + 32 for t in temperatures]` — five interpreter jobs for five values. The array version is one instruction for one tray, and the performance section shows what that scaling means with five million values.
+
+## Visual explanation
+
+The memory picture explains the speed difference better than any benchmark. A Python list stores pointers to scattered objects; an array packs the values themselves shoulder to shoulder:
+
+```text
+Python list: five separate objects, found by following pointers
+  [ ptr ] → 18.5    [ ptr ] → 19.0    [ ptr ] → 21.2   [ ptr ] → 22.8   [ ptr ] → 25.5
+
+ndarray: one contiguous block, positions computable by arithmetic
+  [ 18.5 | 19.0 | 21.2 | 22.8 | 25.5 ]     dtype = float64, shape = (5,)
+    +0      +8     +16     +24     +32      (byte offsets, computable: 8 × index)
+```
+
+And the two objects' personalities side by side:
+
+```text
+                      Python list          ndarray
+element types          anything mixed        one shared dtype
+grow/shrink            append in place       new array (full copy)
+math on contents       loop per element      one vectorized sweep
+memory per element     pointer + object      just the value
+best at                flexible collections  numeric bulk work
+```
+
+## Worked examples
+
+### Example 1 — five temperatures, one expression
+
+Statement: convert five morning temperatures — 18.5, 19.0, 21.2, 22.8, 25.5 °C — to Fahrenheit using an array, and verify one value by hand. Steps: create the array from a list; inspect `shape` and `dtype`; apply the conversion `arr * 9 / 5 + 32` as one expression; hand-check the first element: 18.5 × 9 ÷ 5 + 32 = 65.3. Answer and check:
+
+```python
+import numpy as np
+
+temperatures = [18.5, 19.0, 21.2, 22.8, 25.5]
+arr = np.array(temperatures)
+print(arr)
+print(arr.shape, arr.dtype)
+print(arr * 9 / 5 + 32)
+```
+
+```text
+[18.5 19.  21.2 22.8 25.5]
+(5,) float64
+[65.3  66.2  70.16 73.04 77.9 ]
+```
+
+The hand calculation 65.3 matches the array's first element exactly, and the array kept one decimal too many only where the arithmetic genuinely produces it (70.16). This is vectorization: five conversions, one expression, zero loops.
+
+### Example 2 — a real dataset, three lines of code
+
+Statement: load the sepal-length column of Fisher's famous iris dataset — 150 real flower measurements, used by every data textbook since 1936 — and summarize it. Steps: read the CSV file's first column with `np.genfromtxt`, skipping the header row; inspect the shape; compute the mean, minimum and maximum in three calls. Answer and check:
+
+```python
+import numpy as np
+
+sepal = np.genfromtxt("assets/iris.csv", delimiter=",", skip_header=1, usecols=(0,))
+print("shape:", sepal.shape)
+print("mean:", np.mean(sepal), "min:", np.min(sepal), "max:", np.max(sepal))
+```
+
+```text
+shape: (150,)
+mean: 5.843333333333334 min: 4.3 max: 7.9
+```
+
+The check: 150 rows of data produced a shape of `(150,)`, the values sit plausibly between 4.3 and 7.9 centimeters (real iris flowers), and the mean lands between those extremes. One line turned a file on disk into an array that every tool in this academy can consume — and in the Statistics school you will meet these very numbers again from the other side of the curriculum.
+
+## Code demonstration
+
+Lists and arrays answer the same symbols with different behavior — watch `* 2` do two opposite things:
+
+```python
+import numpy as np
+
+plain = [1, 2, 3]
+arr = np.array([1, 2, 3])
+print(plain * 2)
+print(arr * 2)
+```
+
+```text
+[1, 2, 3, 1, 2, 3]
+[2 4 6]
+```
+
+The list repeated itself (sequence repetition); the array multiplied every element (vectorized arithmetic). Neither is wrong — they are different objects with different rules, and mixing up those rules is the most common NumPy bug. Next, two constructors you will use weekly — `np.arange` for evenly spaced ranges and `np.zeros` for blank slates of any size:
+
+```python
+import numpy as np
+
+print(np.arange(150, 165, 5))
+print(np.zeros(3))
+```
+
+```text
+[150 155 160]
+[0. 0. 0.]
+```
+
+`np.arange(150, 165, 5)` starts at 150, steps by 5, and stops *before* 165 — the same exclusive-end convention as `range`. Note also that `np.zeros(3)` produced decimal zeros (`0.`), not integers: its default dtype is `float64`, a deliberate NumPy choice worth remembering.
+
+## API reference
+
+The functions and attributes this lesson depends on, in one table:
+
+| Signature | Parameters | Returns | What it does |
+|---|---|---|---|
+| `np.array(object)` | `object`: any list (or nested lists) of numbers | ndarray | Copies the values into a new contiguous array, inferring the dtype |
+| `np.arange(start, stop, step)` | start (inclusive), stop (exclusive), step | ndarray | Evenly spaced values from start up to but not including stop |
+| `np.zeros(shape)` | `shape`: an int or tuple of ints | ndarray | An array of the given shape filled with `0.0` (`float64`) |
+| `np.genfromtxt(fname, delimiter, skip_header, usecols)` | file path, column separator, header lines to skip, column indices to read | ndarray | Reads text files into arrays, handling headers and missing values |
+| `np.mean(a)` / `np.min(a)` / `np.max(a)` | an array | a scalar | The mean, minimum or maximum over the whole array |
+| `arr.shape` / `arr.dtype` | — | tuple / dtype object | The array's dimensions and its shared element type |
+
+Every row above is demonstrated in this lesson's own code, and every output you saw was produced by running that code — the validator re-runs all of it on every review.
+
+## Comparisons with alternatives
+
+The honest comparison for numeric work: a plain Python list stores pointers to separate objects, so every operation must visit each object separately through the interpreter; an ndarray stores the values themselves in one block, so operations run as one compiled sweep. Lists win when the collection is small, the contents are mixed types, or the structure grows incrementally — a shopping cart is a list, not an array. Arrays win when the data is numeric, fixed in size, and computed on in bulk — measurements, features, images.
+
+Above NumPy sit two tools this academy teaches later: pandas, whose dataframe is a table of labeled columns built *on* arrays — you reach for it when rows have names and types differ per column; and Polars, a faster dataframe engine for very large data. The rule of thumb that survives every project: use lists for flexible everyday collections, arrays for numeric bulk work, dataframes when the arrays acquire labels and tables acquire mixed types.
+
+## Performance considerations
+
+Real measurements, from the machine where this lesson was verified (Python 3.12.16, NumPy 2.1.3) — your absolute numbers will differ; the ratio is the story. Transforming five million values with `y = x * 2 + 1`:
+
+```text
+list comprehension  [x * 2 + 1 for x in values]   392.6 ms
+ndarray             arr * 2 + 1                    12.3 ms   → about 32× faster
+
+builtin sum(values)                               60.6 ms
+np.sum(arr)                                        2.7 ms   → about 22× faster
+```
+
+Two honest footnotes. First, tiny arrays can flip the result: with a handful of elements, the fixed cost of creating an array can exceed the loop it replaces, so measure before micro-optimizing. Second, `np.sum` and Python's `sum` may differ in the last decimal digits on the same values — they add the numbers in a different order, and floating-point addition is not associative; NumPy's pairwise summation is usually the *more* accurate one. When two methods disagree in the fifteenth digit, trust the design, not the coincidence.
+
+## Common mistakes
+
+1. **Expecting list semantics.** Multiplying a list by 2 repeats it; multiplying an array by 2 scales every element — as the code demonstration showed. When output suddenly doubles in length instead of in value, you have a list where you meant to have an array. The fix: wrap data in `np.array` before computing, and read the printed brackets — `[2 4 6]` (no commas) is an array, `[1, 2, 3]` is a list.
+
+2. **Mixing types and watching them vanish.** `np.array([1, 2, "three"])` does not fail — worse, it silently converts everything to text, as the dtype printout reveals (read the code below as "Unicode strings of up to 21 characters" — NumPy's shorthand for what your numbers just became). Your numbers are now strings, and arithmetic on them fails later, far from the actual mistake. The fix: keep numeric arrays numeric; check `.dtype` right after creation when unsure.
+
+```python
+import numpy as np
+
+mixed = np.array([1, 2, "three"])
+print(mixed.dtype)
+```
+
+```text
+<U21
+```
+
+3. **Forgetting the alias.** `import numpy` then calling `np.array` crashes with a `NameError`, because the alias exists only if you imported it: `import numpy as np`. Every file, same two letters, no exceptions in this course.
+
+## Practical applications
+
+In day-to-day data work, arrays are the interchange format of the entire ecosystem. A pandas dataframe you will meet in this academy's pandas subject stores each column as an ndarray, so every column operation is the vectorized sweep you learned here. Machine-learning libraries consume `fit(X, y)` where X is a 2-D array of features — one row per observation, one column per measurement — and return their models' coefficients as arrays too. Image processing loads a photograph as a 3-D array: rows × columns × color channels, integers from 0 to 255. Sensor pipelines buffer thousands of readings per second into arrays because per-reading Python objects would drown the garbage collector. And every benchmark that makes "Python is slow for data" true or false is, in the end, a story about whether the data lives in lists or in arrays.
+
+## Key takeaways
+
+- An **ndarray** is a homogeneous, contiguous block of one-type values with a `shape` and a `dtype` — a rigid tray, not a pile of sticky notes.
+- **Homogeneous** elements are the design decision that makes positions computable and memory cache-friendly.
+- **Vectorization** means whole-array expressions run as one compiled sweep — no Python loops.
+- Same symbol, different object: `[1, 2, 3] * 2` repeats; `np.array([1, 2, 3]) * 2` scales.
+- Real measurements on five million values: arrays beat lists by roughly 22–32× on this machine; tiny arrays can lose.
+- `np.array`, `np.arange`, `np.zeros` and `np.genfromtxt` create arrays; `.shape` and `.dtype` tell you what you are holding.
+
+## Practice exercises
+
+The panel below holds four exercises for this lesson. The concept check pins the array-versus-list distinction in your own words; the prediction exercise asks you to forecast exact output before running anything; and the two coding exercises have you build arrays with `np.arange` and `np.zeros` and then compute on whole arrays with no loops. Solutions are fully worked — but commit to your own answer first, because the worked solution only teaches when it can surprise you.
+
+## Knowledge check
+
+Four questions, each with feedback on every option — the wrong answers encode real beginner beliefs. Answer from memory first; the lesson above contains every fact you need, and the feedback will point you back to the right section when a belief does not hold.
+
+## Further reading
+
+- [NumPy — the absolute basics for beginners](https://numpy.org/doc/stable/user/absolute_beginners.html) — the official first guide, covering exactly this lesson's ground from the maintainers' keyboard.
+- [NumPy quickstart](https://numpy.org/doc/stable/user/quickstart.html) — the canonical reference for array creation, dtypes and basic operations.
+- [From Python to NumPy, by Nicolas Rougier](https://www.labri.fr/perso/nrougier/from-python-to-numpy/) — a free book by a NumPy core developer on *why* arrays are designed the way they are, for when this lesson leaves you curious.

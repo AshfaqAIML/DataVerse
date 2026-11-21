@@ -1,0 +1,186 @@
+# Lesson data for "Why NumPy Exists" — structured practice,
+# assessment and editorial records. The narrative lives in lesson.mdx.
+terminology:
+  - term: ndarray
+    definition: "NumPy's array object: a multidimensional, homogeneous block of values with a shape and a dtype."
+    plainEnglish: "The rigid egg carton that packs values shoulder to shoulder."
+  - term: homogeneous
+    definition: "Made of elements that all share one type — the ndarray's non-negotiable design rule."
+    plainEnglish: "All the same kind of thing, so the machine can find any element by arithmetic."
+  - term: dtype
+    definition: "The data-type object describing an array's element type and size, such as float64 for 64-bit decimals."
+    plainEnglish: "The one kind of content the tray accepts, down to the last bit."
+  - term: shape
+    definition: "A tuple giving the length of each dimension of an array, such as (5,) or (3, 2)."
+    plainEnglish: "The tray's measurements — how many slots, in which arrangement."
+  - term: vectorization
+    definition: "Applying one operation to a whole array so it executes as a single compiled loop over the memory block."
+    plainEnglish: "One instruction to the factory instead of five hundred little jobs."
+  - term: ufunc
+    definition: "A NumPy universal function: a function that maps elementwise over arrays as one compiled sweep."
+    plainEnglish: "A machine that processes the whole tray in one pass."
+exercises:
+  - id: ex-1-carton-versus-notes
+    kind: concept-check
+    difficulty: EASY
+    title: "Carton versus sticky notes"
+    prompt: "In your own words, explain two things a Python list can do that an ndarray cannot, and the one design decision that buys arrays their speed in exchange."
+    hints:
+      - "Think about what a list can hold per element, and what happens when you append one more."
+      - "The speed comes from every slot being identical — what does that let the machine compute?"
+    solutionSteps:
+      - "A list can hold mixed types per element and can grow with append; an array is homogeneous and needs a full copy to grow."
+      - "Homogeneity makes every element's byte position computable as an offset, so operations run as one compiled sweep over contiguous memory."
+      - "The trade is flexibility for machinery: give up mixed contents and cheap growth, gain vectorized speed."
+    answer: "Lists mix types and grow cheaply; arrays give up both to gain one-type contiguous memory that machines can sweep in a single compiled loop."
+  - id: ex-2-predict-the-print
+    kind: predict-output
+    difficulty: MEDIUM
+    title: "Predict the print"
+    prompt: "Without running anything, write down exactly what this program prints: 'import numpy as np' / 'a = np.arange(4, 12, 3)' / 'print(a)' / 'print(a.shape, a.dtype)'. Then say why the last element is what it is."
+    hints:
+      - "np.arange starts at the first number, steps by the third, and stops before the second."
+      - "Integers in, so the dtype is NumPy's default integer type."
+    solutionSteps:
+      - "Start at 4, add 3 each time: 4, 7, 10. The next candidate, 13, is past the exclusive stop 12, so it is excluded."
+      - "Three integer elements print space-separated in array brackets: [4 7 10]."
+      - "Shape is (3,) — one dimension of length 3 — and the dtype is the default integer type int64 on this platform."
+    answer: "[4 7 10] and then (3,) int64 — the 13 never makes it because the stop is exclusive."
+  - id: ex-3-build-with-arange-and-zeros
+    kind: write-code
+    difficulty: EASY
+    title: "Build with arange and zeros"
+    prompt: "Create an array of even numbers from 100 up to but not including 110 using np.arange, and an array of four zeros using np.zeros. Print both on one line each."
+    hints:
+      - "Even numbers from 100: start at 100, step by 2, stop at 110."
+      - "np.zeros takes the count: np.zeros(4)."
+    starterCode: |
+      import numpy as np
+
+      # 1) even numbers 100, 102, ... up to but not including 110
+
+      # 2) an array of four zeros
+
+    solutionCode: |
+      import numpy as np
+
+      evens = np.arange(100, 110, 2)
+      zeros = np.zeros(4)
+      print(evens)
+      print(zeros)
+    explanation: "arange's exclusive stop means (100, 110, 2) produces exactly the five even numbers 100 through 108, and np.zeros(4) gives four float64 zeros — its default dtype."
+    testCases:
+      - name: prints the arange result then the zeros
+        expectedOutput: |
+          [100 102 104 106 108]
+          [0. 0. 0. 0.]
+  - id: ex-4-convert-a-week
+    kind: write-code
+    difficulty: MEDIUM
+    title: "Convert a week of temperatures"
+    prompt: "Seven daily high temperatures in Celsius are 21.5, 22.0, 23.8, 25.1, 24.6, 20.9, 19.4. Build one ndarray and print the whole week converted to Fahrenheit in a single vectorized expression — no loops, no list comprehensions."
+    hints:
+      - "The conversion is F = C * 9 / 5 + 32 — apply it to the whole array at once."
+      - "One print call on the converted array is enough."
+    starterCode: |
+      import numpy as np
+
+      celsius = np.array([21.5, 22.0, 23.8, 25.1, 24.6, 20.9, 19.4])
+      # convert the whole week to Fahrenheit and print it
+
+    solutionCode: |
+      import numpy as np
+
+      celsius = np.array([21.5, 22.0, 23.8, 25.1, 24.6, 20.9, 19.4])
+      fahrenheit = celsius * 9 / 5 + 32
+      print(fahrenheit)
+    explanation: "The conversion applies to the whole array in one expression: each arithmetic operator sweeps the block once, which is vectorization replacing the loop you did not have to write."
+    testCases:
+      - name: prints seven converted temperatures
+        expectedOutput: "[70.7  71.6  74.84 77.18 76.28 69.62 66.92]"
+knowledgeCheck:
+  - id: kc-1-star-of-two
+    prompt: "What does 'np.array([1, 2, 3]) * 2' evaluate to?"
+    kind: MCQ
+    explanation: "Multiplication on an array is a vectorized operation: it scales every element. Only sequences (lists, strings) repeat when multiplied by an integer."
+    options:
+      - text: "[2 4 6]"
+        correct: true
+        feedback: "Correct — the array doubled every element in one compiled sweep."
+      - text: "[1, 2, 3, 1, 2, 3]"
+        correct: false
+        feedback: "That is the list's behavior — sequence repetition. The array version did arithmetic instead."
+      - text: "6"
+        correct: false
+        feedback: "That would be a sum-like shortcut; '*' on arrays is elementwise multiplication, not reduction."
+      - text: "An error: you cannot multiply an array"
+        correct: false
+        feedback: "Elementwise arithmetic is precisely what arrays are built for."
+  - id: kc-2-homogeneous-meaning
+    prompt: "An ndarray is homogeneous. What does that mean?"
+    kind: MCQ
+    explanation: "Homogeneous means every element shares one dtype — the design rule that makes element positions computable by byte arithmetic and enables the compiled sweep."
+    options:
+      - text: "Every element has the same type"
+        correct: true
+        feedback: "Yes — one dtype for the whole block, which is what the machine exploits."
+      - text: "All elements have equal values"
+        correct: false
+        feedback: "Values can be anything; sameness lives in the type, not the numbers."
+      - text: "The array cannot change shape"
+        correct: false
+        feedback: "Shapes can be reshaped without changing the data; homogeneity is about types."
+      - text: "Every array is one-dimensional"
+        correct: false
+        feedback: "Arrays happily hold grids and cubes — the n in ndarray means n dimensions."
+  - id: kc-3-mixed-types
+    prompt: "What does 'np.array([1, 2, \"three\"])' produce?"
+    kind: MCQ
+    explanation: "Homogeneity forces NumPy to reconcile the types: integers and strings meet in the lowest common denominator, so all three elements become text with dtype like '<U21'."
+    options:
+      - text: "An array of strings, dtype '<U21'"
+        correct: true
+        feedback: "Correct — and a warning to check dtype right after creation, before the numbers are needed."
+      - text: "An error: mixed types are not allowed"
+        correct: false
+        feedback: "NumPy does not refuse; it silently upcasts, which is sneakier than an error."
+      - text: "An object array holding int, int and str"
+        correct: false
+        feedback: "That happens only when NumPy truly cannot reconcile — here it can, by making everything text."
+      - text: "The integers are dropped"
+        correct: false
+        feedback: "Nothing is lost; it is converted — 1 becomes the string '1'."
+  - id: kc-4-when-arrays-lose
+    prompt: "True or false: for a handful of values (say, five numbers), a NumPy array is guaranteed to be faster than a Python list."
+    kind: TRUE_FALSE
+    explanation: "Array creation has fixed overhead; with few elements that overhead can exceed the tiny loop it replaces. The performance section's 22–32× wins are bulk phenomena."
+    options:
+      - text: "True"
+        correct: false
+        feedback: "This is the over-generalized version of a real fact — arrays win on bulk, not on tiny data."
+      - text: "False"
+        correct: true
+        feedback: "Correct — measure before optimizing: small collections can be faster as plain lists."
+verification:
+  python: "3.12.16"
+  libraries:
+    numpy: "2.1.3"
+  verifiedAt: "2026-11-13"
+  how: "bun run content:validate (executes every python fence and solution; iris.csv checksummed at review)"
+reviews:
+  - role: peer-reviewer
+    reviewer: alex@dataverse.academy
+    date: 2026-11-12
+    verdict: approve
+    notes: "Exemplar record: read end-to-end as the target learner — the egg-carton picture and the list/array star-of-two contrast are the two moments that make ndarray click."
+  - role: technical-reviewer
+    reviewer: alex@dataverse.academy
+    date: 2026-11-13
+    verdict: approve
+    notes: "Exemplar record: every code block executed against NumPy 2.1.3; benchmark numbers are real measurements from this machine, reproduced twice; iris.csv is the authentic 150-row Fisher dataset."
+  - role: instructional-designer
+    reviewer: sam@dataverse.academy
+    date: 2026-11-13
+    verdict: approve
+    notes: "Exemplar record: all 21 library-profile sections present in order; installation taught once at subject entry; API table matches the demonstrated calls; exercise ladder concept, predict, write, write."
+changes: []

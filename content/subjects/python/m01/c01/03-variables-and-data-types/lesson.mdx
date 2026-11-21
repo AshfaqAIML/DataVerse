@@ -1,0 +1,257 @@
+---
+title: "Variables and Data Types"
+archetype: programming
+status: approved
+author: maya@dataverse.academy
+objectives:
+  - Explain what a variable is using your own words
+  - Create variables with assignment and use them in later lines
+  - Re-assign a variable and predict what other names hold afterwards
+  - Distinguish the int, float and str types and check a value's type with type()
+  - Read and fix a NameError caused by using a name before it exists
+prerequisites:
+  - ref: python/m1/c1/1
+    reason: "You need to know how the interpreter executes your lines one by one before you can trace what assignment does."
+  - ref: python/m1/c1/2
+    reason: "You should already have run a small script and met a syntax error, so error messages are not new."
+codeDemo:
+  include: true
+---
+
+## What you will learn
+
+- Store values in **variables** and use them later by name.
+- Re-assign a variable and predict exactly what other names hold afterwards.
+- Tell apart the three everyday types: `int` for whole numbers, `float` for decimals, `str` for text.
+- Ask any value what type it is with `type()`.
+- Read a `NameError` crash report and fix the bug it points at.
+
+## Why this topic matters
+
+Every program you will ever write has to remember things. A data script remembers the filename it loaded, a game remembers the score, a dashboard remembers the totals it just computed. In Python, the way a program remembers is a variable, and the way it knows what it can do with a remembered value is the value's **type**. If you can hold values and trust what they are, you can build everything else in this course on top of that skill. If you cannot, every later topic — lists, functions, dataframes — will feel like guesswork. This lesson is the load-bearing wall of the whole subject.
+
+## Prerequisites
+
+Before this lesson you should have completed *How Python Runs Your Code*, so you know that the interpreter executes your lines from top to bottom, and *Your First Programs*, so you have run a script yourself and seen a syntax error. That is all you need — this lesson assumes no mathematics beyond multiplication and no programming beyond those two lessons.
+
+## Everyday-life explanation
+
+Think of a kitchen shelf of labeled jars. You put flour in the jar labeled "flour" and sugar in the jar labeled "sugar". Later, when a recipe says "add the flour", you reach for the jar by its label, not by digging through every container. The label tells you where the contents live; the contents are what you actually use.
+
+Notice two things about this arrangement. The label is not the contents — a jar labeled "flour" could hold anything until you fill it. And relabeling does not touch other jars: if you pour the flour jar's contents into a cake mix, the sugar jar does not mysteriously empty itself. Variables work exactly this way. A variable is a label you attach to a value so the rest of your program can find and use that value by name.
+
+## Conceptual explanation
+
+In Python, a variable is a **name that refers to a value**. You create the connection with an assignment statement: the name goes on the left of a single equals sign, and a value goes on the right. When assignment runs, Python does two things in a fixed order: first it evaluates the right-hand side down to a single value, and only then does it bind the name to that value. This order explains a line like `score = score + 2`, which would otherwise look absurd: Python reads the old score, adds 2, and re-points the name at the new result.
+
+The second idea is that names are labels, not boxes. Two names can point at the same value, and re-pointing one of them later does not drag the other along. `a = 5` followed by `b = a` gives you two names for 5; when you later write `a = 7`, only `a` moves — `b` still refers to 5. Beginners often picture a variable as a box that other variables reach into; the truth is friendlier, and the *Visual explanation* section below shows it with a diagram.
+
+The third idea is the **type**. Every value carries a type that says what operations make sense on it: whole numbers are `int`, decimals are `float`, and text is `str`. You can always ask a value its type with `type(value)`. Crucially, in Python the *value* has the type, not the name. A name can refer to a number at breakfast and to text at lunch, because the name is just a label that gets re-pointed. That freedom is called dynamic typing, and it is why checking types with `type()` when you are unsure is a habit worth forming now.
+
+## Syntax
+
+The assignment statement always has this shape:
+
+```text
+name = expression
+```
+
+Read the single `=` as "gets" or "is bound to" — never as "equals". The name must be a legal **identifier**: it starts with a letter or underscore, continues with letters, digits or underscores, cannot contain spaces, and cannot be one of Python's reserved keywords like `if`, `for` or `class`. Names are case-sensitive, so a name like `Age` and a name like `age` are two entirely different labels.
+
+## Formal definition
+
+Formally: an *assignment statement* binds an identifier in the current namespace to an object, after evaluating the right-hand expression to that object. An *identifier* is a maximal sequence of letters, digits and underscores beginning with a letter or underscore, subject to the reserved keywords listed in `keyword.kwlist`; identifier matching is case-sensitive. An object's *type* determines its representation and the set of operations it supports, and a name itself carries no type — types belong to values.
+
+## Important terminology
+
+A **variable** is a name bound to a value in memory. The **assignment** is the statement `name = value` that creates or re-points that binding. An **identifier** is the legal character sequence a name must be. A **type** such as `int`, `float` or `str` describes what a value is and which operations work on it. An **expression** is any code that boils down to a single value, which is why `3 * 4` is allowed on the right of `=`. And a **traceback** is Python's crash report, which you will meet on friendly terms in the debugging exercise.
+
+## Step-by-step explanation
+
+Let's execute this program one line at a time, exactly as the interpreter does:
+
+```python
+quantity = 3
+price = 19.5
+total = quantity * price
+print("Total:", total)
+```
+
+```text
+Total: 58.5
+```
+
+1. `quantity = 3` — Python evaluates the right side, `3`, which is already the value 3 (an `int`). It binds the name `quantity` to that value.
+2. `price = 19.5` — same ritual: the value is `19.5` (a `float`), and the name `price` now refers to it.
+3. `total = quantity * price` — the right side is an *expression*, so Python looks up both names, multiplies 3 by 19.5 and gets 58.5. Only now does the name `total` get bound to 58.5.
+4. `print("Total:", total)` — looks up `total`, prints the label and the value.
+5. Notice what did not happen: nothing was copied between `quantity` and `price`. Assignment never touches other names.
+6. Notice the order: right side first, binding second. If `total` had appeared on the right before it was ever assigned, line 3 would crash with a `NameError` — you will dissect one soon.
+
+## Visual explanation
+
+The picture to keep in your head — names are arrows pointing at values, and re-assignment moves one arrow without touching the others:
+
+```text
+after a = 5        after b = a        after a = 7
+name   value       name   value       name   value
+ a ──▶  5           a ──▶  5           a ──▶  7
+                     b ──▶  5           b ──▶  5
+```
+
+And the trace table for the shopping example, one row per executed line:
+
+```text
+line executed            what the interpreter does            what names exist
+quantity = 3             bind quantity -> 3                   quantity
+price = 19.5             bind price -> 19.5                   quantity, price
+total = quantity * price evaluate 3 * 19.5 = 58.5, bind total quantity, price, total
+print("Total:", total)   look up total, print                (unchanged)
+```
+
+## Worked examples
+
+### Example 1 — Store, use, and check the type
+
+Statement: store a friend's age and name, print a sentence with both, then print their types. Steps: bind `age` to the whole number 25; bind `name` to the text `"Priya"`; combine them in a `print()` call; wrap each value in `type()` and print the results. Answer and check:
+
+```python
+age = 25
+name = "Priya"
+print(name, "is", age, "years old")
+print(type(age), type(name))
+```
+
+```text
+Priya is 25 years old
+<class 'int'> <class 'str'>
+```
+
+The check: the sentence reads correctly, and the types match what we stored — whole number and text, exactly as planned.
+
+### Example 2 — Re-assignment moves one label, not the data
+
+Statement: prove that after `b = a`, changing `a` leaves `b` alone. Steps: bind `a` to 5; bind `b` to whatever `a` refers to; re-bind `a` to 7; print both. Answer and check:
+
+```python
+a = 5
+b = a
+a = 7
+print("a =", a)
+print("b =", b)
+```
+
+```text
+a = 7
+b = 5
+```
+
+The check: `a` is 7 and `b` still 5, which is only possible because `b = a` copied the *arrow*, not the jar. If variables were boxes that shared contents, both prints would show 7 — they do not.
+
+## Code demonstration
+
+A morning-to-afternoon temperature log, with the value's type checked before and after a re-assignment:
+
+```python
+temperature = 21.5
+print("morning reading:", temperature)
+print(type(temperature))
+```
+
+```text
+morning reading: 21.5
+<class 'float'>
+```
+
+```python
+temperature = 26.0
+print("afternoon reading:", temperature)
+print(type(temperature))
+```
+
+```text
+afternoon reading: 26.0
+<class 'float'>
+```
+
+The name `temperature` referred to two different `float` values at two different moments. Nothing was "declared" in advance — the second assignment simply re-pointed the name, and the value it left behind gets swept up by Python's memory management. This is the pattern every running program uses to update state: read, compute, re-bind.
+
+One more demonstration, this time with text becoming a number when a calculation needs one. Note that `"3"` and `3` are different types, and converting between them is explicit:
+
+```python
+answer = "42"
+number = int(answer)
+print(number + 1)
+print(type(answer), type(number))
+```
+
+```text
+43
+<class 'str'> <class 'int'>
+```
+
+## Common mistakes
+
+1. **Using a name before it exists.** The line `print(total_price)` crashes if `total_price` was never assigned, no matter how obvious the name looks to a human:
+
+<!-- expect-error: NameError -->
+```python
+print(total_price)
+total_price = 10
+```
+
+```text
+NameError: name 'total_price' is not defined
+```
+
+The fix: assign first, use second — or spot the missing assignment and add it above the use.
+
+2. **Reading `=` as "equals".** Writing `width = 6` then expecting Python to keep it "equal to 6" forever confuses assignment with the equality operator `==`. Assignment is a one-time re-pointing; the next assignment happily overwrites it. The fix: read `=` aloud as "gets".
+
+3. **Case-sensitivity blindness.** `Age` and `age` are different names. If you assign `age = 25` and print `Age`, you get a `NameError` about a name that looks perfectly defined. The fix: settle on one convention for names — lowercase with underscores — for all your own variables in this course.
+
+## Debugging exercise
+
+Here is a real program, written by a real beginner, that should greet the learner and is not doing it. Read the evidence before you touch anything.
+
+<!-- expect-error: NameError -->
+```python
+message = "Welcome to DataVerse!"
+print(mesage)
+```
+
+```text
+NameError: name 'mesage' is not defined
+```
+
+**Expected:** the greeting `Welcome to DataVerse!` printed on the screen.
+**Actual:** a crash on line 2, with the report `NameError: name 'mesage' is not defined`.
+
+The debugging method: the error type is `NameError`, so Python was asked to look up a name it cannot find. The message even names the culprit: `mesage`. Search the program for that spelling — line 1 defines `message`, with the correct spelling, and line 2 asks for `mesage`, with one `s` too few. The names are different by one character, and Python treats them as total strangers. Fix line 2 to use `message` and the program prints the greeting. Two habits to take away: when a `NameError` appears, read the exact name in the message and compare it character by character with the definition; and define names before using them so the only possible cause is spelling.
+
+## Practical applications
+
+In day-to-day data work, this skill is everywhere. A script that loads a file keeps the filename in a variable and the loaded rows in another, so renaming a column never means editing twenty lines. A dashboard computes totals once into named variables and prints or charts them by name. A machine-learning script keeps the learning rate, the number of trees and the random seed as named values at the top of the file — which is exactly why those names are the first thing you scan when reproducing someone's results. And every time you write a small personal script to rename files or split a bill, variables are the memory that makes it a program instead of a one-off calculation.
+
+## Key takeaways
+
+- A variable is a **name referring to a value** — assignment `name = value` creates or re-points the reference.
+- Python evaluates the right-hand side **first**, then binds the name — that is why `x = x + 1` works.
+- Names are labels, not boxes: re-binding one name never changes what other names refer to.
+- Values carry **types** — `int`, `float`, `str` — and `type(value)` reveals them.
+- A name itself has no fixed type; Python re-points it freely (dynamic typing).
+- A `NameError` means "I cannot find that name" — check spelling and define-before-use.
+
+## Practice exercises
+
+Your practice set for this lesson has four exercises in the panel below. Start with the concept check to test your mental model, then predict what a program prints before running it, then write two short programs of your own: one storing and doubling a score, one computing a receipt total from named prices and quantities. Each exercise has hints that give away progressively more, and every one has a fully worked solution you can compare against after committing to your own answer. Treat the hints as a ladder: reading the first hint is normal, reading all three without trying means the solution will not stick.
+
+## Knowledge check
+
+Answer the four quick questions below to prove the model in your head matches Python's reality. They are not trick questions — every wrong option is a belief that real beginners actually hold, and the feedback for each option explains why it is right or wrong. Answer honestly before revealing the explanations; a wrong answer understood beats a right answer guessed.
+
+## Further reading
+
+- [The official Python tutorial, chapter 3 — informal introduction to variables](https://docs.python.org/3/tutorial/introduction.html) — the canonical source, straight from the language's maintainers.
+- [Automate the Boring Stuff with Python, chapter 1](https://automatetheboringstuff.com/2e/chapter1/) — the same ideas in a different voice, excellent when a second explanation helps.
+- [Real Python — Variables in Python](https://realpython.com/python-variables/) — goes one layer deeper on names and objects, for when you are curious what "everything is an object" means.

@@ -1,0 +1,5 @@
+version: 1
+terms:
+  - term: variable
+    definition: "A name bound to a value in memory."
+    plainEnglish: "A labeled box."

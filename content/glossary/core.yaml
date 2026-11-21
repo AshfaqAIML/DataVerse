@@ -1,0 +1,108 @@
+# Shared glossary — terms defined once for the whole academy.
+# Lessons may add subject-specific terms in their own lesson.yaml; a term
+# used in any lesson must be defined there or here (rule Q02).
+# Every entry carries a plainEnglish gloss: the jargon-free translation.
+version: 1
+terms:
+  - term: API
+    abbr: API
+    definition: "A defined set of functions and protocols one program exposes to another."
+    plainEnglish: "The menu of things a tool lets you ask it to do."
+  - term: CSV
+    abbr: CSV
+    definition: "Comma-separated values — a text format storing one table row per line."
+    plainEnglish: "A bare-bones spreadsheet saved as plain text."
+  - term: URL
+    abbr: URL
+    definition: "Uniform Resource Locator — the address that identifies a resource on the web."
+    plainEnglish: "The street address of a page or file on the internet."
+  - term: REPL
+    abbr: REPL
+    definition: "Read-Eval-Print Loop — an interactive session that executes each line as you type it."
+    plainEnglish: "A conversation with the language: you type, it answers."
+  - term: SQL
+    abbr: SQL
+    definition: "Structured Query Language — the standard language for querying relational databases."
+    plainEnglish: "The language databases understand when you ask them for data."
+  - term: IDE
+    abbr: IDE
+    definition: "Integrated Development Environment — an editor with running, debugging and inspection built in."
+    plainEnglish: "A text editor with superpowers for writing code."
+  - term: MCQ
+    abbr: MCQ
+    definition: "Multiple-choice question — one correct option among distractors."
+    plainEnglish: "A pick-one question."
+  - term: GPU
+    abbr: GPU
+    definition: "Graphics Processing Unit — a processor built for massive parallel arithmetic."
+    plainEnglish: "The chip that is very good at doing many small sums at once."
+  - term: NaN
+    abbr: NaN
+    definition: "Not a Number — the floating-point marker for an undefined or missing numeric value."
+    plainEnglish: "The number-shaped way of saying 'there is no number here'."
+  - term: variable
+    definition: "A name bound to a value in memory, created by assignment."
+    plainEnglish: "A labeled box in the computer's memory."
+  - term: interpreter
+    definition: "A program that reads source code and executes it directly, line by line."
+    plainEnglish: "The helper that turns your text into actions, immediately."
+  - term: statement
+    definition: "A single instruction in a program — the unit the interpreter executes."
+    plainEnglish: "One sentence of a program."
+  - term: expression
+    definition: "Code that evaluates to a value, such as 2 + 3 or len(names)."
+    plainEnglish: "A phrase that boils down to a single result."
+  - term: syntax
+    definition: "The grammar rules a programming language enforces on its code."
+    plainEnglish: "The spelling-and-grammar rules of a programming language."
+  - term: function
+    definition: "A named, reusable block of code that takes inputs and returns a result."
+    plainEnglish: "A named recipe: give it ingredients, it hands back a dish."
+  - term: argument
+    definition: "A concrete value passed into a function call."
+    plainEnglish: "The ingredient you actually hand to the recipe."
+  - term: parameter
+    definition: "The named input a function declares in its definition."
+    plainEnglish: "The labeled slot on the recipe card waiting for an ingredient."
+  - term: bug
+    definition: "A defect that makes a program behave differently from its intent."
+    plainEnglish: "When the program does what you typed, not what you meant."
+  - term: debugging
+    definition: "Systematically locating and fixing defects by gathering evidence."
+    plainEnglish: "Detective work for code."
+  - term: dataset
+    definition: "A structured collection of related data, usually organized as rows and columns."
+    plainEnglish: "A table (or many tables) of measurements or records."
+  - term: array
+    definition: "A fixed-size container storing values of the same type in adjacent memory."
+    plainEnglish: "A strip of identical boxes, shoulder to shoulder."
+  - term: distribution
+    definition: "The pattern of how frequently each value occurs in a dataset."
+    plainEnglish: "The shape the data makes when you count it up."
+  - term: mean
+    definition: "The arithmetic average: the sum of values divided by their count."
+    plainEnglish: "The balance point of the data."
+  - term: median
+    definition: "The middle value of sorted data; half the values sit below it."
+    plainEnglish: "The person standing exactly in the middle of the line."
+  - term: mode
+    definition: "The most frequently occurring value in a dataset."
+    plainEnglish: "The crowd favorite."
+  - term: outlier
+    definition: "A value far outside the bulk of the distribution."
+    plainEnglish: "The one datapoint standing way off by itself."
+  - term: standard deviation
+    definition: "The square root of the average squared distance from the mean."
+    plainEnglish: "How far a typical value strays from the average."
+  - term: quartile
+    definition: "One of the three cut points dividing sorted data into four equal parts."
+    plainEnglish: "The fences at the quarter marks of the sorted line."
+  - term: histogram
+    definition: "A bar chart of value counts per bin, showing a distribution's shape."
+    plainEnglish: "A bar chart that counts things into buckets."
+  - term: vectorization
+    definition: "Applying one operation to a whole array at once instead of looping element by element."
+    plainEnglish: "Do it to the whole row of boxes in one sweep, not one box at a time."
+  - term: homogeneous
+    definition: "Made of parts of the same kind — in arrays, elements of one shared type."
+    plainEnglish: "All the same kind of thing."

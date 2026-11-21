@@ -1,0 +1,192 @@
+/* ==========================================================================
+   DataVerse Academy — design-tokens.css (v2 "Ink & Indigo")
+   Canonical extract of src/app/globals.css — where this file and the app
+   disagree, globals.css wins; regenerate this extract, never hand-patch it.
+   Theming: :root = Daylight (light) · .dark / [data-theme="dark"] =
+   Observatory (dark). A theme switch is a zero-JS variable flip.
+   Personality: intelligent, elegant, academic, sophisticated, innovative,
+   trustworthy, technically advanced, minimal yet visually rich.
+   ========================================================================== */
+
+/* ---- Palette ramps · Daylight (raw scales — never used directly) -------- */
+:root {
+  /* Primary · Academy Indigo — restrained, scholarly */
+  --dv-indigo-25: #F8F8FC;  --dv-indigo-50: #EEEFFA;  --dv-indigo-100: #DEE0F5;
+  --dv-indigo-200: #C1C6EE; --dv-indigo-300: #9DA4E5; --dv-indigo-400: #7B84DA;
+  --dv-indigo-500: #5B63CF; --dv-indigo-600: #4A4CC2; --dv-indigo-700: #3D3EA7;
+  --dv-indigo-800: #32338A; --dv-indigo-900: #27286C; --dv-indigo-950: #181942;
+
+  /* Accent · Archive Blue — information, links, secondary actions */
+  --dv-blue-50: #EDF3FC;  --dv-blue-100: #DBE7FA;  --dv-blue-200: #BBD3F4;
+  --dv-blue-300: #8FB6EC; --dv-blue-400: #6095E4;  --dv-blue-500: #3E78DA;
+  --dv-blue-600: #2D62C8; --dv-blue-700: #2751A8;  --dv-blue-800: #234489;
+  --dv-blue-900: #1E3970; --dv-blue-950: #152247;
+
+  /* Highlight · Manuscript Violet — mathematics, AI, distinction */
+  --dv-violet-50: #F6F3FB;  --dv-violet-100: #ECE5F8;  --dv-violet-200: #D9CCF1;
+  --dv-violet-300: #C0AAE8; --dv-violet-400: #A483DE;  --dv-violet-500: #8B63D2;
+  --dv-violet-600: #784DC5; --dv-violet-700: #663FA8;  --dv-violet-800: #543489;
+  --dv-violet-900: #432B6C; --dv-violet-950: #2B1B45;
+
+  /* Categorical · Teal & Laurel Gold (data analysis / achievement) */
+  --dv-teal-50: #E9F6F4;  --dv-teal-100: #CDEAE5;  --dv-teal-200: #A0D8D0;
+  --dv-teal-300: #6EC0B6; --dv-teal-400: #43A69A;  --dv-teal-500: #2A8C81;
+  --dv-teal-600: #22736A; --dv-teal-700: #1B5D57;  --dv-teal-800: #154A45;
+  --dv-teal-900: #103835; --dv-teal-950: #092522;
+  --dv-gold-100: #F5EAD0; --dv-gold-200: #EAD3A0; --dv-gold-300: #DDB970;
+  --dv-gold-400: #D0A047; --dv-gold-500: #BC8827; --dv-gold-600: #9E6F1B;
+  --dv-gold-700: #7C5614;
+}
+
+/* ---- Semantic tokens · Daylight (the only tokens components use) -------- */
+:root {
+  /* Neutrals · Paper & Ink */
+  --dv-canvas: #FAF9F7;
+  --dv-surface: #FFFFFF;
+  --dv-surface-subtle: #F4F3EE;
+  --dv-surface-inset: #ECEAE2;
+  --dv-border-subtle: #E8E6DE;
+  --dv-border: #D9D6CB;
+  --dv-border-strong: #ABA79A;
+  --dv-ink: #1B1D24;
+  --dv-ink-2: #464954;
+  --dv-ink-3: #6D7080;
+  --dv-ink-inverse: #FBFAF8;
+
+  /* Roles */
+  --dv-primary: var(--dv-indigo-600);
+  --dv-primary-hover: var(--dv-indigo-700);
+  --dv-accent: var(--dv-indigo-50);
+  --dv-link: var(--dv-indigo-700);
+  --dv-focus-ring: var(--dv-indigo-500);
+  --dv-input: var(--dv-border);
+
+  /* Semantic feedback */
+  --dv-success-text: #1B7A4E;  --dv-success-bg: #DAF3E4;  --dv-success-border: #9BD8B7;
+  --dv-warning-text: #96601A;  --dv-warning-bg: #FBEED3;  --dv-warning-border: #E5C583;
+  --dv-danger-text:  #B3362B;  --dv-danger-bg:  #FBE4E1;  --dv-danger-border:  #EFB3AC;
+  --dv-info-text:    #2751A8;  --dv-info-bg:    #E3EEFA;  --dv-info-border:    #AFCEE9;
+
+  /* Data visualization · categorical (course & school identities) */
+  --dv-viz-1: #4A4CC2;  /* Indigo — Python     */
+  --dv-viz-2: #784DC5;  /* Violet — Mathematics */
+  --dv-viz-3: #A16207;  /* Bronze — Classical AI */
+  --dv-viz-4: #C2415B;  /* Rose    — ML        */
+  --dv-viz-5: #0E8FA8;  /* Cyan    — NumPy     */
+  --dv-viz-6: #5E8C2E;  /* Moss    — Pandas    */
+  --dv-viz-7: #2D62C8;  /* Blue    — SQL       */
+  --dv-viz-8: #9A7B54;  /* Clay    — misc      */
+  --dv-viz-9: #0F9D70;  /* Emerald — Statistics */
+  --dv-viz-10: #22736A; /* Teal    — Data Analysis school */
+
+  /* Elevation · Daylight */
+  --dv-e1: 0 1px 2px rgba(27, 29, 36, 0.05);
+  --dv-e2: 0 2px 6px rgba(27, 29, 36, 0.07);
+  --dv-e3: 0 8px 24px rgba(27, 29, 36, 0.09);
+  --dv-e4: 0 16px 48px rgba(27, 29, 36, 0.13);
+  --dv-e5: 0 24px 80px rgba(27, 29, 36, 0.18);
+
+  /* Component states */
+  --dv-hover-overlay: rgba(27, 29, 36, 0.04);
+  --dv-active-overlay: rgba(27, 29, 36, 0.08);
+  --dv-disabled-opacity: 0.55;
+
+  /* Editor — the always-dark IDE surface (constant across themes) */
+  --dv-editor-bg: #0C0E13;
+  --dv-editor-border: #232833;
+  --dv-editor-dot: #2F3542;
+  --dv-editor-gutter: #52525B;
+  --dv-editor-ink: #E4E4E7;
+
+  /* Layout */
+  --dv-width-content: 72rem;   /* 1152px — main column */
+  --dv-width-prose: 68ch;      /* lesson reading measure */
+  --dv-width-narrow: 44rem;    /* forms, sign-in, focused moments */
+  --dv-space-section: clamp(3.5rem, 7vw, 6rem);
+  --dv-space-group: 1.75rem;
+  --dv-nav-height: 4rem;
+
+  /* Radii (one scale, everywhere) */
+  --dv-radius-sm: 6px;
+  --dv-radius-md: 10px;
+  --dv-radius-lg: 14px;
+  --dv-radius-xl: 20px;
+
+  /* Motion */
+  --dv-t-fast: 140ms;
+  --dv-t-base: 200ms;
+  --dv-t-slow: 280ms;
+  --dv-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dv-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Typography · Fraunces (display) · Inter (UI) · Newsreader (prose, math)
+     · JetBrains Mono (code, tabular data) — all self-hosted in the app. */
+  --dv-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --dv-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --dv-font-reading: "Newsreader", Georgia, serif;
+  --dv-font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+/* ---- Semantic tokens · Observatory (dark) -------------------------------- */
+.dark,
+[data-theme="dark"] {
+  --dv-canvas: #0B0D14;
+  --dv-surface: #10131D;
+  --dv-surface-subtle: #161A27;
+  --dv-surface-inset: #1C2130;
+  --dv-border-subtle: #232938;
+  --dv-border: #2D3346;
+  --dv-border-strong: #454D66;
+  --dv-ink: #ECEDF4;
+  --dv-ink-2: #ADB2C4;
+  --dv-ink-3: #7E8397;
+  --dv-ink-inverse: #0B0D14;
+
+  /* Brand ramps lift one step in the dark */
+  --dv-indigo-300: #A6ACE9;
+  --dv-indigo-400: #8189DF;
+  --dv-indigo-500: #6A72D6;
+  --dv-blue-300: #9CC2F1;
+  --dv-blue-400: #7DABEA;
+  --dv-blue-500: #5D8FE4;
+  --dv-violet-300: #CCB7EE;
+  --dv-violet-400: #B395E4;
+  --dv-violet-500: #9B7BDB;
+
+  /* Roles */
+  --dv-primary: var(--dv-indigo-400);
+  --dv-primary-hover: #8F96E6;
+  --dv-accent: var(--dv-surface-inset);
+  --dv-link: #9CA3E8;
+  --dv-focus-ring: var(--dv-indigo-400);
+  --dv-input: var(--dv-border);
+
+  /* Semantic · dark */
+  --dv-success-text: #57C88F;  --dv-success-bg: #11301F;  --dv-success-border: #1E5A3C;
+  --dv-warning-text: #E0B25E;  --dv-warning-bg: #33270F;  --dv-warning-border: #6B5320;
+  --dv-danger-text:  #EF8073;  --dv-danger-bg:  #3A1A16;  --dv-danger-border:  #7A3A31;
+  --dv-info-text:    #7FA8E6;  --dv-info-bg:    #16243A;  --dv-info-border:    #2A4A66;
+
+  /* Viz · dark variants */
+  --dv-viz-1: #8189DF;
+  --dv-viz-2: #A98BDF;
+  --dv-viz-3: #D9A85C;
+  --dv-viz-4: #E08BA0;
+  --dv-viz-5: #57BDCE;
+  --dv-viz-6: #A6C168;
+  --dv-viz-7: #6FAEEA;
+  --dv-viz-8: #C4A578;
+  --dv-viz-9: #4FC492;
+  --dv-viz-10: #6EC0B6;
+
+  /* Elevation · Observatory: soft drop + top highlight */
+  --dv-e1: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --dv-e2: 0 2px 6px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --dv-e3: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --dv-e4: 0 16px 48px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --dv-e5: 0 24px 80px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* Component states */
+  --dv-hover-overlay: rgba(236, 237, 244, 0.05);
+  --dv-active-overlay: rgba(236, 237, 244, 0.09);
+}

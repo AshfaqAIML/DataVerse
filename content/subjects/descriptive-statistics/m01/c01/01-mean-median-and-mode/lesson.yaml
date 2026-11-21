@@ -1,0 +1,150 @@
+# Lesson data for "Mean, Median, and Mode" — structured practice,
+# assessment and editorial records. The narrative lives in lesson.mdx.
+terminology:
+  - term: mean
+    definition: "The arithmetic average: the sum of the values divided by their count; the balance point of the data."
+    plainEnglish: "The even split — pour everything into one pile and divide fairly."
+  - term: median
+    definition: "The middle value of the sorted data; with an even count, the average of the two middle values."
+    plainEnglish: "The person standing exactly in the middle of the sorted line."
+  - term: mode
+    definition: "The most frequently occurring value, when such a value exists."
+    plainEnglish: "The crowd favorite."
+  - term: outlier
+    definition: "A value far outside the bulk of the distribution, capable of pulling the mean in proportion to its distance."
+    plainEnglish: "The one datapoint standing way off by itself, bending the average."
+  - term: resistant statistic
+    definition: "A summary number that barely changes when an extreme value changes; the median is the classic example."
+    plainEnglish: "A number that shrugs off troublemakers."
+  - term: skewness
+    definition: "The tilt of a distribution: right-skewed data trails toward large values, left-skewed toward small ones."
+    plainEnglish: "Which way the data's tail drags the average."
+  - term: bimodal
+    definition: "Having two peaks — two values or regions that each occur more often than the rest."
+    plainEnglish: "Two crowds, two favorites, one dataset."
+exercises:
+  - id: ex-1-quiz-scores
+    kind: calculation
+    difficulty: EASY
+    title: "All three averages"
+    prompt: "A quiz class of five learners scores 7, 1, 3, 3 and 6 points. Compute the mean, the median and the mode by hand, showing each step."
+    hints:
+      - "The mean needs the sum and the count; the median needs the sorted list; the mode needs a tally."
+      - "Sorted order is 1, 3, 3, 6, 7 — now find the middle position and the most frequent value."
+    solutionSteps:
+      - "Sum the values: 7 + 1 + 3 + 3 + 6 = 20. Divide by the count of 5: the mean is 4."
+      - "Sort the values: 1, 3, 3, 6, 7. With five values the middle is the 3rd, so the median is 3."
+      - "Tally the frequencies: 3 appears twice, every other value once, so the mode is 3."
+    answer: "mean 4, median 3, mode 3"
+  - id: ex-2-even-count-and-a-mode-surprise
+    kind: calculation
+    difficulty: MEDIUM
+    title: "Even count, and a surprise in the counting"
+    prompt: "Eight devices were timed (in seconds): 1, 2, 2, 3, 4, 4, 4, 6. Compute the mean, the median and all modes, and state whether the median is an observed value."
+    hints:
+      - "With an even count the median is the average of the two middle sorted values."
+      - "Count how often 2 occurs and how often 4 occurs before declaring a single mode."
+    solutionSteps:
+      - "Sum: 1 + 2 + 2 + 3 + 4 + 4 + 4 + 6 = 26. Mean: 26 / 8 = 3.25."
+      - "Sorted data is already in order; the middle two values are the 4th and 5th, 3 and 4, so the median is 3.5 — not an observed time."
+      - "Frequencies: 4 appears three times, 2 appears twice, everything else once. The mode is 4."
+    answer: "mean 3.25, median 3.5 (not an observed value), mode 4"
+  - id: ex-3-the-honest-readout
+    kind: interpret-results
+    difficulty: HARD
+    title: "The honest readout"
+    prompt: "A company reports that the mean employee tenure is 5.2 years. A departing employee says 'most people here stay about three years'. Both statements are honest. Explain what the data probably looks like, which average each person is quoting, and which single number a job candidate should be told."
+    hints:
+      - "If most people cluster near three years, what does a mean of 5.2 imply about a minority of long-stay values?"
+      - "'Most people' is a claim about the majority — which average counts heads rather than distance?"
+    solutionSteps:
+      - "If the typical employee stays near 3 years, the mean of 5.2 must be pulled upward by a minority of long-tenure values — a right-skewed distribution with a long tail of veterans."
+      - "The company is quoting the mean (the balance point, dragged by the tail); the employee is describing the median or mode (where the crowd actually sits)."
+      - "For 'what should I expect?', the middle of the distribution answers better than the balance point: the candidate should be told roughly three years, with the caveat that those who stay, stay long."
+    answer: "Right-skewed tenure; the company quotes the mean, the employee the median/mode; candidates should hear the median with context about the long tail."
+knowledgeCheck:
+  - id: kc-1-mean-of-four
+    prompt: "What is the mean of 2, 4, 4 and 10?"
+    kind: MCQ
+    explanation: "The sum is 2 + 4 + 4 + 10 = 20 and the count is 4, so the mean is 20 / 4 = 5."
+    options:
+      - text: "4"
+        correct: false
+        feedback: "That is the median and the mode of this dataset — a good sign you can find the middle and the favorite, but the mean is the even split."
+      - text: "5"
+        correct: true
+        feedback: "Correct: the sum 20 shared across 4 values is exactly 5."
+      - text: "6"
+        correct: false
+        feedback: "Close, but that would need a sum of 24 — re-add the four values."
+      - text: "20"
+        correct: false
+        feedback: "That is the sum, not the mean — one more division by 4 remains."
+  - id: kc-2-most-resistant
+    prompt: "One billionaire walks into a village of 200 farmers. Which average is dragged hardest by the newcomer?"
+    kind: MCQ
+    explanation: "The mean responds to distance — one enormous value exerts huge leverage on the balance point. The median only moves by about one rank, and the mode not at all."
+    options:
+      - text: "The mean"
+        correct: true
+        feedback: "Yes — the billionaire's distance from the crowd gives them enormous leverage on the balance point."
+      - text: "The median"
+        correct: false
+        feedback: "The median moves by rank only: 200 sorted incomes become 201, and the middle shifts by at most one position."
+      - text: "The mode"
+        correct: false
+        feedback: "The most frequent value is untouched — one newcomer does not change which income is most common."
+      - text: "All three equally"
+        correct: false
+        feedback: "The three averages respond differently by design; this asymmetry is the entire lesson of outliers."
+  - id: kc-3-even-count-median
+    prompt: "A sorted list has an even number of values. The median is..."
+    kind: MCQ
+    explanation: "With no single middle value, the median is the mean of the two values that straddle the middle — which may not be an observed value at all."
+    options:
+      - text: "The average of the two middle values"
+        correct: true
+        feedback: "Correct — and it can land between two observed values, like 4.5 hours of study."
+      - text: "The higher of the two middle values"
+        correct: false
+        feedback: "Choosing one side biases the summary upward; statistics splits the difference instead."
+      - text: "The value that appears most often"
+        correct: false
+        feedback: "That describes the mode — a different question about the data."
+      - text: "Undefined — even lists have no median"
+        correct: false
+        feedback: "Every ordered dataset with at least one value has a median; the even case just needs one extra step."
+  - id: kc-4-mode-existence
+    prompt: "True or false: every dataset has a mode."
+    kind: TRUE_FALSE
+    explanation: "When every value occurs exactly once, no value is most frequent, and the dataset has no mode — which is a fact to report, not a gap to paper over."
+    options:
+      - text: "True"
+        correct: false
+        feedback: "This fails on all-distinct data, like the 28-salary example where every value occurred once."
+      - text: "False"
+        correct: true
+        feedback: "Correct — 'no mode' is a legitimate answer for data where nothing repeats."
+verification:
+  python: "3.12.16"
+  libraries:
+    numpy: "2.1.3"
+  verifiedAt: "2026-11-13"
+  how: "bun run content:validate (executes every python fence and solution)"
+reviews:
+  - role: peer-reviewer
+    reviewer: maya@dataverse.academy
+    date: 2026-11-12
+    verdict: approve
+    notes: "Exemplar record: read as a complete beginner — the books-read analogy is load-bearing and the derivations were followable with a pencil alone."
+  - role: technical-reviewer
+    reviewer: sam@dataverse.academy
+    date: 2026-11-13
+    verdict: approve
+    notes: "Exemplar record: every statistic recomputed independently; figure values match the generating script; NumPy outputs match the hand results to the digit."
+  - role: instructional-designer
+    reviewer: sam@dataverse.academy
+    date: 2026-11-13
+    verdict: approve
+    notes: "Exemplar record: all 19 math-profile sections present in order; progressive disclosure verified (no symbol before its notation entry); exercise ladder calc, calc, interpret."
+changes: []

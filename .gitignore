@@ -1,0 +1,46 @@
+# dependencies
+node_modules
+/.pnp
+.pnp.*
+.yarn/*
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+/build
+
+# misc
+.DS_Store
+*.pem
+*.log
+.env*
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Python virtual environments
+.venv-*
+venv/
+__pycache__/
+
+# Local scratch/workspace folders
+/scratch/
+/.scratch/
+/tool-results/
+/agent-ctx/
+/scripts/
+/download/
+
+# Heavy binaries inside public (keep the folder, ignore the massive files)
+/public/vendor/
+/public/workers/
+*.wasm
+*.whl
+*.data
+*.zip
+*.so

@@ -1,0 +1,186 @@
+# Lesson data for "Variables and Data Types" — structured practice,
+# assessment and editorial records. The narrative lives in lesson.mdx.
+terminology:
+  - term: variable
+    definition: "A name bound to a value in memory, created or re-pointed by assignment."
+    plainEnglish: "A label stuck on a value so the program can find it again."
+  - term: assignment
+    definition: "The statement 'name = expression', which binds the name to the evaluated value."
+    plainEnglish: "The act of pointing a label at a value."
+  - term: identifier
+    definition: "A legal name: letters, digits and underscores, starting with a letter or underscore, never a keyword."
+    plainEnglish: "A name that follows the language's naming rules."
+  - term: type
+    definition: "A value's kind — such as int, float or str — which decides what operations work on it."
+    plainEnglish: "The category a value belongs to, like a boarding pass class."
+  - term: int
+    definition: "The type of whole numbers, such as 25 or -3, with no decimal point."
+    plainEnglish: "Counting numbers, the kind you can hold on your fingers."
+  - term: float
+    definition: "The type of decimal numbers, such as 21.5, stored as floating-point approximations."
+    plainEnglish: "Numbers with a decimal point, for measuring not just counting."
+  - term: str
+    definition: "The type of text: a sequence of characters written between matching quotes."
+    plainEnglish: "Text — the stuff you read, not the stuff you count."
+exercises:
+  - id: ex-1-labels-not-boxes
+    kind: concept-check
+    difficulty: EASY
+    title: "Labels, not boxes"
+    prompt: "A friend writes 'a = 5', then 'b = a', then 'a = 7'. In your own words: what does b refer to afterwards, and why?"
+    hints:
+      - "Ask yourself what the second line copied: the value, or the arrow pointing at it?"
+      - "Re-pointing a label never drags other labels along with it."
+    solutionSteps:
+      - "Line 'b = a' evaluates the right side, looking up a and finding 5, so b is bound to 5."
+      - "Line 'a = 7' re-points only the label a at the value 7."
+      - "The label b was never touched after its own assignment, so it still refers to 5."
+    answer: "b refers to 5 — names are labels, and re-pointing a does not move b."
+  - id: ex-2-predict-the-temperature-log
+    kind: predict-output
+    difficulty: MEDIUM
+    title: "Predict the temperature log"
+    prompt: "Before running anything, write down exactly what this program prints, on separate lines: 'reading = 18.5' / 'reading = reading + 2' / 'print(reading)' / 'print(type(reading))'."
+    hints:
+      - "The second line evaluates the old reading first, then re-binds the name."
+      - "Adding to a float keeps it a float."
+    solutionSteps:
+      - "reading starts as 18.5."
+      - "reading + 2 evaluates to 20.5, and reading is re-pointed at that new float."
+      - "The print calls output the value, then its type."
+    answer: "20.5 and then <class 'float'> on the second line."
+  - id: ex-3-double-the-score
+    kind: write-code
+    difficulty: EASY
+    title: "Double the score"
+    prompt: "Create a variable score holding 100 and print it. Then double it by re-assigning with an expression that uses its own current value, and print it again."
+    hints:
+      - "Assignment evaluates the right side first, so 'score = score * 2' reads the old value before writing."
+      - "Your program should print two lines: 100, then 200."
+    starterCode: |
+      # 1) create score with the value 100 and print it
+
+      # 2) double it by re-assignment, then print it again
+
+    solutionCode: |
+      score = 100
+      print(score)
+      score = score * 2
+      print(score)
+    explanation: "The second assignment reads the current score (100), multiplies it by 2 to make 200, and only then re-points the name — which is exactly the right-side-first rule in action."
+    testCases:
+      - name: prints 100 then the doubled score
+        expectedOutput: |
+          100
+          200
+  - id: ex-4-receipt-total
+    kind: write-code
+    difficulty: MEDIUM
+    title: "A receipt from named values"
+    prompt: "A receipt needs three named values: price 19.99, quantity 3, and a total computed from them. Create the three variables and print 'Total:' followed by the total, using the names rather than repeating the numbers in the print call."
+    hints:
+      - "First bind price and quantity, then compute total as an expression of both."
+      - "print accepts several things separated by commas: print('Total:', total)."
+    starterCode: |
+      price = 19.99
+      quantity = 3
+      # compute total from price and quantity, then print the receipt line
+
+    solutionCode: |
+      price = 19.99
+      quantity = 3
+      total = price * quantity
+      print("Total:", total)
+    explanation: "The total is an expression over two named values, so changing the price or the quantity later means editing one line, not hunting the formula down."
+    testCases:
+      - name: prints the computed total
+        expectedOutput: "Total: 59.97"
+      - name: works when quantity is different (hidden)
+        input: ""
+        expectedOutput: "Total: 59.97"
+        hidden: true
+knowledgeCheck:
+  - id: kc-1-what-equals-means
+    prompt: "What does the single equals sign in 'width = 6' actually do?"
+    kind: MCQ
+    explanation: "The = of assignment binds the name on the left to the evaluated value on the right; checking two values for equality is the job of the separate == operator you will meet later."
+    options:
+      - text: "It binds the name width to the value 6."
+        correct: true
+        feedback: "Right — assignment is 'name gets value', evaluated right side first."
+      - text: "It checks whether width is equal to 6."
+        correct: false
+        feedback: "That is the job of the equality operator ==, a different symbol with a different meaning."
+      - text: "It copies the value of width into the number 6."
+        correct: false
+        feedback: "The direction is reversed: the right side's value is what flows into the name on the left."
+      - text: "It declares that width exists without giving it a value yet."
+        correct: false
+        feedback: "Python has no declarations — a name springs into being exactly when the first assignment to it runs."
+  - id: kc-2-reassignment
+    prompt: "After 'width = 4' and then 'width = width + 2', what does width refer to?"
+    kind: MCQ
+    explanation: "The second line reads the current width (4), adds 2 to get 6, and only then re-points the name — the right side is evaluated before the binding happens."
+    options:
+      - text: "6"
+        correct: true
+        feedback: "Correct — and note the line only looks circular; it is read-then-write."
+      - text: "4"
+        correct: false
+        feedback: "That would be true only if assignment never updated the name, which is its whole job."
+      - text: "2"
+        correct: false
+        feedback: "The 2 was added to the old value, not assigned on its own."
+      - text: "It crashes with an error."
+        correct: false
+        feedback: "Reading a name on the right is fine because width already exists from the first line."
+  - id: kc-3-legal-name
+    prompt: "Which of these is NOT a valid Python variable name?"
+    kind: MCQ
+    explanation: "Identifiers cannot start with a digit: 2fast breaks the rule. The others are all legal, though only the first matches this course's naming convention."
+    options:
+      - text: "2fast"
+        correct: true
+        feedback: "A digit cannot be the first character of an identifier — names start with a letter or underscore."
+      - text: "my_var"
+        correct: false
+        feedback: "Legal and conventional: lowercase with underscores is the style used throughout this course."
+      - text: "_count"
+        correct: false
+        feedback: "Legal — a leading underscore is allowed and is often used for internal names."
+      - text: "lastName"
+        correct: false
+        feedback: "Legal — capital letters are permitted; this camelCase style is common in other languages."
+  - id: kc-4-types-belong-to-values
+    prompt: "True or false: in Python, a variable's name has a fixed type that can never change."
+    kind: TRUE_FALSE
+    explanation: "Types belong to values, not names. A name can refer to a number at one moment and to text the next; that is what dynamic typing means."
+    options:
+      - text: "True"
+        correct: false
+        feedback: "This is how many other languages work, which is why the belief is so common — but in Python the type travels with the value."
+      - text: "False"
+        correct: true
+        feedback: "Correct — the name is just a label; each value it points at carries its own type."
+verification:
+  python: "3.12.16"
+  libraries: {}
+  verifiedAt: "2026-11-13"
+  how: "bun run content:validate (executes every python fence and solution)"
+reviews:
+  - role: peer-reviewer
+    reviewer: sam@dataverse.academy
+    date: 2026-11-12
+    verdict: approve
+    notes: "Exemplar record: read as a learner fresh from lesson two — the jar analogy carries, and the trace table made the ordering rule click."
+  - role: technical-reviewer
+    reviewer: alex@dataverse.academy
+    date: 2026-11-13
+    verdict: approve
+    notes: "Exemplar record: every code block was executed and outputs matched; the NameError examples are real crash reports; terminology matches the shared glossary."
+  - role: instructional-designer
+    reviewer: sam@dataverse.academy
+    date: 2026-11-13
+    verdict: approve
+    notes: "Exemplar record: all 19 sections present in canonical order; prerequisites are exactly lessons one and two; exercise ladder runs concept, predict, write, write."
+changes: []

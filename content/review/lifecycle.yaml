@@ -1,0 +1,70 @@
+# Editorial lifecycle — the human half of the content pipeline.
+# The machine half (required approvals per state) is enforced by
+# src/lib/content/lifecycle.ts; the checklists below are the reviewer's
+# gate before recording an approval in lesson.yaml.
+#
+#   draft -> self-review -> peer-review -> technical-review -> approved -> published
+#
+# Reviews are recorded in the lesson's lesson.yaml:
+#   reviews:
+#     - role: technical-reviewer
+#       reviewer: alex@dataverse.academy
+#       date: 2026-11-14
+#       verdict: approve
+#       notes: "..."
+version: 1
+states:
+  - draft
+  - self-review
+  - peer-review
+  - technical-review
+  - approved
+  - published
+requiredApprovers:
+  draft: []
+  self-review: []
+  peer-review:
+    - peer-reviewer
+  technical-review:
+    - peer-reviewer
+    - technical-reviewer
+  approved:
+    - peer-reviewer
+    - technical-reviewer
+    - instructional-designer
+  published:
+    - peer-reviewer
+    - technical-reviewer
+    - instructional-designer
+    - editor
+checklists:
+  authoring:
+    - "The lesson reads like it was written by someone who loves the topic, not by a committee."
+    - "Every section of the archetype profile is present, in order, and substantive."
+    - "The everyday analogy never leaks jargon; jargon never appears before the terminology section defines it."
+    - "I ran bun run content:validate and fixed every warning, not just the errors."
+    - "Numbers, outputs and claims were all checked against something runnable or citable."
+  technical:
+    - "Every formula is derived, not asserted; every derivation step carries its justification."
+    - "Every code block runs, and every shown output matches what the run actually prints."
+    - "Every library call matches the documented API of the version in verification.libraries — no invented behavior."
+    - "Every dataset reference is real, licensed and cited; every link resolves."
+    - "The concepts declared in the curriculum registry for this lesson are all actually taught."
+  pedagogy:
+    - "A learner with zero background can follow from the first paragraph without help."
+    - "Prerequisites are exactly what this lesson truly assumes — nothing missing, nothing excessive."
+    - "Practice exercises graduate from easy to hard, each with a worked solution and a hint ladder."
+    - "Knowledge-check distractors are plausible wrong answers, each with honest feedback."
+    - "Progressive disclosure holds: intuition first, formality last; no symbol before its meaning."
+  style:
+    - "Plain English throughout; sentences average under 25 words; no filler, no repeated stock phrases."
+    - "One idea per paragraph; paragraphs are 3-6 sentences."
+    - "Tables, diagrams and code fences carry weight a sentence could not."
+    - "Terminology is consistent with the shared glossary."
+    - "The further-reading list is real and current, official documentation first."
+  integrity:
+    - "No placeholders of any kind survive (TODO, ..., coming soon)."
+    - "No content was copied from another lesson or an external source without transformation and citation."
+    - "Reported course counts reflect reality: this lesson is published only when its subject is complete."
+    - "The lesson would survive a domain expert reading it aloud to a hostile audience."
+    - "The lesson upholds the learner promise: never superficial, never misleading, always complete."
