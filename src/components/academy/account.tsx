@@ -37,7 +37,7 @@ export function useSession() {
     let cancelled = false;
     const load = async () => {
       try {
-        const res = await fetch("/api/auth/session", { cache: "no-store" });
+        const res = await fetch("/api/auth/session", { cache: "no-store", credentials: "include" });
         if (!res.ok) throw new Error(String(res.status));
         const json = (await res.json()) as SessionResponse & { data?: SessionResponse };
         // The API wraps payloads as { success, data } — unwrap to the session shape.
